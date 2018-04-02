@@ -9,6 +9,11 @@ public class ShrekBase : BaseCharMove {
         anim = gameObject.GetComponent<Animator>();  
     }
 	void Update () {
+        if (baseA)
+        {
+            anim.SetTrigger("NeutA");
+            baseA = false;
+        }
         if (rightA == true)
         {
             anim.SetTrigger("RightA");

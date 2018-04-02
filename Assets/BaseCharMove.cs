@@ -26,7 +26,7 @@ public class BaseCharMove : MonoBehaviour {
     public void FixedUpdate()
     {
         float axisLeft = Input.GetAxis("LeftJoystickX");
-        if (Input.GetButtonDown("A"))
+        if (Input.GetButtonDown("A") && axisLeft == 0)
         {
             baseA = true;
         }
