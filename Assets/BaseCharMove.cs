@@ -16,6 +16,7 @@ public class BaseCharMove : MonoBehaviour {
     public bool moveLeft = false;
     public bool moveRight = false;
     public bool isIdle = false;
+    private bool isWalking = false;
     public Vector3 moveSpeed;
     public void Start()
     {
@@ -38,19 +39,29 @@ public class BaseCharMove : MonoBehaviour {
             moveRight = true;
             transform.rotation = new Quaternion(0, 0, 0, 0);
             rb.velocity = moveSpeed;
+            isWalking = true;
+            isIdle = false;
+        }
+        else
+        {
+            moveRight = false;
         }
         if (axisLeft <= -0.9)
         {
             moveLeft = true;
             transform.rotation = new Quaternion(0, 180, 0, 0);
             rb.velocity = moveSpeed * -1;
+            isWalking = true;
+            isIdle = false;
+        }
+        else
+        {
+            moveLeft = false;
         }
 
-        if (axisLeft == 0 && (moveRight == true || moveLeft == true)) 
+        if (axisLeft == 0 && isWalking == true) 
         {
-            Debug.Log("No Movement");
-            moveLeft = false;
-            moveRight = false;
+            isWalking = false;
             isIdle = true;
             rb.velocity = new Vector3(0, 0, 0);
         }
