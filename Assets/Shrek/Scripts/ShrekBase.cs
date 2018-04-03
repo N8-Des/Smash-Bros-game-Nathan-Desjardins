@@ -3,11 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ShrekBase : BaseCharMove {
-    public Animator anim;
-    public void OnEnable()
-    {
-        anim = gameObject.GetComponent<Animator>();  
-    }
+    
 	void Update () {
         if (baseA)
         {

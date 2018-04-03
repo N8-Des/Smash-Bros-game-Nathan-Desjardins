@@ -16,54 +16,114 @@ public class BaseCharMove : MonoBehaviour {
     public bool moveLeft = false;
     public bool moveRight = false;
     public bool isIdle = false;
-    private bool isWalking = false;
+    public bool isWalking = false;
+    public float threshold = 0.7f;
+    public bool neutralX = false;
+    public bool neutralY = false;
+    public string lastInput;
+    public List<string> inputBufferList = new List<string> ();
     public Vector3 moveSpeed;
+    public Animator anim;
     public void Start()
     {
-        rb = gameObject.GetComponent<Rigidbody>();
-        
+        inputBufferList.Add("ShutUpCount");
+        anim = gameObject.GetComponent<Animator>();
+        rb = gameObject.GetComponent<Rigidbody>();       
+
     }
     public void FixedUpdate()
     {
-        float axisLeft = Input.GetAxis("LeftJoystickX");
-        if (Input.GetButtonDown("A") && axisLeft == 0)
+        attackUpdate();
+        moveUpdate();
+    }
+    void attackUpdate ()
+    {
+        inputBuffer();
+        lastInput = getLastInput();
+        if (Input.GetButtonDown("A"))
         {
-            baseA = true;
+            if(neutralY && neutralX)
+            {
+                baseA = true;
+            }else
+            {
+                attackDir();
+            }
         }
-        if (Input.GetButtonDown("A") && axisLeft >= 0.7)
+    }
+    void attackDir()
+    {
+        if (lastInput == "Right")
         {
             rightA = true;
         }
-        if (axisLeft >= 0.9)
+    }
+    void inputBuffer()
+    {
         {
+
+        }
+        neutralX = false;
+        if (Input.GetAxis("LeftJoystickX") > threshold)
+        {
+            inputBufferList.Add("Right");
+        } else if (Input.GetAxis("LeftJoystickX") < -threshold)
+        {
+            inputBufferList.Add("Left");
+        }
+        else
+        {
+            inputBufferList.Add("Neutral");
+            neutralX = true;
+        }
+
+        neutralY = false;
+        if(Input.GetAxis("LeftJoystickY") > threshold)
+        {
+            inputBufferList.Add("Up");
+        }
+        else if (Input.GetAxis("LeftJoystickY") < -threshold)
+        {
+            inputBufferList.Add("Neutral");
+            inputBufferList.Add("Down");
+        }
+        else
+        {
+            neutralY = true;
+        }
+    }
+    public string getLastInput()
+    {
+        int amount = inputBufferList.Count;
+        inputBufferList.RemoveRange(0, (amount - 1));
+        return inputBufferList[0];
+    }
+    void moveUpdate()
+    {
+        if (lastInput == "Right")
+        {
+            moveLeft = false;
             moveRight = true;
             transform.rotation = new Quaternion(0, 0, 0, 0);
             rb.velocity = moveSpeed;
             isWalking = true;
             isIdle = false;
         }
-        else
+        else if (lastInput == "Left")
         {
             moveRight = false;
-        }
-        if (axisLeft <= -0.9)
-        {
             moveLeft = true;
             transform.rotation = new Quaternion(0, 180, 0, 0);
-            rb.velocity = moveSpeed * -1;
+            rb.velocity = -moveSpeed;
             isWalking = true;
             isIdle = false;
-        }
-        else
-        {
-            moveLeft = false;
-        }
-
-        if (axisLeft == 0 && isWalking == true) 
+        }   else if (isWalking && neutralX)
         {
             isWalking = false;
-            isIdle = true;
+            moveLeft = false;
+            moveRight = false;
             rb.velocity = new Vector3(0, 0, 0);
+            isIdle = true;
         }
     }
 }
