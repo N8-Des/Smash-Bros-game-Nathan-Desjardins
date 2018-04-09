@@ -116,4 +116,14 @@ public class ShrekBase : BaseCharMove
         canAttack = true;
         canMove = true;
     }
+    public override void uAir()
+    {
+        canAttack = true;
+        canMove = true;
+    }
+    public override void bAir()
+    {
+        canAttack = true;
+        canMove = true;
+    }
 }

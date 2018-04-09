@@ -37,6 +37,8 @@ public class BaseCharMove : MonoBehaviour
     public float BUDelay;
     public float BBDelay;
     public float BDDelay;
+    public float BARDelay;
+    public float UARDelay;
     public bool onGround;
     public bool canJump;
     public bool inAir = false;
@@ -60,7 +62,7 @@ public class BaseCharMove : MonoBehaviour
             }
 
 
-            if (anim.GetCurrentAnimatorStateInfo(0).IsName("IdleAir") || anim.GetCurrentAnimatorStateInfo(0).IsName("Dair") || anim.GetCurrentAnimatorStateInfo(0).IsName("BDown"))
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName("IdleAir") || anim.GetCurrentAnimatorStateInfo(0).IsName("Dair") || anim.GetCurrentAnimatorStateInfo(0).IsName("BDown") || anim.GetCurrentAnimatorStateInfo(0).IsName("Nair"))
             {
                 anim.SetTrigger("Landed");
                 canJump = true;
@@ -90,6 +92,8 @@ public class BaseCharMove : MonoBehaviour
     public virtual void bUp() { }
     public virtual void baseB() { }
     public virtual void bDown() { }
+    public virtual void uAir() { }
+    public virtual void bAir() { }
     public void FixedUpdate()
     {
         inputBuffer();
@@ -243,8 +247,28 @@ public class BaseCharMove : MonoBehaviour
     }
     void attackAirDir3()
     {
-        canAttack = true;
-        canMove = true;
+        if (lastInput == "Up")
+        {
+            anim.SetTrigger("Uair");
+            Invoke("uAir", UARDelay);
+        }
+        else
+        {
+            attackAirDir4();
+        }
+    }
+    void attackAirDir4()
+    {
+        if (lastInput == "Left")
+        {
+            anim.SetTrigger("Bair");
+            Invoke("uAir", UARDelay);
+        }
+        else
+        {
+            canAttack = true;
+            canMove = true;
+        }
     }
     void attackDir1()
     {
