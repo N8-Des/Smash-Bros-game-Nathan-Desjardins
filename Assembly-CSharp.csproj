@@ -47,9 +47,12 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\BaseCharMove.cs" />
+     <Compile Include="Assets\Braum\BraumBase.cs" />
      <Compile Include="Assets\JimmyNeutron\JimmyBase.cs" />
      <Compile Include="Assets\Shrek\ShrekBase.cs" />
+     <Compile Include="Assets\UETools\Magic_Particle_Effects\Scripts\CameraMovement.cs" />
      <Compile Include="Assets\deathTimer.cs" />
+     <None Include="Assets\UETools\Magic_Particle_Effects\Readme.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

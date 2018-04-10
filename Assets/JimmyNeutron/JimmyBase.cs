@@ -8,6 +8,7 @@ public class JimmyBase : BaseCharMove
     public AudioSource audioDonkey;
     public ParticleSystem part;
     public GameObject JimmyHand;
+    public GameObject Jetpack;
     void Update()
     {
         if (moveRight == true || moveLeft == true)
@@ -61,6 +62,10 @@ public class JimmyBase : BaseCharMove
         canAttack = true;
         canJump = true;
     }
+    public override void bAir()
+    {
+        fair();
+    }
     public override void fair()
     {
         JimmyHand.SetActive(true);
@@ -89,34 +94,34 @@ public class JimmyBase : BaseCharMove
     }
     public override void bRight()
     {
-        GameObject donkey = GameObject.Instantiate((GameObject)Resources.Load("DonkeyShrek"));
+        GameObject donkey = GameObject.Instantiate((GameObject)Resources.Load("JimmyRocket"));
         donkey.transform.position = this.transform.position - new Vector3(0, 0, -0.4f);
         donkeyrb = donkey.GetComponent<Rigidbody>();
         donkeyrb.velocity = new Vector3(0, 0, 6);
-        audioDonkey.Play();
-        canMove = true;
-        canAttack = true;
+        //audioDonkey.Play();
+        Invoke("deactivate", 0.3f);
+
     }
     public override void bLeft()
     {
-        GameObject donkey = GameObject.Instantiate((GameObject)Resources.Load("DonkeyShrek"));
+        GameObject donkey = GameObject.Instantiate((GameObject)Resources.Load("JimmyRocket"));
         donkey.transform.position = this.transform.position - new Vector3(0, 0, 0.4f);
         donkey.transform.rotation = new Quaternion(0, 180, 0, 0);
         donkeyrb = donkey.GetComponent<Rigidbody>();
-        audioDonkey.Play();
         donkeyrb.velocity = new Vector3(0, 0, -6);
-        canMove = true;
-        canAttack = true;
+        //audioDonkey.Play();
+        Invoke("deactivate", 0.3f);
+
     }
     public override void bUp()
     {
-        part.Play();
-        Invoke("StopEverything", 0.7f);
+        Jetpack.SetActive(true);
+        Invoke("StopEverything", 0.5f);
     }
     public void StopEverything()
     {
+        Jetpack.SetActive(false);
         anim.SetBool("BUp", false);
-        part.Stop();
         canAttack = true;
         canMove = true;
     }
@@ -128,9 +133,8 @@ public class JimmyBase : BaseCharMove
     }
     public override void bDown()
     {
-        anim.ResetTrigger("BDown");
-        rb.AddForce(0, -5, 0);
-        canAttack = true;
-        canMove = true;
+        part.Play();
+        //anim.ResetTrigger("BDown");
+        Invoke("deactivate", 1f);
     }
 }

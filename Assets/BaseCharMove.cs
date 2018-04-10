@@ -162,7 +162,7 @@ public class BaseCharMove : MonoBehaviour
     }
     void SpecialDir4()
     {
-        if (lastInput == "Down" && inAir)
+        if (lastInput == "Down")
         {
             anim.SetTrigger("BDown");
             Invoke("bDown", BDDelay);
@@ -262,7 +262,7 @@ public class BaseCharMove : MonoBehaviour
         if (lastInput == "Left")
         {
             anim.SetTrigger("Bair");
-            Invoke("uAir", UARDelay);
+            Invoke("bAir", UARDelay);
         }
         else
         {
