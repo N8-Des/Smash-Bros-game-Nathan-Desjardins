@@ -79,7 +79,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\BaseCharMove.cs" />
-    <Compile Include="Assets\Shrek\Scripts\ShrekBase.cs" />
+    <Compile Include="Assets\Braum\BraumBase.cs" />
+    <Compile Include="Assets\JimmyNeutron\JimmyBase.cs" />
+    <Compile Include="Assets\Shrek\ShrekBase.cs" />
+    <Compile Include="Assets\deathTimer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

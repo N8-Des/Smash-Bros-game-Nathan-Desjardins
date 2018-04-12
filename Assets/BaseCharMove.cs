@@ -41,6 +41,7 @@ public class BaseCharMove : MonoBehaviour
     public float UARDelay;
     public bool onGround;
     public bool canJump;
+    public bool iCanMove = false;
     public bool inAir = false;
     public void Start()
     {
@@ -66,7 +67,11 @@ public class BaseCharMove : MonoBehaviour
             {
                 anim.SetTrigger("Landed");
                 canJump = true;
-                rb.velocity = new Vector3(0, 0, 0);
+                if (!iCanMove)
+                {
+                    rb.velocity = new Vector3(0, 0, 0);
+
+                }
             }
 
         }
@@ -104,7 +109,7 @@ public class BaseCharMove : MonoBehaviour
     }
     void specialUpdate()
     {
-        if (Input.GetButton(B) && canAttack)
+        if ((Input.GetButton(B) || Input.GetKey(KeyCode.A)) && canAttack)
         {
             lastInput = getLastInput();
             canJump = false;
@@ -176,13 +181,15 @@ public class BaseCharMove : MonoBehaviour
     }
     void jumpUpdate()
     {
-        if (Input.GetButton(X) && canJump)
+        if ((Input.GetButton(X) || Input.GetKey(KeyCode.X)) && canJump)
         {
+            anim.ResetTrigger("Landed");
             anim.ResetTrigger("Nair");
             anim.ResetTrigger("Fair");
             anim.ResetTrigger("Dair");
             canJump = false;
             canMove = false;
+            anim.ResetTrigger("Jump");
             anim.SetTrigger("Jump");
             Invoke("jump", JDelay);
             inAir = true;
@@ -372,25 +379,27 @@ public class BaseCharMove : MonoBehaviour
     }
     void moveUpdate()
     {
-        if (isWalking && inAir && neutralX)
+        if (!iCanMove)
         {
-            isWalking = false;
-            moveLeft = false;
-            moveRight = false;
-        }
-        if (onGround)
-        {
-            if ((isWalking && neutralX || (!canMove)) && !inAir)
+            if (isWalking && inAir && neutralX)
             {
                 isWalking = false;
                 moveLeft = false;
                 moveRight = false;
-                rb.velocity = new Vector3(0, 0, 0);
-                isIdle = true;
             }
+            if (onGround)
+            {
+                if ((isWalking && neutralX || (!canMove)) && !inAir)
+                {
+                    isWalking = false;
+                    moveLeft = false;
+                    moveRight = false;
+                    isIdle = true;
+                    rb.velocity = new Vector3(0, 0, 0);
+                }
                 if (canMove)
                 {
-                canJump = true;
+                    canJump = true;
                     if (lastInput == "Right")
                     {
                         moveLeft = false;
@@ -410,20 +419,21 @@ public class BaseCharMove : MonoBehaviour
                         isIdle = false;
                     }
                 }
-        }
-        else if (canMove)
-        {
-           if (lastInput == "Right")
-            {
-                transform.rotation = new Quaternion(0, 0, 0, 0);
-                rb.velocity = moveSpeedAirR;
-                isWalking = true;
             }
-            if (lastInput == "Left")
+            else if (canMove)
             {
-                transform.rotation = new Quaternion(0, 180, 0, 0);
-                rb.velocity = moveSpeedAirL;
-                isWalking = true;
+                if (lastInput == "Right")
+                {
+                    transform.rotation = new Quaternion(0, 0, 0, 0);
+                    rb.velocity = moveSpeedAirR;
+                    isWalking = true;
+                }
+                if (lastInput == "Left")
+                {
+                    transform.rotation = new Quaternion(0, 180, 0, 0);
+                    rb.velocity = moveSpeedAirL;
+                    isWalking = true;
+                }
             }
         }
     }

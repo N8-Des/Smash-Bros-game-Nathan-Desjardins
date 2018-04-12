@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class BraumBase : BaseCharMove
 {
-    public Rigidbody donkeyrb;
-    public AudioSource audioDonkey;
+    public Rigidbody me;
+    public Rigidbody PresentRB;
+    public AudioSource audioStrike;
     public ParticleSystem part;
     void Update()
     {
@@ -39,6 +40,7 @@ public class BraumBase : BaseCharMove
 
     public override void jump()
     {
+        anim.ResetTrigger("Jump");
         rb.velocity = new Vector3(0, 6, 0);
         canMove = true;
         Invoke("stopJump", 0.2f);
@@ -60,19 +62,26 @@ public class BraumBase : BaseCharMove
     }
     public override void fair()
     {
-        Invoke("deactivate", 0.4f);
+        anim.ResetTrigger("Fair");
+        canMove = true;
+        canAttack = true;
     }
     public void deactivate()
     {
+        iCanMove = false;
+        me.velocity = new Vector3(0, 0, 0);
+        anim.SetTrigger("DoneBSide");
         canMove = true;
         canAttack = true;
     }
     public override void uAir()
     {
-        Invoke("deactivate", 0.3f);
+        canMove = true;
+        canAttack = true;
     }
     public override void dair()
     {
+        anim.ResetTrigger("Fair");
         canAttack = true;
         canMove = true;
     }
@@ -83,24 +92,23 @@ public class BraumBase : BaseCharMove
     }
     public override void bRight()
     {
-        GameObject donkey = GameObject.Instantiate((GameObject)Resources.Load("JimmyRocket"));
-        donkey.transform.position = this.transform.position - new Vector3(0, 0, -0.4f);
-        donkeyrb = donkey.GetComponent<Rigidbody>();
-        donkeyrb.velocity = new Vector3(0, 0, 6);
-        //audioDonkey.Play();
-        Invoke("deactivate", 0.3f);
-
+        me = gameObject.GetComponent<Rigidbody>();
+        iCanMove = true;
+        me.velocity = moveSpeed * 5;
+        Invoke("deactivate", 0.26f);
     }
     public override void bLeft()
     {
-        GameObject donkey = GameObject.Instantiate((GameObject)Resources.Load("JimmyRocket"));
-        donkey.transform.position = this.transform.position - new Vector3(0, 0, 0.4f);
-        donkey.transform.rotation = new Quaternion(0, 180, 0, 0);
-        donkeyrb = donkey.GetComponent<Rigidbody>();
-        donkeyrb.velocity = new Vector3(0, 0, -6);
-        //audioDonkey.Play();
-        Invoke("deactivate", 0.3f);
+        me = gameObject.GetComponent<Rigidbody>();
+        iCanMove = true;
+        me.velocity = moveSpeed * -5;
+        Invoke("deactivate", 0.26f);
 
+    }
+    public void baseStop()
+    {
+        canAttack = true;
+        canMove = true;
     }
     public override void bUp()
     {
@@ -114,13 +122,25 @@ public class BraumBase : BaseCharMove
     }
     public override void baseB()
     {
-        anim.ResetTrigger("NeutB");
-        canAttack = true;
-        canMove = true;
+        GameObject Present = GameObject.Instantiate((GameObject)Resources.Load("BraumPresent"));
+        PresentRB = Present.GetComponent<Rigidbody>();
+        audioStrike.Play();
+        if (transform.eulerAngles.y >= 180)
+        {
+            Present.transform.position = transform.position + new Vector3(0, 0.3f, -1);
+            PresentRB.velocity = new Vector3(0, 0, -4);
+            Invoke("baseStop", 0.6f);
+        }
+        else
+        {
+            Present.transform.position = transform.position + new Vector3(0, 0.3f, 1);
+            PresentRB.velocity = new Vector3(0, 0, 4);
+            Invoke("baseStop", 0.6f);
+        }
+        //anim.ResetTrigger("NeutB");
     }
     public override void bDown()
     {
-        part.Play();
         //anim.ResetTrigger("BDown");
         Invoke("deactivate", 1f);
     }
