@@ -71,6 +71,7 @@ public class BraumBase : BaseCharMove
         iCanMove = false;
         me.velocity = new Vector3(0, 0, 0);
         anim.SetTrigger("DoneBSide");
+        anim.SetTrigger("DoneBDown");
         canMove = true;
         canAttack = true;
     }
@@ -110,15 +111,19 @@ public class BraumBase : BaseCharMove
         canAttack = true;
         canMove = true;
     }
+
     public override void bUp()
     {
-        Invoke("StopEverything", 0.5f);
+        rb.velocity = new Vector3(0, 6, 0);
+        Invoke("StopEverything", 0.3f);
     }
     public void StopEverything()
     {
         anim.SetBool("BUp", false);
         canAttack = true;
         canMove = true;
+        iCanMove = false;
+        //rb.velocity = new Vector3(0, 0, 0);
     }
     public override void baseB()
     {
@@ -142,6 +147,6 @@ public class BraumBase : BaseCharMove
     public override void bDown()
     {
         //anim.ResetTrigger("BDown");
-        Invoke("deactivate", 1f);
+        Invoke("deactivate", 1);
     }
 }

@@ -41,11 +41,14 @@ public class BaseCharMove : MonoBehaviour
     public float UARDelay;
     public bool onGround;
     public bool canJump;
+    public bool canBUp = true;
     public bool iCanMove = false;
     public bool inAir = false;
+    public BaseHit damageControl;
     public void Start()
     {
         inputBufferList.Add("ShutUpCount");
+        damageControl = gameObject.GetComponent<BaseHit>();
         anim = gameObject.GetComponent<Animator>();
         rb = gameObject.GetComponent<Rigidbody>();
     }
@@ -53,6 +56,7 @@ public class BaseCharMove : MonoBehaviour
     {
         if (other.collider.tag == "Ground")
         {
+            canBUp = true;
             if (!onGround)
             {
                 onGround = true;
@@ -109,7 +113,7 @@ public class BaseCharMove : MonoBehaviour
     }
     void specialUpdate()
     {
-        if ((Input.GetButton(B) || Input.GetKey(KeyCode.A)) && canAttack)
+        if ((Input.GetButton(B) || Input.GetKey(KeyCode.A)) && canAttack && !damageControl.isKnockedBack)
         {
             lastInput = getLastInput();
             canJump = false;
@@ -154,9 +158,10 @@ public class BaseCharMove : MonoBehaviour
     }
     void SpecialDir3()
     {
-        if (lastInput == "Up")
+        if (lastInput == "Up" && canBUp)
         {
-            rb.velocity = new Vector3(0, 6, 0);
+            iCanMove = true;
+            canBUp = false;
             anim.SetBool("BUp", true);
             Invoke("bUp", BUDelay);
         }
@@ -181,7 +186,7 @@ public class BaseCharMove : MonoBehaviour
     }
     void jumpUpdate()
     {
-        if ((Input.GetButton(X) || Input.GetKey(KeyCode.X)) && canJump)
+        if ((Input.GetButton(X) || Input.GetKey(KeyCode.X)) && canJump && !damageControl.isKnockedBack)
         {
             anim.ResetTrigger("Landed");
             anim.ResetTrigger("Nair");
@@ -198,7 +203,7 @@ public class BaseCharMove : MonoBehaviour
     void attackUpdate()
     {
         lastInput = getLastInput();
-        if ((Input.GetButton(A) || Input.GetKey(KeyCode.Z)) && canAttack && onGround)
+        if ((Input.GetButton(A) || Input.GetKey(KeyCode.Z)) && canAttack && onGround && !damageControl.isKnockedBack)
         {
             canJump = false;
             canAttack = false;
@@ -379,7 +384,7 @@ public class BaseCharMove : MonoBehaviour
     }
     void moveUpdate()
     {
-        if (!iCanMove)
+        if (!iCanMove && !damageControl.isKnockedBack)
         {
             if (isWalking && inAir && neutralX)
             {
@@ -395,7 +400,7 @@ public class BaseCharMove : MonoBehaviour
                     moveLeft = false;
                     moveRight = false;
                     isIdle = true;
-                    rb.velocity = new Vector3(0, 0, 0);
+                    //rb.velocity = new Vector3(0, 0, 0);
                 }
                 if (canMove)
                 {

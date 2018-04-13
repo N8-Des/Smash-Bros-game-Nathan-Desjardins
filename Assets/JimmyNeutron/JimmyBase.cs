@@ -115,6 +115,7 @@ public class JimmyBase : BaseCharMove
     }
     public override void bUp()
     {
+        rb.velocity = new Vector3(0, 6, 0);
         Jetpack.SetActive(true);
         Invoke("StopEverything", 0.5f);
     }
@@ -122,6 +123,7 @@ public class JimmyBase : BaseCharMove
     {
         Jetpack.SetActive(false);
         anim.SetBool("BUp", false);
+        iCanMove = true;
         canAttack = true;
         canMove = true;
     }

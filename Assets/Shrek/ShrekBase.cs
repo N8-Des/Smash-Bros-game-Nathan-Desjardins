@@ -93,6 +93,7 @@ public class ShrekBase : BaseCharMove
     }
     public override void bUp()
     {
+        rb.velocity = new Vector3(0, 6, 0);
         part.Play();
         Invoke("StopEverything", 0.7f);
     }

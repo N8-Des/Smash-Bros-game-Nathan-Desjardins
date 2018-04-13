@@ -47,6 +47,8 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\BaseCharMove.cs" />
+     <Compile Include="Assets\BaseHit.cs" />
+     <Compile Include="Assets\BasicHurtbox.cs" />
      <Compile Include="Assets\Braum\BraumBase.cs" />
      <Compile Include="Assets\JimmyNeutron\JimmyBase.cs" />
      <Compile Include="Assets\Shrek\ShrekBase.cs" />
