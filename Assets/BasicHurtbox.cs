@@ -8,6 +8,10 @@ public class BasicHurtbox : MonoBehaviour {
 
     public void OnTriggerEnter(Collider collider)
     {
+        if (gameObject.transform.parent.gameObject.transform.eulerAngles.y >= 180) //so hitboxes can work left and right.
+        {
+            KB.z *= -1;
+        }
         GameObject other = collider.gameObject;
         BaseHit dmgCtrl = other.GetComponent<BaseHit>();
         if (dmgCtrl != null && dmgCtrl.transform.parent != this)

@@ -49,9 +49,16 @@
      <Compile Include="Assets\BaseCharMove.cs" />
      <Compile Include="Assets\BaseHit.cs" />
      <Compile Include="Assets\BasicHurtbox.cs" />
+     <Compile Include="Assets\BasicStunHitbox.cs" />
      <Compile Include="Assets\Braum\BraumBase.cs" />
+     <Compile Include="Assets\DannyPhantom\DannyBase.cs" />
+     <Compile Include="Assets\JimmyNeutron\BrainBlast.cs" />
      <Compile Include="Assets\JimmyNeutron\JimmyBase.cs" />
+     <Compile Include="Assets\PercentDisplay.cs" />
+     <Compile Include="Assets\Pete\PenguinBase.cs" />
      <Compile Include="Assets\Shrek\ShrekBase.cs" />
+     <Compile Include="Assets\Spongebob\SpongeBase.cs" />
+     <Compile Include="Assets\Vision\VisionBase.cs" />
      <Compile Include="Assets\deathTimer.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

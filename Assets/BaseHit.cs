@@ -7,12 +7,16 @@ public class BaseHit : MonoBehaviour {
     public float kbResist;
     public int percent = 0;
     public Rigidbody rb;
+    public string UIname;
+    public PercentDisplay pdisplay;
     public virtual void TakeAttack(int damage, Vector3 knockback)
     {
+        pdisplay = GameObject.Find(UIname).GetComponent<PercentDisplay>();
         isKnockedBack = true;
+        pdisplay.takeDamage(damage);
         //Debug.Log((knockback.y + knockback.z) * (percent / 4) * (kbResist));
         percent += damage;
-        rb.velocity = knockback * (percent / 10) * kbResist;
+        rb.velocity = knockback * (percent / 6) * kbResist;
         Invoke("stopKB", ((knockback.y + knockback.z) * (percent / 10) * (kbResist)) / 10);
     }
     void stopKB()

@@ -56,7 +56,6 @@ public class BaseCharMove : MonoBehaviour
     {
         if (other.collider.tag == "Ground")
         {
-            canBUp = true;
             if (!onGround)
             {
                 onGround = true;
@@ -65,7 +64,10 @@ public class BaseCharMove : MonoBehaviour
             {
                 inAir = false;
             }
-
+            if (!canBUp && onGround)
+            {
+                canBUp = true;
+            }
 
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("IdleAir") || anim.GetCurrentAnimatorStateInfo(0).IsName("Dair") || anim.GetCurrentAnimatorStateInfo(0).IsName("BDown") || anim.GetCurrentAnimatorStateInfo(0).IsName("Nair"))
             {
@@ -74,10 +76,8 @@ public class BaseCharMove : MonoBehaviour
                 if (!iCanMove)
                 {
                     rb.velocity = new Vector3(0, 0, 0);
-
                 }
             }
-
         }
     }
     public void OnCollisionExit(Collision other)
@@ -110,6 +110,19 @@ public class BaseCharMove : MonoBehaviour
         moveUpdate();
         specialUpdate();
         jumpUpdate();
+    }
+    public virtual void takeStun(float stunTime)
+    {
+        canMove = false;
+        canAttack = false;
+        canJump = false;
+        Invoke("endStun", stunTime);
+    }
+    void endStun()
+    {
+        canMove = true;
+        canAttack = true;
+        canJump = true;
     }
     void specialUpdate()
     {
@@ -218,7 +231,7 @@ public class BaseCharMove : MonoBehaviour
                 attackDir1();
             }
         }
-        else if ((Input.GetButton("A") || Input.GetKey(KeyCode.Z)) && canAttack && inAir)
+        else if ((Input.GetButton(A) || Input.GetKey(KeyCode.Z)) && canAttack && inAir)
         {
             lastInput = getLastInput();
             canAttack = false;
@@ -400,7 +413,7 @@ public class BaseCharMove : MonoBehaviour
                     moveLeft = false;
                     moveRight = false;
                     isIdle = true;
-                    //rb.velocity = new Vector3(0, 0, 0);
+                    rb.velocity = new Vector3(0, 0, 0);
                 }
                 if (canMove)
                 {

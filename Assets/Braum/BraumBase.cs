@@ -132,6 +132,7 @@ public class BraumBase : BaseCharMove
         audioStrike.Play();
         if (transform.eulerAngles.y >= 180)
         {
+            Present.transform.rotation = new Quaternion(0, 180, 0, 0);
             Present.transform.position = transform.position + new Vector3(0, 0.3f, -1);
             PresentRB.velocity = new Vector3(0, 0, -4);
             Invoke("baseStop", 0.6f);

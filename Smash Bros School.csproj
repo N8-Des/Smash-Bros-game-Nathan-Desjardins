@@ -79,9 +79,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\BaseCharMove.cs" />
+    <Compile Include="Assets\BaseHit.cs" />
+    <Compile Include="Assets\BasicHurtbox.cs" />
+    <Compile Include="Assets\BasicStunHitbox.cs" />
     <Compile Include="Assets\Braum\BraumBase.cs" />
+    <Compile Include="Assets\DannyPhantom\DannyBase.cs" />
+    <Compile Include="Assets\JimmyNeutron\BrainBlast.cs" />
     <Compile Include="Assets\JimmyNeutron\JimmyBase.cs" />
+    <Compile Include="Assets\PercentDisplay.cs" />
     <Compile Include="Assets\Shrek\ShrekBase.cs" />
+    <Compile Include="Assets\Spongebob\SpongeBase.cs" />
     <Compile Include="Assets\deathTimer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
