@@ -51,7 +51,10 @@
      <Compile Include="Assets\BasicHurtbox.cs" />
      <Compile Include="Assets\BasicStunHitbox.cs" />
      <Compile Include="Assets\Braum\BraumBase.cs" />
+     <Compile Include="Assets\CharSelect.cs" />
      <Compile Include="Assets\DannyPhantom\DannyBase.cs" />
+     <Compile Include="Assets\Dragonborn\DragonbornBase.cs" />
+     <Compile Include="Assets\GameManager.cs" />
      <Compile Include="Assets\JimmyNeutron\BrainBlast.cs" />
      <Compile Include="Assets\JimmyNeutron\JimmyBase.cs" />
      <Compile Include="Assets\PercentDisplay.cs" />
