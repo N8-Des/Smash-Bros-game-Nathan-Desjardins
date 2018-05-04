@@ -127,8 +127,8 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 947
-  m_MinSize: {x: 579, y: 221}
-  m_MaxSize: {x: 12004, y: 8021}
+  m_MinSize: {x: 581, y: 242}
+  m_MaxSize: {x: 12006, y: 8042}
   vertical: 1
   controlID: 11
 --- !u!114 &7
@@ -152,8 +152,8 @@ MonoBehaviour:
     y: 0
     width: 1920
     height: 947
-  m_MinSize: {x: 579, y: 221}
-  m_MaxSize: {x: 12004, y: 8021}
+  m_MinSize: {x: 581, y: 242}
+  m_MaxSize: {x: 12006, y: 8042}
   vertical: 0
   controlID: 12
 --- !u!114 &8
@@ -174,8 +174,8 @@ MonoBehaviour:
     y: 0
     width: 419
     height: 947
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -201,8 +201,8 @@ MonoBehaviour:
     y: 0
     width: 1077
     height: 947
-  m_MinSize: {x: 104, y: 221}
-  m_MaxSize: {x: 4004, y: 8021}
+  m_MinSize: {x: 104, y: 242}
+  m_MaxSize: {x: 4004, y: 8042}
   vertical: 1
   controlID: 13
 --- !u!114 &10
@@ -232,7 +232,7 @@ MonoBehaviour:
   - {fileID: 13}
   - {fileID: 17}
   m_Selected: 0
-  m_LastSelected: 1
+  m_LastSelected: 2
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -251,8 +251,8 @@ MonoBehaviour:
     y: 656
     width: 1077
     height: 291
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 104, y: 121}
+  m_MaxSize: {x: 4004, y: 4021}
   m_ActualView: {fileID: 20}
   m_Panes:
   - {fileID: 18}
@@ -318,7 +318,7 @@ MonoBehaviour:
     - {fileID: 1107468654245078992, guid: 9edda3ffddda18f4096e08a487437bab, type: 2}
     m_ValueSerializationHelper:
     - {x: 706.80005, y: 531.4}
-    - {x: 675.80005, y: 380}
+    - {x: 1083.8, y: 629}
   m_PreviewAnimator: {fileID: 0}
   m_AnimatorController: {fileID: 0}
   m_BreadCrumbs: []
@@ -379,7 +379,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 0
+    m_EnableMouseInput: 1
     m_EnableSliderZoom: 0
     m_UniformScale: 1
     m_UpDirection: 1
@@ -431,26 +431,26 @@ MonoBehaviour:
   m_DepthBufferBits: 0
   m_Pos:
     serializedVersion: 2
-    x: 0
-    y: 92
+    x: -32000
+    y: -31951
     width: 417
     height: 926
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 0c93ffff
-    m_LastClickedID: -27892
-    m_ExpandedIDs: 0c93ffffe8fbffff00000000
+    m_SelectedIDs: 
+    m_LastClickedID: 0
+    m_ExpandedIDs: 0efbffff12fbffff16fbffff1efbffff24fbffff28fbffff2cfbffff32fbffff36fbffff38fbffff3afbffff44fbffff4cfbffff4efbffff50fbffff52fbffff56fbffff58fbffffc8fbffffe8fbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Buck Cluck2
-      m_OriginalName: Buck Cluck2
+      m_Name: mixamorig:RightShoulder
+      m_OriginalName: mixamorig:RightShoulder
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: -27892
+      m_UserData: -1224
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
       m_OriginalEventType: 0
@@ -484,19 +484,19 @@ MonoBehaviour:
   m_DepthBufferBits: 0
   m_Pos:
     serializedVersion: 2
-    x: 421
-    y: 92
+    x: -31579
+    y: -31951
     width: 1073
     height: 635
   m_SceneLighting: 1
-  lastFramingTime: 1272.9593198543505
+  lastFramingTime: 97.12757164672601
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0.10986203, y: 0.9803664, z: -2.219244}
+    m_Target: {x: -10.440579, y: -2.7438452, z: -3.9704194}
     speed: 2
-    m_Value: {x: 0.10986203, y: 0.9803664, z: -2.219244}
+    m_Value: {x: -10.440579, y: -2.7438452, z: -3.9704194}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -519,13 +519,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.055828977, y: 0.8081462, z: -0.09360864, w: -0.57880944}
+    m_Target: {x: -0.11258276, y: 0.73521674, z: -0.14053552, w: -0.65347636}
     speed: 2
-    m_Value: {x: -0.055828977, y: 0.8081462, z: -0.09360864, w: -0.57880944}
+    m_Value: {x: -0.11258276, y: 0.73521674, z: -0.14053552, w: -0.65347636}
   m_Size:
-    m_Target: 3.9204855
+    m_Target: 13.361817
     speed: 2
-    m_Value: 3.9204855
+    m_Value: 13.361817
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -599,19 +599,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets
+    - Assets/BuckCluck/Animations
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets
+  - Assets/BuckCluck/Animations
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\Nate\Documents\Smash Bros
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 70}
-    m_SelectedIDs: f4240000
-    m_LastClickedID: 9460
-    m_ExpandedIDs: 00000000f424000050290000e42b0000c42d00005c3d00005e3d0000603d0000484f000000ca9a3bffffff7f
+    m_SelectedIDs: 50280000
+    m_LastClickedID: 10320
+    m_ExpandedIDs: 00000000f62400006e290000542a00002a2c00001a2e0000943f0000963f0000983f000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -639,7 +639,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000f424000050290000e42b0000e62b0000c42d00005c3d00005e3d0000603d0000
+    m_ExpandedIDs: 00000000f62400006e290000542a00002a2c00001a2e0000943f0000963f0000983f0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -664,24 +664,24 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 0c93ffff
-    m_LastClickedInstanceID: -27892
+    m_SelectedInstanceIDs: 883e0000
+    m_LastClickedInstanceID: 16008
     m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: 282c00007a2c00006c2affff2a070000f2090000cc2a00000e3100000e360000fc2e0000c62c0000362f0000d0330000703c0000942f00001c4a00005a4b00002a2b0000b8330000722a00002a330000ac2a00003a340000c6380000163500005a32000018360000983c00000e3e000038400000d040000056360000323d00006e3c00003a3d0000b4a4fffff42500000e250000582700002e8800005c3200008225000000000000cc270000547afdff702500003c3d00004c3d0000787700008e780000482a0000c6670200ce6702002c6e02001c6e0200c24f0000
+    m_ExpandedInstanceIDs: 282c00007a2c00006c2affff2a070000f2090000cc2a00000e3100000e360000fc2e0000c62c0000362f0000d0330000703c0000942f00001c4a00005a4b00002a2b0000b8330000722a00002a330000ac2a00003a340000c6380000163500005a32000018360000983c00000e3e000038400000d040000056360000323d00006e3c00003a3d0000b4a4fffff42500000e250000582700002e8800005c3200008225000000000000cc270000547afdff702500003c3d00004c3d0000787700008e780000482a0000c6670200ce6702002c6e02001c6e0200c24f00007a460000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: BuckBase
-      m_OriginalName: BuckBase
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 22806
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 11}
     m_CreateAssetUtility:
@@ -691,7 +691,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 199}
+    m_ScrollPosition: {x: 0, y: 7}
     m_GridSize: 16
   m_DirectoriesAreaWidth: 110
 --- !u!114 &19

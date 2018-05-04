@@ -94,15 +94,15 @@ public class BuckBase : BaseCharMove
     {
         me = gameObject.GetComponent<Rigidbody>();
         iCanMove = true;
-        me.velocity = moveSpeed * 1.1f;
-        Invoke("deactivate", 0.4f);
+        me.velocity = moveSpeed * 1.4f;
+        Invoke("deactivate", 0.5f);
     }
     public override void bLeft()
     {
         me = gameObject.GetComponent<Rigidbody>();
         iCanMove = true;
-        me.velocity = moveSpeed * -1.1f;
-        Invoke("deactivate", 0.4f);
+        me.velocity = moveSpeed * -1.4f;
+        Invoke("deactivate", 0.5f);
 
     }
     public void baseStop()
@@ -126,22 +126,7 @@ public class BuckBase : BaseCharMove
     }
     public override void baseB()
     {
-        GameObject Present = GameObject.Instantiate((GameObject)Resources.Load("Propane Tank"));
-        PresentRB = Present.GetComponent<Rigidbody>();
-        if (transform.eulerAngles.y >= 180)
-        {
-            Present.transform.rotation = new Quaternion(0, 180, 0, 0);
-            Present.transform.position = transform.position + new Vector3(0, 0.3f, -1);
-            PresentRB.velocity = new Vector3(0, 2.2f, -3);
-            Invoke("baseStop", 0.6f);
-        }
-        else
-        {
-            Present.transform.position = transform.position + new Vector3(0, 0.3f, 1);
-            PresentRB.velocity = new Vector3(0, 2.2f, 3);
-            Invoke("baseStop", 0.6f);
-        }
-        //anim.ResetTrigger("NeutB");
+        baseStop();
     }
     public override void bDown()
     {
