@@ -131,7 +131,7 @@ public class HankBase : BaseCharMove
     {
         GameObject Present = GameObject.Instantiate((GameObject)Resources.Load("Propane Tank"));
         PresentRB = Present.GetComponent<Rigidbody>();
-        if (transform.eulerAngles.y >= 180)
+        if (!isRight)
         {
             Present.transform.rotation = new Quaternion(0, 180, 0, 0);
             Present.transform.position = transform.position + new Vector3(0, 0.3f, -1);

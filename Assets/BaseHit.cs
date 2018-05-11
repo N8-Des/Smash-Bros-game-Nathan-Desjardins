@@ -16,7 +16,7 @@ public class BaseHit : MonoBehaviour {
         pdisplay.takeDamage(damage);
         //Debug.Log((knockback.y + knockback.z) * (percent / 4) * (kbResist));
         percent += damage;
-        rb.velocity = knockback * (percent / 6) * kbResist;
+        rb.velocity = knockback * (percent / 10) * kbResist;
         Invoke("stopKB", ((knockback.y + knockback.z) * (percent / 10) * (kbResist)) / 10);
     }
     void stopKB()

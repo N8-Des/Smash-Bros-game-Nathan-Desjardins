@@ -124,7 +124,7 @@ public class DannyBase : BaseCharMove
         GameObject Dad = GameObject.Instantiate((GameObject)Resources.Load("DannyDad"));
         //PresentRB = Present.GetComponent<Rigidbody>();
         //audioStrike.Play();
-        if (transform.eulerAngles.y >= 180)
+        if (!isRight)
         {
             Dad.transform.rotation = new Quaternion(0, 180, 0, 0);
             Dad.transform.position = transform.position + new Vector3(0, -0, -0.5f);           

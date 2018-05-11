@@ -18,5 +18,6 @@ public class GameManager : MonoBehaviour {
         p1score = GameObject.Find(player1Selection + "P");
         p2score = GameObject.Find(player2Selection + "P");
         p1score.transform.position -= new Vector3(0, -350, 0);
+        p2score.transform.position -= new Vector3(0, -350, 0);
     }
 }

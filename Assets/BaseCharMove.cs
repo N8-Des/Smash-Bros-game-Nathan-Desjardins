@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseCharMove : MonoBehaviour
-{
+{  
     public string A;
     public string B;
     public string X;
@@ -45,6 +45,7 @@ public class BaseCharMove : MonoBehaviour
     public bool iCanMove = false;
     public bool inAir = false;
     public BaseHit damageControl;
+    public bool isRight = true;
     public void Start()
     {
         inputBufferList.Add("ShutUpCount");
@@ -148,6 +149,7 @@ public class BaseCharMove : MonoBehaviour
         if (lastInput == "Right")
         {
                 transform.rotation = new Quaternion(0, 0, 0, 0);
+                isRight = true;
                 anim.SetTrigger("BSide");
                 Invoke("bRight", BSDelay);
         }
@@ -160,6 +162,7 @@ public class BaseCharMove : MonoBehaviour
     {
         if (lastInput == "Left")
         {
+            isRight = false;
             transform.rotation = new Quaternion(0, 180, 0, 0);
             anim.SetTrigger("BSide");
             Invoke("bLeft", BSDelay);
@@ -424,6 +427,7 @@ public class BaseCharMove : MonoBehaviour
                         moveRight = true;
                         transform.rotation = new Quaternion(0, 0, 0, 0);
                         rb.velocity = moveSpeed;
+                        isRight = true;
                         isWalking = true;
                         isIdle = false;
                     }
@@ -434,6 +438,7 @@ public class BaseCharMove : MonoBehaviour
                         transform.rotation = new Quaternion(0, 180, 0, 0);
                         rb.velocity = -moveSpeed;
                         isWalking = true;
+                        isRight = false;
                         isIdle = false;
                     }
                 }

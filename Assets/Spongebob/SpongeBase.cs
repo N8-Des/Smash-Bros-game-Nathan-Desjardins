@@ -125,7 +125,7 @@ public class SpongeBase : BaseCharMove
         GameObject Patty = GameObject.Instantiate((GameObject)Resources.Load("KrabbyPatty"));
         pattyrb = Patty.GetComponent<Rigidbody>();
         //audioStrike.Play();
-        if (transform.eulerAngles.y >= 180)
+        if (!isRight)
         {
             Patty.transform.rotation = new Quaternion(0, 180, 0, 0);
             Patty.transform.position = transform.position + new Vector3(0, 0.3f, -0.3f);
