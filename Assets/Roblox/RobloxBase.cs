@@ -93,19 +93,12 @@ public class RobloxBase : BaseCharMove
     }
     public override void bRight()
     {
-        bwaaa.Play();
-        me = gameObject.GetComponent<Rigidbody>();
-        iCanMove = true;
-        me.velocity = moveSpeed * 1.1f;
-        Invoke("deactivate", 0.4f);
+        Invoke("baseStop", 2f);
+
     }
     public override void bLeft()
     {
-        bwaaa.Play();
-        me = gameObject.GetComponent<Rigidbody>();
-        iCanMove = true;
-        me.velocity = moveSpeed * -1.1f;
-        Invoke("deactivate", 0.4f);
+        Invoke("baseStop", 2f);
 
     }
     public void baseStop()
@@ -116,8 +109,8 @@ public class RobloxBase : BaseCharMove
 
     public override void bUp()
     {
-        rb.velocity = new Vector3(0, 3, 0);
-        Invoke("StopEverything", 0.2f);
+        rb.velocity = new Vector3(0, 4, 0);
+        Invoke("StopEverything", 0.5f);
     }
     public void StopEverything()
     {
@@ -129,26 +122,45 @@ public class RobloxBase : BaseCharMove
     }
     public override void baseB()
     {
-        GameObject Present = GameObject.Instantiate((GameObject)Resources.Load("Propane Tank"));
-        PresentRB = Present.GetComponent<Rigidbody>();
-        if (!isRight)
-        {
-            Present.transform.rotation = new Quaternion(0, 180, 0, 0);
-            Present.transform.position = transform.position + new Vector3(0, 0.3f, -1);
-            PresentRB.velocity = new Vector3(0, 2.2f, -3);
-            Invoke("baseStop", 0.6f);
-        }
-        else
-        {
-            Present.transform.position = transform.position + new Vector3(0, 0.3f, 1);
-            PresentRB.velocity = new Vector3(0, 2.2f, 3);
-            Invoke("baseStop", 0.6f);
-        }
-        //anim.ResetTrigger("NeutB");
+        iCanMove = true;
+        Invoke("deactivate", 7.3f);
     }
     public override void bDown()
     {
         anim.ResetTrigger("DoneBDown");
         Invoke("deactivate", 0.4f);
+    }
+    public void shotBack()
+    {
+        if (!isRight)
+        {
+            //Debug.Log("left");
+            rb.AddForce(0, 500, 5000);
+            Invoke("deactivate", 0.4f);
+        }
+        else
+        {
+            //Debug.Log("right");
+            rb.AddForce(0, 500, -5000);
+            Invoke("deactivate", 0.4f);
+        }
+    }
+    public void blast()
+    {
+        GameObject blast = GameObject.Instantiate((GameObject)Resources.Load("RobloxBlast"));
+        PresentRB = blast.GetComponent<Rigidbody>();
+        if (!isRight)
+        {
+            blast.transform.rotation = new Quaternion(0, 180, 0, 0);
+            blast.transform.position = transform.position + new Vector3(0, 0.1f, -0.4f);
+            PresentRB.velocity = new Vector3(0, 0, -5);
+            Invoke("baseStop", 1.1f);
+        }
+        else
+        {
+            blast.transform.position = transform.position + new Vector3(0, 0.1f, 0.4f);
+            PresentRB.velocity = new Vector3(0, 0, 5);
+            Invoke("baseStop", 1.1f);
+        }
     }
 }

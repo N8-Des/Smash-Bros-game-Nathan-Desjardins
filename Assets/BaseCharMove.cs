@@ -107,10 +107,10 @@ public class BaseCharMove : MonoBehaviour
     public void FixedUpdate()
     {
         inputBuffer();
+        jumpUpdate();
         attackUpdate();
         moveUpdate();
         specialUpdate();
-        jumpUpdate();
     }
     public virtual void takeStun(float stunTime)
     {

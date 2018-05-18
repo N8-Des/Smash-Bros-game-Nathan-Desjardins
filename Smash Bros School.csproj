@@ -88,6 +88,7 @@
     <Compile Include="Assets\DannyPhantom\DannyBase.cs" />
     <Compile Include="Assets\Dragonborn\DragonbornBase.cs" />
     <Compile Include="Assets\Ekko\EkkoBase.cs" />
+    <Compile Include="Assets\ExplodeOnHit.cs" />
     <Compile Include="Assets\GameManager.cs" />
     <Compile Include="Assets\HankHill\HankBase.cs" />
     <Compile Include="Assets\HankHill\Propane.cs" />
@@ -95,8 +96,10 @@
     <Compile Include="Assets\JimmyNeutron\JimmyBase.cs" />
     <Compile Include="Assets\PercentDisplay.cs" />
     <Compile Include="Assets\Pete\PenguinBase.cs" />
+    <Compile Include="Assets\Roblox\RobloxBase.cs" />
     <Compile Include="Assets\Shrek\ShrekBase.cs" />
     <Compile Include="Assets\Spongebob\SpongeBase.cs" />
+    <Compile Include="Assets\Thomas\ThomasBase.cs" />
     <Compile Include="Assets\Vision\VisionBase.cs" />
     <Compile Include="Assets\deathTimer.cs" />
   </ItemGroup>

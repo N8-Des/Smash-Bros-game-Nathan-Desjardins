@@ -92,13 +92,11 @@ public class DragonbornBase : BaseCharMove
     }
     public override void bRight()
     {
-        anim.ResetTrigger("BSide");
-        baseStop();
+        Invoke("baseStop", 1.1f);
     }
     public override void bLeft()
     {
-        anim.ResetTrigger("BSide");
-        baseStop();
+        Invoke("baseStop", 1.1f);
     }
     public void baseStop()
     {
@@ -121,21 +119,7 @@ public class DragonbornBase : BaseCharMove
     }
     public override void baseB()
     {
-        GameObject Dad = GameObject.Instantiate((GameObject)Resources.Load("DannyDad"));
-        //PresentRB = Present.GetComponent<Rigidbody>();
-        //audioStrike.Play();
-        if (transform.eulerAngles.y >= 180)
-        {
-            Dad.transform.rotation = new Quaternion(0, 180, 0, 0);
-            Dad.transform.position = transform.position + new Vector3(0, -0, -0.5f);
-            Invoke("baseStop", 0.3f);
-        }
-        else
-        {
-            Dad.transform.position = transform.position + new Vector3(0, -0, 0.5f);
-            Invoke("baseStop", 0.3f);
-        }
-        //anim.ResetTrigger("NeutB");
+        Invoke("baseStop", 2.1f);
     }
     void endInvisible()
     {
@@ -143,6 +127,26 @@ public class DragonbornBase : BaseCharMove
         {
             r.enabled = true;
         }
+    }
+    public void shootArrow()
+    {
+        GameObject Arrow = GameObject.Instantiate((GameObject)Resources.Load("EbonyArrow"));
+        Rigidbody arr = Arrow.GetComponent<Rigidbody>();
+        //audioStrike.Play();
+        if (!isRight)
+        {
+            Arrow.transform.rotation = new Quaternion(77, 218, 19, 0);
+            Arrow.transform.position = transform.position + new Vector3(0, 0.7f, -0.5f);
+            arr.velocity = new Vector3(0, 0, -8);
+            Invoke("baseStop", 0.4f);
+        }
+        else
+        {
+            Arrow.transform.position = transform.position + new Vector3(0, 0.7f, 0.5f);
+            arr.velocity = new Vector3(0, 0, 8);
+            Invoke("baseStop", 0.4f);
+        }
+        //anim.ResetTrigger("NeutB");
     }
     public override void bDown()
     {

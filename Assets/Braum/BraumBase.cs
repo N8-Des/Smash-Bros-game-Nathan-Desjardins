@@ -127,6 +127,14 @@ public class BraumBase : BaseCharMove
     }
     public override void baseB()
     {
+        Invoke("baseStop", 3);
+    }
+    public override void bDown()
+    {
+        //anim.ResetTrigger("BDown");
+        Invoke("deactivate", 1);
+    }
+    public void present() {
         GameObject Present = GameObject.Instantiate((GameObject)Resources.Load("BraumPresent"));
         PresentRB = Present.GetComponent<Rigidbody>();
         audioStrike.Play();
@@ -145,9 +153,5 @@ public class BraumBase : BaseCharMove
         }
         //anim.ResetTrigger("NeutB");
     }
-    public override void bDown()
-    {
-        //anim.ResetTrigger("BDown");
-        Invoke("deactivate", 1);
-    }
+
 }

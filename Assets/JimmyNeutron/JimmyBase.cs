@@ -35,9 +35,7 @@ public class JimmyBase : BaseCharMove
     }
     public override void UpA()
     {
-        GameObject goddard = GameObject.Instantiate((GameObject)Resources.Load("Goddard"));
-        goddard.transform.position = this.transform.position + new Vector3(0, 0.5f, 0);
-        Invoke("dogDelay", 0.7f);
+        dogDelay();
     }
     public void dogDelay()
     {
@@ -123,7 +121,7 @@ public class JimmyBase : BaseCharMove
     {
         Jetpack.SetActive(false);
         anim.SetBool("BUp", false);
-        iCanMove = true;
+        iCanMove = false;
         canAttack = true;
         canMove = true;
     }
