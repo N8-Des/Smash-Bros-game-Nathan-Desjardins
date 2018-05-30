@@ -50,6 +50,10 @@ public class CharSelect : MonoBehaviour {
                 gameObject.SetActive(false);
             }
         }
+        else
+        {
+            pressStart.SetActive(false);
+        }
 }
     public void testForButton2() { 
         if (Input.GetButton("A2"))

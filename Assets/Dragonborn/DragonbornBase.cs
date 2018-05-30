@@ -71,6 +71,7 @@ public class DragonbornBase : BaseCharMove
         me.velocity = new Vector3(0, 0, 0);
         anim.SetTrigger("DoneBSide");
         anim.SetTrigger("DoneBDown");
+        anim.SetBool("BUp", false);
         canMove = true;
         canAttack = true;
     }
@@ -106,8 +107,7 @@ public class DragonbornBase : BaseCharMove
 
     public override void bUp()
     {
-        rb.velocity = new Vector3(0, 3, 0);
-        Invoke("StopEverything", 0.3f);
+        Invoke("baseStop", 2f);
     }
     public void StopEverything()
     {
@@ -150,15 +150,6 @@ public class DragonbornBase : BaseCharMove
     }
     public override void bDown()
     {
-        if (!inAir)
-        {
-            canAttack = true;
-            canMove = true;
-            foreach (Renderer r in GetComponentsInChildren<Renderer>())
-            {
-                r.enabled = false;
-            }
-            Invoke("endInvisible", 2.5f);
-        }
+        Invoke("deactivate", 1.3f);
     }
 }

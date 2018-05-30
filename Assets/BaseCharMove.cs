@@ -46,12 +46,18 @@ public class BaseCharMove : MonoBehaviour
     public bool inAir = false;
     public BaseHit damageControl;
     public bool isRight = true;
+    public string deathNoise;
     public void Start()
     {
         inputBufferList.Add("ShutUpCount");
         damageControl = gameObject.GetComponent<BaseHit>();
         anim = gameObject.GetComponent<Animator>();
         rb = gameObject.GetComponent<Rigidbody>();
+    }
+    public void death()
+    {
+        //GameObject sound = GameObject.Instantiate((GameObject)Resources.Load(deathNoise));
+        Destroy(gameObject);
     }
     public void OnCollisionStay(Collision other)
     {

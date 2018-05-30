@@ -9,9 +9,15 @@ public class BaseHit : MonoBehaviour {
     public Rigidbody rb;
     public string UIname;
     public PercentDisplay pdisplay;
+    public Animator anim;
+    public void Start()
+    {
+        anim = gameObject.GetComponent<Animator>();
+    }
     public virtual void TakeAttack(int damage, Vector3 knockback)
     {
         pdisplay = GameObject.Find(UIname).GetComponent<PercentDisplay>();
+        anim.SetBool("knockedBack", true);
         isKnockedBack = true;
         pdisplay.takeDamage(damage);
         //Debug.Log((knockback.y + knockback.z) * (percent / 4) * (kbResist));
@@ -21,6 +27,7 @@ public class BaseHit : MonoBehaviour {
     }
     void stopKB()
     {
+        anim.SetBool("knockedBack", false);
         isKnockedBack = false;
     }
 }

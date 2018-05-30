@@ -55,6 +55,7 @@
      <Compile Include="Assets\CharSelect.cs" />
      <Compile Include="Assets\DannyPhantom\DannyBase.cs" />
      <Compile Include="Assets\Dragonborn\DragonbornBase.cs" />
+     <Compile Include="Assets\Dragonborn\Spellbreaker.cs" />
      <Compile Include="Assets\Ekko\EkkoBase.cs" />
      <Compile Include="Assets\ExplodeOnHit.cs" />
      <Compile Include="Assets\GameManager.cs" />
@@ -62,6 +63,8 @@
      <Compile Include="Assets\HankHill\Propane.cs" />
      <Compile Include="Assets\JimmyNeutron\BrainBlast.cs" />
      <Compile Include="Assets\JimmyNeutron\JimmyBase.cs" />
+     <Compile Include="Assets\KillRad.cs" />
+     <Compile Include="Assets\LifeDisplay.cs" />
      <Compile Include="Assets\PercentDisplay.cs" />
      <Compile Include="Assets\Pete\PenguinBase.cs" />
      <Compile Include="Assets\Roblox\RobloxBase.cs" />
@@ -70,6 +73,7 @@
      <Compile Include="Assets\Thomas\ThomasBase.cs" />
      <Compile Include="Assets\Vision\VisionBase.cs" />
      <Compile Include="Assets\deathTimer.cs" />
+     <None Include="Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

@@ -9,8 +9,21 @@ public class GameManager : MonoBehaviour {
     public GameObject player2Spawn;
     public GameObject p1score;
     public GameObject p2score;
+    public GameObject player1Respawn;
+    public GameObject player2Respawn;
+    public LifeDisplay player1Life;
+    public LifeDisplay player2Life;
+    public GameObject mainCamera;
+    public GameObject background;
+    public GameObject winner;
+    public GameObject selectionCanvas;
+
     public void startGame()
     {
+        player1Life.life = 5;
+        player1Life.updateLifeDisplay();
+        player2Life.life = 5;
+        player2Life.updateLifeDisplay();
         GameObject Player1 = GameObject.Instantiate((GameObject)Resources.Load(player1Selection));
         GameObject Player2 = GameObject.Instantiate((GameObject)Resources.Load(player2Selection));
         Player1.transform.position = player1Spawn.transform.position;
@@ -19,5 +32,65 @@ public class GameManager : MonoBehaviour {
         p2score = GameObject.Find(player2Selection + "P");
         p1score.transform.position -= new Vector3(0, -350, 0);
         p2score.transform.position -= new Vector3(0, -350, 0);
+    }
+    public void respawnP1()
+    {
+        player1Life.LoseLife();
+        if (player1Life.life > 0)
+        {
+            Invoke("spawnp1", 5);
+        }
+        else
+        {
+            BaseCharMove[] players = FindObjectsOfType<BaseCharMove>();
+            winner = GameObject.Find(player2Selection + "W");
+            Invoke("moveWinner", 1);
+            background.SetActive(true);
+            foreach (BaseCharMove target in players)
+            {
+                Destroy(target);
+            }
+            Invoke("newGame", 3);
+        }
+    }
+    void moveWinner()
+    {
+        winner.transform.position += new Vector3(0, -420, 0);
+    }
+    public void respawnP2()
+    {
+        player2Life.LoseLife();
+        if (player2Life.life > 0)
+        {
+            Invoke("spawnp2", 5);
+        }
+        else
+        {
+            BaseCharMove[] players = FindObjectsOfType<BaseCharMove>();
+            winner = GameObject.Find(player1Selection + "W");
+            Invoke("moveWinner", 1);
+            background.SetActive(true);
+            foreach (BaseCharMove target in players)
+            {
+                Destroy(target);
+            }
+            Invoke("newGame", 3);
+        }
+    }
+    void spawnp1()
+    {
+        GameObject Player1 = GameObject.Instantiate((GameObject)Resources.Load(player1Selection));
+        Player1.transform.position = player1Respawn.transform.position;
+    }
+    void spawnp2()
+    {
+        GameObject Player2 = GameObject.Instantiate((GameObject)Resources.Load(player2Selection));
+        Player2.transform.position = player2Respawn.transform.position;
+    }
+    public void newGame()
+    {
+        winner.transform.position += new Vector3(0, 420, 0);
+        background.SetActive(false);
+        selectionCanvas.SetActive(true);
     }
 }
