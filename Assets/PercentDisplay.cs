@@ -22,4 +22,9 @@ public class PercentDisplay : MonoBehaviour {
     {
         percentDisplay.text = percent.ToString();
     }
+    public void resetPercentDisplay()
+    {
+        percent = 0;
+        updatePercentDisplay();
+    }
 }

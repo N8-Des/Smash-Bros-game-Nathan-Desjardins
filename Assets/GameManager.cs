@@ -20,9 +20,9 @@ public class GameManager : MonoBehaviour {
 
     public void startGame()
     {
-        player1Life.life = 5;
+        player1Life.life = 3;
         player1Life.updateLifeDisplay();
-        player2Life.life = 5;
+        player2Life.life = 3;
         player2Life.updateLifeDisplay();
         GameObject Player1 = GameObject.Instantiate((GameObject)Resources.Load(player1Selection));
         GameObject Player2 = GameObject.Instantiate((GameObject)Resources.Load(player2Selection));
@@ -50,12 +50,15 @@ public class GameManager : MonoBehaviour {
             {
                 Destroy(target);
             }
+            GameObject winningPlayer = GameObject.Find(player2Selection + "(Clone)");
+            BaseCharMove basic = winningPlayer.GetComponent<BaseCharMove>();
+            basic.death(false);
             Invoke("newGame", 3);
         }
     }
     void moveWinner()
     {
-        winner.transform.position += new Vector3(0, -420, 0);
+        winner.transform.position += new Vector3(0, -700, 0);
     }
     public void respawnP2()
     {
@@ -74,6 +77,9 @@ public class GameManager : MonoBehaviour {
             {
                 Destroy(target);
             }
+            GameObject winningPlayer = GameObject.Find(player1Selection + "(Clone)");
+            BaseCharMove basic = winningPlayer.GetComponent<BaseCharMove>();
+            basic.death(false);
             Invoke("newGame", 3);
         }
     }
@@ -89,8 +95,12 @@ public class GameManager : MonoBehaviour {
     }
     public void newGame()
     {
-        winner.transform.position += new Vector3(0, 420, 0);
+        p1score.transform.position -= new Vector3(0, 350, 0);
+        p2score.transform.position -= new Vector3(0, 350, 0);
+        winner.transform.position -= new Vector3(0, 700, 0);
         background.SetActive(false);
         selectionCanvas.SetActive(true);
+        CharSelect charSelection = selectionCanvas.GetComponent<CharSelect>();
+        charSelection.isUseful = true;
     }
 }

@@ -5,8 +5,11 @@ using UnityEngine;
 public class Propane : MonoBehaviour {
     public void OnTriggerEnter(Collider other)
     {
-        GameObject explosion = Instantiate((GameObject)Resources.Load("explode"));
-        explosion.transform.position = gameObject.transform.position;
-        Destroy(gameObject);
+        if (other.tag != "KillRad")
+        {
+            GameObject explosion = Instantiate((GameObject)Resources.Load("explode"));
+            explosion.transform.position = gameObject.transform.position;
+            Destroy(gameObject);
+        }
     }
 }

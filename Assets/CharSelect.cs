@@ -142,19 +142,40 @@ public class CharSelect : MonoBehaviour {
             canSelect2 = false;
             if (lastInput2 == "Right" && !player2Selected)
             {
-                currentlySelected2.SetActive(false);
-                onNumber2 += 1;
-                currentlySelected2 = player2Char[onNumber2];
-                currentlySelected2.SetActive(true);
-                Invoke("waitToSelect2", 0.3f);
+                if (onNumber2 + 1 >= player2Char.Count)
+                {
+                    currentlySelected2.SetActive(false);
+                    onNumber2 = 0;
+                    currentlySelected2 = player2Char[0];
+                    currentlySelected2.SetActive(true);
+                    Invoke("waitToSelect2", 0.3f);
+                }
+                else
+                {
+                    currentlySelected2.SetActive(false);
+                    onNumber2 += 1;
+                    currentlySelected2 = player2Char[onNumber2];
+                    currentlySelected2.SetActive(true);
+                    Invoke("waitToSelect2", 0.3f);
+                }
             }
             else if (lastInput2 == "Left" && !player2Selected)
             {
+                if (onNumber2 - 1 < 0)
+                {
+                    currentlySelected2.SetActive(false);
+                    onNumber2 = player2Char.Count - 1;
+                    currentlySelected2 = player2Char[onNumber2];
+                    currentlySelected2.SetActive(true);
+                    Invoke("waitToSelect2", 0.3f);
+
+                } else { 
                 currentlySelected2.SetActive(false);
                 onNumber2 -= 1;
                 currentlySelected2 = player2Char[onNumber2];
                 currentlySelected2.SetActive(true);
                 Invoke("waitToSelect2", 0.3f);
+                }
             }
             else
             {
@@ -170,18 +191,40 @@ public class CharSelect : MonoBehaviour {
             canSelect = false;
             if (lastInput == "Right" && !player1Selected)
             {
-                currentlySelected.SetActive(false);
-                onNumber += 1;
-                currentlySelected = player1Char[onNumber];
-                currentlySelected.SetActive(true);
-                Invoke("waitToSelect", 0.3f);
+                if (onNumber + 1 >= player1Char.Count)
+                {
+                    currentlySelected.SetActive(false);
+                    onNumber = 0;
+                    currentlySelected = player1Char[0];
+                    currentlySelected.SetActive(true);
+                    Invoke("waitToSelect", 0.3f);
+                }
+                else
+                {
+                    currentlySelected.SetActive(false);
+                    onNumber += 1;
+                    currentlySelected = player1Char[onNumber];
+                    currentlySelected.SetActive(true);
+                    Invoke("waitToSelect", 0.3f);
+                }
             } else if (lastInput == "Left" && !player1Selected)
             {
-                currentlySelected.SetActive(false);
-                onNumber -= 1;
-                currentlySelected = player1Char[onNumber];
-                currentlySelected.SetActive(true);
-                Invoke("waitToSelect", 0.3f);
+                if (onNumber - 1 < 0)
+                {
+                    currentlySelected.SetActive(false);
+                    onNumber = player1Char.Count - 1;
+                    currentlySelected = player1Char[onNumber];
+                    currentlySelected.SetActive(true);
+                    Invoke("waitToSelect", 0.3f);
+                }
+                else
+                {
+                    currentlySelected.SetActive(false);
+                    onNumber -= 1;
+                    currentlySelected = player1Char[onNumber];
+                    currentlySelected.SetActive(true);
+                    Invoke("waitToSelect", 0.3f);
+                }
             }
             else
             {

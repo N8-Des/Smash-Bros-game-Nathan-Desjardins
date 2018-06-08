@@ -95,14 +95,14 @@ public class BraumBase : BaseCharMove
     {
         me = gameObject.GetComponent<Rigidbody>();
         iCanMove = true;
-        me.velocity = moveSpeed * 5;
+        me.velocity = moveSpeed * 2;
         Invoke("deactivate", 0.26f);
     }
     public override void bLeft()
     {
         me = gameObject.GetComponent<Rigidbody>();
         iCanMove = true;
-        me.velocity = moveSpeed * -5;
+        me.velocity = moveSpeed * -2;
         Invoke("deactivate", 0.26f);
 
     }

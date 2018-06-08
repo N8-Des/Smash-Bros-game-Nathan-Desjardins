@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Bacteriophage\BillyBase.cs" />
      <Compile Include="Assets\BaseCharMove.cs" />
      <Compile Include="Assets\BaseHit.cs" />
      <Compile Include="Assets\BasicHurtbox.cs" />
@@ -69,6 +70,7 @@
      <Compile Include="Assets\Pete\PenguinBase.cs" />
      <Compile Include="Assets\Roblox\RobloxBase.cs" />
      <Compile Include="Assets\Shrek\ShrekBase.cs" />
+     <Compile Include="Assets\Sora\SoraBase.cs" />
      <Compile Include="Assets\Spongebob\SpongeBase.cs" />
      <Compile Include="Assets\Thomas\ThomasBase.cs" />
      <Compile Include="Assets\Vision\VisionBase.cs" />

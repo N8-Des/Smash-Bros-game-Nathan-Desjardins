@@ -12,11 +12,11 @@ public class KillRad : MonoBehaviour {
             BaseCharMove standard = other.GetComponent<BaseCharMove>();
             if (other.name == (manager.player1Selection + "(Clone)"))
             {
-                standard.death();
+                standard.death(true);
                 manager.respawnP1();
             } else if (other.name == (manager.player2Selection + "(Clone)"))
             {
-                standard.death();
+                standard.death(true);
                 manager.respawnP2();
             }
         }

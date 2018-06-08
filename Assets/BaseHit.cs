@@ -13,6 +13,8 @@ public class BaseHit : MonoBehaviour {
     public void Start()
     {
         anim = gameObject.GetComponent<Animator>();
+        pdisplay = GameObject.Find(UIname).GetComponent<PercentDisplay>();
+
     }
     public virtual void TakeAttack(int damage, Vector3 knockback)
     {
@@ -30,4 +32,9 @@ public class BaseHit : MonoBehaviour {
         anim.SetBool("knockedBack", false);
         isKnockedBack = false;
     }
+    public void resetPerc() {
+        percent = 0;
+        pdisplay.resetPercentDisplay();
+    }
+
 }

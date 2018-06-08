@@ -54,8 +54,10 @@ public class BaseCharMove : MonoBehaviour
         anim = gameObject.GetComponent<Animator>();
         rb = gameObject.GetComponent<Rigidbody>();
     }
-    public void death()
+    public void death(bool edgeDeath)
     {
+        BaseHit pdis = gameObject.GetComponent<BaseHit>();
+        pdis.resetPerc();
         //GameObject sound = GameObject.Instantiate((GameObject)Resources.Load(deathNoise));
         Destroy(gameObject);
     }
