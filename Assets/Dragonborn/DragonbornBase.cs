@@ -93,11 +93,11 @@ public class DragonbornBase : BaseCharMove
     }
     public override void bRight()
     {
-        Invoke("baseStop", 1.1f);
+        Invoke("baseStop", 2.3f);
     }
     public override void bLeft()
     {
-        Invoke("baseStop", 1.1f);
+        Invoke("baseStop", 2.3f);
     }
     public void baseStop()
     {

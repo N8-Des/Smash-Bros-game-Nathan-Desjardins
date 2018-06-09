@@ -20,9 +20,9 @@ public class GameManager : MonoBehaviour {
 
     public void startGame()
     {
-        player1Life.life = 3;
+        player1Life.life = 4;
         player1Life.updateLifeDisplay();
-        player2Life.life = 3;
+        player2Life.life = 4;
         player2Life.updateLifeDisplay();
         GameObject Player1 = GameObject.Instantiate((GameObject)Resources.Load(player1Selection));
         GameObject Player2 = GameObject.Instantiate((GameObject)Resources.Load(player2Selection));
@@ -30,15 +30,15 @@ public class GameManager : MonoBehaviour {
         Player2.transform.position = player2Spawn.transform.position;
         p1score = GameObject.Find(player1Selection + "P");
         p2score = GameObject.Find(player2Selection + "P");
-        p1score.transform.position -= new Vector3(0, -350, 0);
-        p2score.transform.position -= new Vector3(0, -350, 0);
+        p1score.transform.position -= new Vector3(0, -594, 0);
+        p2score.transform.position -= new Vector3(0, -594, 0);
     }
     public void respawnP1()
     {
         player1Life.LoseLife();
         if (player1Life.life > 0)
         {
-            Invoke("spawnp1", 5);
+            Invoke("spawnp1", 4);
         }
         else
         {
@@ -53,19 +53,21 @@ public class GameManager : MonoBehaviour {
             GameObject winningPlayer = GameObject.Find(player2Selection + "(Clone)");
             BaseCharMove basic = winningPlayer.GetComponent<BaseCharMove>();
             basic.death(false);
-            Invoke("newGame", 3);
+            Invoke("newGame", 4);
         }
     }
     void moveWinner()
     {
         winner.transform.position += new Vector3(0, -700, 0);
+        Winner won = winner.GetComponent<Winner>();
+        won.voiceline();
     }
     public void respawnP2()
     {
         player2Life.LoseLife();
         if (player2Life.life > 0)
         {
-            Invoke("spawnp2", 5);
+            Invoke("spawnp2", 4);
         }
         else
         {
@@ -80,7 +82,7 @@ public class GameManager : MonoBehaviour {
             GameObject winningPlayer = GameObject.Find(player1Selection + "(Clone)");
             BaseCharMove basic = winningPlayer.GetComponent<BaseCharMove>();
             basic.death(false);
-            Invoke("newGame", 3);
+            Invoke("newGame", 4);
         }
     }
     void spawnp1()

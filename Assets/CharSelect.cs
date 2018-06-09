@@ -47,6 +47,7 @@ public class CharSelect : MonoBehaviour {
             if (Input.GetButton("Start"))
             {
                 gameManager.startGame();
+                Debug.Log("WHAT");
                 gameObject.SetActive(false);
             }
         }

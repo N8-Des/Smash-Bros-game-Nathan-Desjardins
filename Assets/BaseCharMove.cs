@@ -58,7 +58,7 @@ public class BaseCharMove : MonoBehaviour
     {
         BaseHit pdis = gameObject.GetComponent<BaseHit>();
         pdis.resetPerc();
-        //GameObject sound = GameObject.Instantiate((GameObject)Resources.Load(deathNoise));
+        GameObject sound = GameObject.Instantiate((GameObject)Resources.Load(deathNoise));
         Destroy(gameObject);
     }
     public void OnCollisionStay(Collision other)
@@ -234,6 +234,7 @@ public class BaseCharMove : MonoBehaviour
             canMove = false;
             if (neutralY && neutralX)
             {
+                anim.ResetTrigger("NeutA");
                 anim.SetTrigger("NeutA");
                 Invoke("BaseA", BADelay);
             }

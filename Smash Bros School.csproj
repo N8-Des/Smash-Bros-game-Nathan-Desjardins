@@ -84,8 +84,11 @@
     <Compile Include="Assets\BasicHurtbox.cs" />
     <Compile Include="Assets\BasicStunHitbox.cs" />
     <Compile Include="Assets\Braum\BraumBase.cs" />
+    <Compile Include="Assets\Braum\BraumMovement.cs" />
     <Compile Include="Assets\BuckCluck\BuckBase.cs" />
     <Compile Include="Assets\CharSelect.cs" />
+    <Compile Include="Assets\CharacterMove.cs" />
+    <Compile Include="Assets\Courier\CourierBase.cs" />
     <Compile Include="Assets\DannyPhantom\DannyBase.cs" />
     <Compile Include="Assets\Dragonborn\DragonbornBase.cs" />
     <Compile Include="Assets\Dragonborn\Spellbreaker.cs" />
@@ -102,6 +105,7 @@
     <Compile Include="Assets\Pete\PenguinBase.cs" />
     <Compile Include="Assets\Roblox\RobloxBase.cs" />
     <Compile Include="Assets\Shrek\ShrekBase.cs" />
+    <Compile Include="Assets\Sora\SoraBase.cs" />
     <Compile Include="Assets\Spongebob\SpongeBase.cs" />
     <Compile Include="Assets\Thomas\ThomasBase.cs" />
     <Compile Include="Assets\Vision\VisionBase.cs" />

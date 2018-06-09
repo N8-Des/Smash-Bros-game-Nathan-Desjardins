@@ -117,29 +117,9 @@ public class SoraBase : BaseCharMove
     {
         Invoke("baseStop", 1.2f);
     }
-
-    public void ShootBilly()
-    {
-        GameObject bullet = GameObject.Instantiate((GameObject)Resources.Load("BillyBullet"));
-        Rigidbody arr = bullet.GetComponent<Rigidbody>();
-        //audioStrike.Play();
-        if (!isRight)
-        {
-            bullet.transform.rotation = new Quaternion(0, 180, 0, 0);
-            bullet.transform.position = transform.position + new Vector3(0, 0.2f, -0.3f);
-            arr.velocity = new Vector3(0, 2, -8);
-            Invoke("baseStop", 0.7f);
-        }
-        else
-        {
-            bullet.transform.position = transform.position + new Vector3(0, 0.2f, 0.3f);
-            arr.velocity = new Vector3(0, 2, 8);
-            Invoke("baseStop", 0.7f);
-        }
-        //anim.ResetTrigger("NeutB");
-    }
     public override void bDown()
     {
-        Invoke("deactivate", 1.3f);
+        anim.ResetTrigger("DoneBDown");
+        Invoke("deactivate", 4f);
     }
 }
