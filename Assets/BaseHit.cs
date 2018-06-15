@@ -20,6 +20,7 @@ public class BaseHit : MonoBehaviour {
     {
         pdisplay = GameObject.Find(UIname).GetComponent<PercentDisplay>();
         anim.SetBool("knockedBack", true);
+        anim.SetBool("IsIdle", true);
         isKnockedBack = true;
         pdisplay.takeDamage(damage);
         //Debug.Log((knockback.y + knockback.z) * (percent / 4) * (kbResist));

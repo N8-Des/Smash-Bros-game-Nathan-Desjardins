@@ -27,19 +27,7 @@ public class CharacterMove : MonoBehaviour
     public Vector3 moveSpeedAirR;
     public Vector3 moveSpeedAirL;
     public Animator anim;
-    public float BADelay;
-    public float SADelay;
-    public float UADelay;
-    public float JDelay;
-    public float FADelay;
-    public float DADelay;
-    public float NADelay;
-    public float BSDelay;
-    public float BUDelay;
-    public float BBDelay;
-    public float BDDelay;
-    public float BARDelay;
-    public float UARDelay;
+    public float JDelay = 0.01f;
     public bool onGround;
     public bool canJump;
     public bool canBUp = true;
@@ -48,7 +36,9 @@ public class CharacterMove : MonoBehaviour
     public BaseHit damageControl;
     public bool isRight = true;
     public string deathNoise;
-    public void Start()
+    public bool isLedged = false;
+    public Vector3 ledgeOffset;
+    public void OnEnable()
     {
         inputBufferList.Add("ShutUpCount");
         damageControl = gameObject.GetComponent<BaseHit>();
@@ -80,15 +70,26 @@ public class CharacterMove : MonoBehaviour
                 canBUp = true;
             }
 
-            if (anim.GetCurrentAnimatorStateInfo(0).IsName("IdleAir") || anim.GetCurrentAnimatorStateInfo(0).IsName("Dair") || anim.GetCurrentAnimatorStateInfo(0).IsName("BDown") || anim.GetCurrentAnimatorStateInfo(0).IsName("Nair"))
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName("IdleAir") || anim.GetCurrentAnimatorStateInfo(0).IsName("Dair") || anim.GetCurrentAnimatorStateInfo(0).IsName("BDown") || anim.GetCurrentAnimatorStateInfo(0).IsName("Nair") || anim.GetCurrentAnimatorStateInfo(0).IsName("Fair") || anim.GetCurrentAnimatorStateInfo(0).IsName("Bair") || anim.GetCurrentAnimatorStateInfo(0).IsName("Uair"))
             {
                 canJump = true;
+                anim.SetBool("isAttacking", false);
                 anim.SetBool("IsIdle", true);
+                canAttack = true;
+                canMove = true;
                 if (!iCanMove)
                 {
                     rb.velocity = new Vector3(0, 0, 0);
                 }
             }
+        }
+        else if (other.collider.tag == "EdgeGrab")
+        {
+            isLedged = true;
+            anim.SetBool("Ledge", true);
+            transform.position = other.transform.position + ledgeOffset;
+            rb.velocity = new Vector3(0, 0, 0);
+            rb.useGravity = false;
         }
     }
     public void OnCollisionExit(Collision other)
@@ -97,7 +98,6 @@ public class CharacterMove : MonoBehaviour
         {
             inAir = true;
             anim.SetBool("InAir", true);
-            Debug.Log("AAAAA");
             onGround = false;
         }
     }
@@ -107,6 +107,7 @@ public class CharacterMove : MonoBehaviour
     public virtual void baseB() { }
     public virtual void bDown() { }
     public virtual void jump() { }
+    public virtual void attacking() { }
     public void FixedUpdate()
     {
         inputBuffer();
@@ -143,6 +144,7 @@ public class CharacterMove : MonoBehaviour
             if (neutralX && neutralY)
             {
                 anim.SetTrigger("NeutB");
+                attacking();
             }
             else
             {
@@ -157,6 +159,8 @@ public class CharacterMove : MonoBehaviour
             transform.rotation = new Quaternion(0, 0, 0, 0);
             isRight = true;
             anim.SetTrigger("BSide");
+            attacking();
+
         }
         else
         {
@@ -170,6 +174,7 @@ public class CharacterMove : MonoBehaviour
             isRight = false;
             transform.rotation = new Quaternion(0, 180, 0, 0);
             anim.SetTrigger("BSide");
+            attacking();
         }
         else
         {
@@ -182,7 +187,9 @@ public class CharacterMove : MonoBehaviour
         {
             iCanMove = true;
             canBUp = false;
-            anim.SetBool("BUp", true);
+            anim.SetTrigger("BUp");
+            attacking();
+
         }
         else
         {
@@ -194,6 +201,7 @@ public class CharacterMove : MonoBehaviour
         if (lastInput == "Down")
         {
             anim.SetTrigger("BDown");
+            attacking();
         }
         else
         {
@@ -212,6 +220,7 @@ public class CharacterMove : MonoBehaviour
             iCanMove = true;
             canJump = false;
             canMove = false;
+            anim.SetBool("IsIdle", false);
             anim.SetTrigger("Jump");
             Invoke("jump", JDelay);
             inAir = true;
@@ -225,10 +234,11 @@ public class CharacterMove : MonoBehaviour
             canJump = false;
             canAttack = false;
             canMove = false;
-            anim.SetBool("CanAttack", false);
+            anim.SetBool("IsIdle", false);
             if (neutralY && neutralX)
             {
                 anim.SetTrigger("NeutA");
+                attacking();
             }
             else
             {
@@ -240,10 +250,11 @@ public class CharacterMove : MonoBehaviour
             lastInput = getLastInput();
             canAttack = false;
             canMove = false;
-            anim.SetBool("CanAttack", false);
+            anim.SetBool("IsIdle", false);
             if (neutralY && neutralX)
             {
                 anim.SetTrigger("Nair");
+                attacking();
             }
             else
             {
@@ -256,6 +267,7 @@ public class CharacterMove : MonoBehaviour
         if (lastInput == "Right")
         {
             anim.SetTrigger("Fair");
+            attacking();
         }
         else
         {
@@ -267,6 +279,7 @@ public class CharacterMove : MonoBehaviour
         if (lastInput == "Down")
         {
             anim.SetTrigger("Dair");
+            attacking();
         }
         else
         {
@@ -278,6 +291,7 @@ public class CharacterMove : MonoBehaviour
         if (lastInput == "Up")
         {
             anim.SetTrigger("Uair");
+            attacking();
         }
         else
         {
@@ -289,6 +303,7 @@ public class CharacterMove : MonoBehaviour
         if (lastInput == "Left")
         {
             anim.SetTrigger("Bair");
+            attacking();
         }
         else
         {
@@ -309,6 +324,7 @@ public class CharacterMove : MonoBehaviour
             else
             {
                 anim.SetTrigger("RightA");
+                attacking();
             }
         }
         else
@@ -325,10 +341,12 @@ public class CharacterMove : MonoBehaviour
             {
                 transform.rotation = new Quaternion(0, 0, 0, 0);
                 anim.SetTrigger("RightA");
+                attacking();
             }
             else
             {
                 anim.SetTrigger("RightA");
+                attacking();
             }
         }
         else
@@ -341,6 +359,7 @@ public class CharacterMove : MonoBehaviour
         if (lastInput == "Up")
         {
             anim.SetTrigger("UpA");
+            attacking();
         }
         else
         {
@@ -352,6 +371,7 @@ public class CharacterMove : MonoBehaviour
         if (lastInput == "Down")
         {
             anim.SetTrigger("DownA");
+            attacking();
         }
         else
         {
@@ -396,7 +416,7 @@ public class CharacterMove : MonoBehaviour
     }
     void moveUpdate()
     {
-        if (!iCanMove && !damageControl.isKnockedBack && !isJumping)
+        if (!iCanMove && !damageControl.isKnockedBack && !isJumping && !isLedged)
         {
             if (isWalking && inAir && neutralX)
             {
@@ -444,15 +464,39 @@ public class CharacterMove : MonoBehaviour
                 if (lastInput == "Right")
                 {
                     transform.rotation = new Quaternion(0, 0, 0, 0);
-                    rb.velocity = moveSpeedAirR;
+                    if (rb.velocity.z <= 1)
+                    {
+                        rb.AddForce(0, 0, 5000);
+                    }
                     isWalking = true;
                 }
                 if (lastInput == "Left")
                 {
                     transform.rotation = new Quaternion(0, 180, 0, 0);
-                    rb.velocity = moveSpeedAirL;
+                    if (rb.velocity.z >= -1)
+                    {
+                        rb.AddForce(0, 0, -5000);
+                    }
                     isWalking = true;
                 }
+            }
+        }
+        else if (isLedged)
+        {
+            if (lastInput == "Left")
+            {
+                transform.position -= new Vector3(0, 0.4f, 0.2f);
+                anim.SetBool("Ledge", false);
+                transform.rotation = new Quaternion(0, 0, 0, 0);
+                rb.useGravity = true;
+
+            }
+            else if (lastInput == "Right")
+            {
+                transform.position += new Vector3(0, 0.4f, 0.2f);
+                anim.SetBool("Ledge", false);
+                transform.rotation = new Quaternion(0, 180, 0, 0);
+                rb.useGravity = true;
             }
         }
     }

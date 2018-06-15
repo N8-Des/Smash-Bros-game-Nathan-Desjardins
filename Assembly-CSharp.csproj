@@ -62,6 +62,7 @@
      <Compile Include="Assets\Dragonborn\Spellbreaker.cs" />
      <Compile Include="Assets\Ekko\EkkoBase.cs" />
      <Compile Include="Assets\ExplodeOnHit.cs" />
+     <Compile Include="Assets\FCN\FcnMovement.cs" />
      <Compile Include="Assets\GameManager.cs" />
      <Compile Include="Assets\HankHill\HankBase.cs" />
      <Compile Include="Assets\HankHill\Propane.cs" />
@@ -69,15 +70,16 @@
      <Compile Include="Assets\JimmyNeutron\JimmyBase.cs" />
      <Compile Include="Assets\KillRad.cs" />
      <Compile Include="Assets\LifeDisplay.cs" />
+     <Compile Include="Assets\Lotus\LotusMovement.cs" />
      <Compile Include="Assets\PercentDisplay.cs" />
      <Compile Include="Assets\Pete\PenguinBase.cs" />
+     <Compile Include="Assets\ProjectileShield.cs" />
      <Compile Include="Assets\Roblox\RobloxBase.cs" />
      <Compile Include="Assets\Shrek\ShrekBase.cs" />
      <Compile Include="Assets\Sora\SoraBase.cs" />
      <Compile Include="Assets\Spongebob\SpongeBase.cs" />
      <Compile Include="Assets\Thomas\ThomasBase.cs" />
      <Compile Include="Assets\Vision\VisionBase.cs" />
-     <Compile Include="Assets\Winner.cs" />
      <Compile Include="Assets\deathTimer.cs" />
      <None Include="Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
  <Reference Include="UnityEngine.UI">

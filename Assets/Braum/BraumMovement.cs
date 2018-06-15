@@ -8,6 +8,7 @@ public class BraumMovement : CharacterMove
     public Rigidbody PresentRB;
     public AudioSource audioStrike;
     public ParticleSystem part;
+    public bool isShooting = false;
     void Update()
     {
         if (moveRight == true || moveLeft == true)
@@ -19,6 +20,15 @@ public class BraumMovement : CharacterMove
         {
             anim.SetBool("isWalking", false);
             anim.SetBool("IsIdle", true);
+        }
+    }
+    public override void attacking()
+    {
+        if (!anim.GetBool("isAttacking"))
+        {
+            anim.SetBool("CanAttack", false);
+            anim.SetBool("IsIdle", false);
+            anim.SetBool("isAttacking", true);
         }
     }
     public override void jump()
@@ -39,10 +49,12 @@ public class BraumMovement : CharacterMove
     {
         iCanMove = false;
         me.velocity = new Vector3(0, 0, 0);
-        anim.SetTrigger("DoneBSide");
-        anim.SetTrigger("DoneBDown");
         canMove = true;
         canAttack = true;
+        anim.SetBool("isAttacking", false);
+        anim.SetBool("IsIdle", true);
+
+
     }
     public override void bRight()
     {
@@ -57,13 +69,30 @@ public class BraumMovement : CharacterMove
         iCanMove = true;
         me.velocity = moveSpeed * -2;
         Invoke("deactivate", 0.26f);
+    }
+    public void bSide() {
+        if (isRight)
+        {
+            me = gameObject.GetComponent<Rigidbody>();
+            iCanMove = true;
+            me.velocity = moveSpeed * 2;
+            Invoke("deactivate", 0.26f);
+        } else
+        {
+            me = gameObject.GetComponent<Rigidbody>();
+            iCanMove = true;
+            me.velocity = moveSpeed * -2;
+            Invoke("deactivate", 0.26f);
+        }
 
     }
     public void baseStop()
     {
+        isShooting = false;
         canAttack = true;
         canMove = true;
         anim.SetBool("CanAttack", true);
+        anim.SetBool("isAttacking", false);
         if (onGround)
         {
             anim.SetBool("IsIdle", true);
@@ -72,16 +101,8 @@ public class BraumMovement : CharacterMove
 
     public override void bUp()
     {
-        rb.velocity = new Vector3(0, 6, 0);
-        Invoke("StopEverything", 0.3f);
-    }
-    public void StopEverything()
-    {
-        anim.SetBool("BUp", false);
-        canAttack = true;
-        canMove = true;
-        iCanMove = false;
-        //rb.velocity = new Vector3(0, 0, 0);
+        rb.AddForce(0, 6000, 0);
+        Invoke("deactivate", 0.3f);
     }
     public override void baseB()
     {
@@ -94,23 +115,27 @@ public class BraumMovement : CharacterMove
     }
     public void present()
     {
-        GameObject Present = GameObject.Instantiate((GameObject)Resources.Load("BraumPresent"));
-        PresentRB = Present.GetComponent<Rigidbody>();
-        audioStrike.Play();
-        if (!isRight)
+        if (!isShooting)
         {
-            Present.transform.rotation = new Quaternion(0, 180, 0, 0);
-            Present.transform.position = transform.position + new Vector3(0, 0.3f, -1);
-            PresentRB.velocity = new Vector3(0, 0, -4);
-            Invoke("baseStop", 0.6f);
+            isShooting = true;
+            GameObject Present = GameObject.Instantiate((GameObject)Resources.Load("BraumPresent"));
+            PresentRB = Present.GetComponent<Rigidbody>();
+            audioStrike.Play();
+            if (!isRight)
+            {
+                Present.transform.rotation = new Quaternion(0, 180, 0, 0);
+                Present.transform.position = transform.position + new Vector3(0, 0.3f, -1);
+                PresentRB.velocity = new Vector3(0, 0, -4);
+                Invoke("baseStop", 0.6f);
+            }
+            else
+            {
+                Present.transform.position = transform.position + new Vector3(0, 0.3f, 1);
+                PresentRB.velocity = new Vector3(0, 0, 4);
+                Invoke("baseStop", 0.6f);
+            }
+            //anim.ResetTrigger("NeutB");
         }
-        else
-        {
-            Present.transform.position = transform.position + new Vector3(0, 0.3f, 1);
-            PresentRB.velocity = new Vector3(0, 0, 4);
-            Invoke("baseStop", 0.6f);
-        }
-        //anim.ResetTrigger("NeutB");
     }
 
 }
