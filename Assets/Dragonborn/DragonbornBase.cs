@@ -135,14 +135,14 @@ public class DragonbornBase : BaseCharMove
         //audioStrike.Play();
         if (!isRight)
         {
-            Arrow.transform.rotation = new Quaternion(77, 218, 19, 0);
-            Arrow.transform.position = transform.position + new Vector3(0, 0.7f, -0.5f);
+            Arrow.transform.rotation = new Quaternion(0, 0, 180, 0);
+            Arrow.transform.position = transform.position + new Vector3(0, 0.7f, -0.55f);
             arr.velocity = new Vector3(0, 0, -8);
             Invoke("baseStop", 0.4f);
         }
         else
         {
-            Arrow.transform.position = transform.position + new Vector3(0, 0.7f, 0.5f);
+            Arrow.transform.position = transform.position + new Vector3(0, 0.7f, 0.55f);
             arr.velocity = new Vector3(0, 0, 8);
             Invoke("baseStop", 0.4f);
         }

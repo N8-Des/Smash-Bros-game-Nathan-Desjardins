@@ -13,7 +13,6 @@ public class FcnMovement : CharacterMove
     {
         if (moveRight == true || moveLeft == true)
         {
-            Debug.Log("GotchaBitch");
             anim.SetBool("isWalking", true);
             anim.SetBool("IsIdle", false);
         }

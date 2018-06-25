@@ -8,15 +8,37 @@ public class BasicHurtbox : MonoBehaviour {
 
     public void OnTriggerEnter(Collider collider)
     {
-        if (gameObject.transform.parent.gameObject.transform.eulerAngles.y >= 1) //so hitboxes can work left and right.
+        if (gameObject.transform.parent.tag == "Char")
+        {
+            CharacterMove player = gameObject.transform.parent.GetComponent<CharacterMove>();
+            if (player.isRight == false)
+            {
+                KB.z *= -1;
+            }
+            GameObject other = collider.gameObject;
+            BaseHit dmgCtrl = other.GetComponent<BaseHit>();
+            if (dmgCtrl != null && dmgCtrl.transform.parent != this)
+            {
+                dmgCtrl.TakeAttack(damage, KB);
+            }
+        }
+        else if (gameObject.transform.parent.transform.rotation.eulerAngles.y == 180)
         {
             KB.z *= -1;
-        }
-        GameObject other = collider.gameObject;
-        BaseHit dmgCtrl = other.GetComponent<BaseHit>();
-        if (dmgCtrl != null && dmgCtrl.transform.parent != this)
+            GameObject other = collider.gameObject;
+            BaseHit dmgCtrl = other.GetComponent<BaseHit>();
+            if (dmgCtrl != null && dmgCtrl.transform.parent != this)
+            {
+                dmgCtrl.TakeAttack(damage, KB);
+            }
+        }else
         {
-            dmgCtrl.TakeAttack(damage, KB);
+            GameObject other = collider.gameObject;
+            BaseHit dmgCtrl = other.GetComponent<BaseHit>();
+            if (dmgCtrl != null && dmgCtrl.transform.parent != this)
+            {
+                dmgCtrl.TakeAttack(damage, KB);
+            }
         }
     }
 }

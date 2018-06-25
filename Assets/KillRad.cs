@@ -9,7 +9,7 @@ public class KillRad : MonoBehaviour {
     {
         if (other.tag == "Char")
         {
-            BaseCharMove standard = other.GetComponent<BaseCharMove>();
+            CharacterMove standard = other.GetComponent<CharacterMove>();
             if (other.name == (manager.player1Selection + "(Clone)"))
             {
                 standard.death(true);

@@ -107,7 +107,6 @@ public class EkkoBase : BaseCharMove
         iCanMove = true;
         me.velocity = moveSpeed * -1.4f;
         //Invoke("SBpt2", 0.5f);
-
     }
     public void SBpt2()
     {

@@ -38,6 +38,7 @@ public class CharacterMove : MonoBehaviour
     public string deathNoise;
     public bool isLedged = false;
     public Vector3 ledgeOffset;
+    public bool isCountering = false;
     public void OnEnable()
     {
         inputBufferList.Add("ShutUpCount");
@@ -65,10 +66,6 @@ public class CharacterMove : MonoBehaviour
             {
                 inAir = false;
             }
-            if (!canBUp && onGround)
-            {
-                canBUp = true;
-            }
 
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("IdleAir") || anim.GetCurrentAnimatorStateInfo(0).IsName("Dair") || anim.GetCurrentAnimatorStateInfo(0).IsName("BDown") || anim.GetCurrentAnimatorStateInfo(0).IsName("Nair") || anim.GetCurrentAnimatorStateInfo(0).IsName("Fair") || anim.GetCurrentAnimatorStateInfo(0).IsName("Bair") || anim.GetCurrentAnimatorStateInfo(0).IsName("Uair"))
             {
@@ -92,6 +89,13 @@ public class CharacterMove : MonoBehaviour
             rb.useGravity = false;
         }
     }
+    public void OnCollisionEnter(Collision other)
+    {
+        if (!canBUp && other.collider.tag == "Ground")
+        {
+            canBUp = true;
+        }
+    }
     public void OnCollisionExit(Collision other)
     {
         if (other.collider.tag == "Ground")
@@ -108,6 +112,8 @@ public class CharacterMove : MonoBehaviour
     public virtual void bDown() { }
     public virtual void jump() { }
     public virtual void attacking() { }
+    public virtual void counter(int damage) { }
+    public virtual void bSideGrab(GameObject playerHit) { }
     public void FixedUpdate()
     {
         inputBuffer();

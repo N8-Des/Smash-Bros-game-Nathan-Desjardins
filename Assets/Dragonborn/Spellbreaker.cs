@@ -7,8 +7,8 @@ public class Spellbreaker : MonoBehaviour {
     public void OnTriggerEnter(Collider collider)
     {
         GameObject other = collider.gameObject;
-        rb = other.GetComponent<Rigidbody>();
-        BaseHit dmgCtrl = other.GetComponent<BaseHit>();
+        rb = other.transform.parent.GetComponent<Rigidbody>();
+        //BaseHit dmgCtrl = other.GetComponent<BaseHit>();
         if (other.tag == ("Projectile"))
         {
             rb.velocity *= -1;
