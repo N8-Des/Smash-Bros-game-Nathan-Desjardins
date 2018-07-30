@@ -1,0 +1,148 @@
+fileFormatVersion: 2
+guid: a184421ca42944c4abe1a463ca52f24f
+timeCreated: 1530382909
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armature
+    100002: Back
+    100004: Bottom
+    100006: FrontBody
+    100008: Head
+    100010: Jaw_Bottom
+    100012: Jaw_Bottom2
+    100014: Jaw_Bottom2_end
+    100016: jaw_Top
+    100018: jaw_Top_end
+    100020: LeftLegBottom
+    100022: LeftLegBottom_end
+    100024: LeftLegMiddle
+    100026: LeftLegTop
+    100028: LeftWing
+    100030: LeftWing2
+    100032: LeftWing_End
+    100034: LeftWing_End_end
+    100036: LeftWingStart
+    100038: Neck
+    100040: //RootNode
+    100042: Odahviing:0
+    100044: RightLegBottom
+    100046: RightLegBottom_end
+    100048: RightLegMiddle
+    100050: RightLegTop
+    100052: RightWing
+    100054: RightWing2
+    100056: RightWing_End
+    100058: RightWing_End_end
+    100060: RightWingStart
+    100062: Tail
+    100064: Tail2
+    100066: Tail2_end
+    400000: Armature
+    400002: Back
+    400004: Bottom
+    400006: FrontBody
+    400008: Head
+    400010: Jaw_Bottom
+    400012: Jaw_Bottom2
+    400014: Jaw_Bottom2_end
+    400016: jaw_Top
+    400018: jaw_Top_end
+    400020: LeftLegBottom
+    400022: LeftLegBottom_end
+    400024: LeftLegMiddle
+    400026: LeftLegTop
+    400028: LeftWing
+    400030: LeftWing2
+    400032: LeftWing_End
+    400034: LeftWing_End_end
+    400036: LeftWingStart
+    400038: Neck
+    400040: //RootNode
+    400042: Odahviing:0
+    400044: RightLegBottom
+    400046: RightLegBottom_end
+    400048: RightLegMiddle
+    400050: RightLegTop
+    400052: RightWing
+    400054: RightWing2
+    400056: RightWing_End
+    400058: RightWing_End_end
+    400060: RightWingStart
+    400062: Tail
+    400064: Tail2
+    400066: Tail2_end
+    4300000: Odahviing:0
+    9500000: //RootNode
+    13700000: Odahviing:0
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

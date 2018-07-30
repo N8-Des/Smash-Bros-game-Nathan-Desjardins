@@ -6,7 +6,7 @@ public class BasicHurtbox : MonoBehaviour {
     public Vector3 KB;
     public int damage;
 
-    public void OnTriggerEnter(Collider collider)
+    public virtual void OnTriggerEnter(Collider collider)
     {
         if (gameObject.transform.parent.tag == "Char")
         {

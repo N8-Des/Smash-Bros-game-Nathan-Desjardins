@@ -34,7 +34,7 @@ public class ThomasMovement : CharacterMove
     public override void jump()
     {
         anim.ResetTrigger("Jump");
-        rb.AddForce(0, 10000, 0);
+        rb.AddForce(0, 5800, 0);
         canMove = true;
         Invoke("stopJump", 0.2f);
     }
@@ -42,7 +42,7 @@ public class ThomasMovement : CharacterMove
     {
         isJumping = false;
         iCanMove = false;
-        rb.velocity = new Vector3(0, 0, 0);
+        //rb.velocity = new Vector3(0, 0, 0);
         anim.ResetTrigger("Jump");
     }
     public void deactivate()
@@ -129,28 +129,22 @@ public class ThomasMovement : CharacterMove
         //anim.ResetTrigger("BDown");
         Invoke("deactivate", 1);
     }
-    public void ShootBilly()
+    public void Ultimate()
     {
-        if (!isShooting)
+        GameObject Tank = GameObject.Instantiate((GameObject)Resources.Load("CorruptThomas"));
+        PresentRB = Tank.GetComponent<Rigidbody>();
+        LotusUltHitbox ultHB = Tank.GetComponent<LotusUltHitbox>();
+        ultHB.Lotus = this.gameObject;
+        if (!isRight)
         {
-            isShooting = true;
-            GameObject Present = GameObject.Instantiate((GameObject)Resources.Load("BillyBullet"));
-            PresentRB = Present.GetComponent<Rigidbody>();
-            //audioStrike.Play();
-            if (!isRight)
-            {
-                Present.transform.rotation = new Quaternion(0, 180, 0, 0);
-                Present.transform.position = transform.position + new Vector3(0, 0.3f, -0.4f);
-                PresentRB.velocity = new Vector3(0, 0, -5f);
-                //Invoke("baseStop", 0.6f);
-            }
-            else
-            {
-                Present.transform.position = transform.position + new Vector3(0, 0.3f, 0.4f);
-                PresentRB.velocity = new Vector3(0, 0, 5f);
-                //Invoke("baseStop", 0.6f);
-            }
-            //anim.ResetTrigger("NeutB");
+            Tank.transform.rotation = new Quaternion(0, 180, 0, 0);
+            Tank.transform.position = transform.position + new Vector3(0, 0.1f, 3);
+            PresentRB.velocity = new Vector3(0, 0, -6f);
+        }
+        else
+        {
+            Tank.transform.position = transform.position + new Vector3(0, 0.1f, -3);
+            PresentRB.velocity = new Vector3(0, 0, 6f);
         }
     }
 

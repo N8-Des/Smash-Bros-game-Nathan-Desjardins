@@ -9,6 +9,7 @@ public class JimmyMovement : CharacterMove
     public AudioSource audioStrike;
     public ParticleSystem part;
     public bool isShooting = false;
+    public Vector3 normalGrav;
     void Update()
     {
         if (moveRight == true || moveLeft == true)
@@ -34,7 +35,7 @@ public class JimmyMovement : CharacterMove
     public override void jump()
     {
         anim.ResetTrigger("Jump");
-        rb.AddRelativeForce(0, 13000, 0);
+        rb.AddRelativeForce(0, 8600, 0);
         canMove = true;
         Invoke("stopJump", 0.2f);
         /*
@@ -55,7 +56,7 @@ public class JimmyMovement : CharacterMove
     {
         isJumping = false;
         iCanMove = false;
-        rb.velocity = new Vector3(0, 0, 0);
+        //rb.velocity = new Vector3(0, 0, 0);
         anim.ResetTrigger("Jump");
     }
     public void deactivate()
@@ -150,5 +151,25 @@ public class JimmyMovement : CharacterMove
             //anim.ResetTrigger("NeutB");
         }
     }
-
+    public void Ultimate()
+    {
+        normalGrav = Physics.gravity;
+        rb.useGravity = false;
+        Physics.gravity *= -2;
+    }
+    public void Ultimate2()
+    {
+        Physics.gravity *= -7;
+    }
+    public void StopUlt()
+    {
+        isShooting = false;
+        canAttack = true;
+        canMove = true;
+        anim.SetBool("CanAttack", true);
+        anim.SetBool("isAttacking", false);
+        anim.SetBool("IsIdle", true);
+        Physics.gravity = normalGrav;
+        rb.useGravity = true;
+    }
 }

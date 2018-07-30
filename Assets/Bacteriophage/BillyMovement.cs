@@ -34,7 +34,7 @@ public class BillyMovement : CharacterMove
     public override void jump()
     {
         anim.ResetTrigger("Jump");
-        rb.AddForce(0, 13000, 0);
+        rb.AddForce(0, 8400, 0);
         canMove = true;
         Invoke("stopJump", 0.2f);
     }
@@ -42,7 +42,7 @@ public class BillyMovement : CharacterMove
     {
         isJumping = false;
         iCanMove = false;
-        rb.velocity = new Vector3(0, 0, 0);
+        //rb.velocity = new Vector3(0, 0, 0);
         anim.ResetTrigger("Jump");
     }
     public void deactivate()
@@ -123,13 +123,13 @@ public class BillyMovement : CharacterMove
             {
                 Present.transform.rotation = new Quaternion(0, 180, 0, 0);
                 Present.transform.position = transform.position + new Vector3(0, 0.3f, -0.6f);
-                PresentRB.velocity = new Vector3(0, 0, -5f);
+                PresentRB.velocity = new Vector3(0, 2, -5f);
                 //Invoke("baseStop", 0.6f);
             }
             else
             {
                 Present.transform.position = transform.position + new Vector3(0, 0.3f, 0.6f);
-                PresentRB.velocity = new Vector3(0, 0, 5f);
+                PresentRB.velocity = new Vector3(0, 2, 5f);
                 //Invoke("baseStop", 0.6f);
             }
             //anim.ResetTrigger("NeutB");

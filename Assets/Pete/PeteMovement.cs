@@ -34,7 +34,7 @@ public class PeteMovement : CharacterMove
     public override void jump()
     {
         anim.ResetTrigger("Jump");
-        rb.AddForce(0, 13200, 0);
+        rb.AddForce(0, 7300, 0);
         canMove = true;
         Invoke("stopJump", 0.2f);
     }
@@ -42,7 +42,7 @@ public class PeteMovement : CharacterMove
     {
         isJumping = false;
         iCanMove = false;
-        rb.velocity = new Vector3(0, 0, 0);
+        //rb.velocity = new Vector3(0, 0, 0);
         anim.ResetTrigger("Jump");
     }
     public void deactivate()
@@ -125,6 +125,26 @@ public class PeteMovement : CharacterMove
                 //Invoke("baseStop", 0.6f);
             }
             //anim.ResetTrigger("NeutB");
+        }
+    }
+    public void IcebergUltimate()
+    {
+        GameObject Iceberg = GameObject.Instantiate((GameObject)Resources.Load("Iceberg"));
+        PresentRB = Iceberg.GetComponent<Rigidbody>();
+        LotusUltHitbox hurtbox = Iceberg.GetComponent<LotusUltHitbox>();
+        hurtbox.Lotus = this.gameObject;
+        if (!isRight)
+        {
+            Iceberg.transform.rotation = new Quaternion(0, 180, 0, 0);
+            Iceberg.transform.position = transform.position + new Vector3(0, 2.4f, -0.5f);
+            PresentRB.velocity = new Vector3(0, 0, -5);
+            //Invoke("baseStop", 0.6f);
+        }
+        else
+        {
+            Iceberg.transform.position = transform.position + new Vector3(0, 2.4f, 0.5f);
+            PresentRB.velocity = new Vector3(0, 0, 5);
+            //Invoke("baseStop", 0.6f);
         }
     }
 }

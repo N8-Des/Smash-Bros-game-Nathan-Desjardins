@@ -13,10 +13,19 @@ public class GameManager : MonoBehaviour {
     public GameObject player2Respawn;
     public LifeDisplay player1Life;
     public LifeDisplay player2Life;
+    public GameObject Player1;
+    public GameObject Player2;
     public GameObject mainCamera;
     public GameObject background;
     public GameObject winner;
+    public GameObject focus;
     public GameObject selectionCanvas;
+    public ProgressManager Prog1;
+    public ProgressManager Prog2;
+    public CameraFocus cam;
+    public CharacterMove playerOne;
+    public CharacterMove playerTwo;
+
 
     public void startGame()
     {
@@ -32,13 +41,20 @@ public class GameManager : MonoBehaviour {
         p2score = GameObject.Find(player2Selection + "P");
         p1score.transform.position += new Vector3(0, 350, 0);
         p2score.transform.position += new Vector3(0, 350, 0);
+        BaseHit bh1 = Player1.GetComponent<BaseHit>();
+        BaseHit bh2 = Player2.GetComponent<BaseHit>();
+        //bh1.progressBar = Prog1;
+        //bh2.progressBar = Prog2;
+        //cam.Players.Add(Player1);
+        //cam.Players.Add(Player2);
+
     }
     public void respawnP1()
     {
         player1Life.LoseLife();
         if (player1Life.life > 0)
         {
-            Invoke("spawnp1", 5);
+            Invoke("spawnp1", 3);
         }
         else
         {
@@ -65,7 +81,7 @@ public class GameManager : MonoBehaviour {
         player2Life.LoseLife();
         if (player2Life.life > 0)
         {
-            Invoke("spawnp2", 5);
+            Invoke("spawnp2", 3);
         }
         else
         {
@@ -87,11 +103,23 @@ public class GameManager : MonoBehaviour {
     {
         GameObject Player1 = GameObject.Instantiate((GameObject)Resources.Load(player1Selection));
         Player1.transform.position = player1Respawn.transform.position;
+        BaseHit bh1 = Player1.GetComponent<BaseHit>();
+        //bh1.progressBar = Prog1;
+        //cam.Players.RemoveRange(0, cam.Players.Count);
+        //cam.Players.Add(focus);
+        //cam.Players.Add(Player1);
+        //cam.Players.Add(Player2);
     }
     void spawnp2()
     {
         GameObject Player2 = GameObject.Instantiate((GameObject)Resources.Load(player2Selection));
         Player2.transform.position = player2Respawn.transform.position;
+        BaseHit bh2 = Player2.GetComponent<BaseHit>();
+        //bh2.progressBar = Prog2;
+        //cam.Players.RemoveRange(0, cam.Players.Count);
+        //cam.Players.Add(focus);
+        //cam.Players.Add(Player1);
+        //cam.Players.Add(Player2);
     }
     public void newGame()
     {
@@ -102,5 +130,7 @@ public class GameManager : MonoBehaviour {
         selectionCanvas.SetActive(true);
         CharSelect charSelection = selectionCanvas.GetComponent<CharSelect>();
         charSelection.isUseful = true;
+        Prog1.reset();
+        Prog2.reset();
     }
 }

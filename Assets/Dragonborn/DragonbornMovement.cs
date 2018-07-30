@@ -34,7 +34,7 @@ public class DragonbornMovement : CharacterMove
     public override void jump()
     {
         anim.ResetTrigger("Jump");
-        rb.AddForce(0, 10000, 0);
+        rb.AddForce(0, 8000, 0);
         canMove = true;
         Invoke("stopJump", 0.2f);
     }
@@ -42,7 +42,7 @@ public class DragonbornMovement : CharacterMove
     {
         isJumping = false;
         iCanMove = false;
-        rb.velocity = new Vector3(0, 0, 0);
+        //rb.velocity = new Vector3(0, 0, 0);
         anim.ResetTrigger("Jump");
     }
     public void deactivate()
@@ -129,6 +129,24 @@ public class DragonbornMovement : CharacterMove
             Arrow.transform.position = transform.position + new Vector3(0, 0.7f, 0.5f);
             arr.velocity = new Vector3(0, 0, 8);
             Invoke("baseStop", 0.4f);
+        }
+        //anim.ResetTrigger("NeutB");
+    }
+    public void Ultimate()
+    {
+        GameObject DragonOda = GameObject.Instantiate((GameObject)Resources.Load("Odahviing"));
+        Rigidbody drag = DragonOda.GetComponent<Rigidbody>();
+        //audioStrike.Play();
+        if (!isRight)
+        {
+            DragonOda.transform.rotation = new Quaternion(180, 0, 0, 0);
+            DragonOda.transform.position = transform.position + new Vector3(0, 2f, 0.8f);
+            drag.velocity = new Vector3(0, 0, -6);
+        }
+        else
+        {
+            DragonOda.transform.position = transform.position + new Vector3(0, 2f, -0.8f);
+            drag.velocity = new Vector3(0, 0, 6);
         }
         //anim.ResetTrigger("NeutB");
     }

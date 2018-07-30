@@ -8,6 +8,7 @@ public class HankMovement : CharacterMove
     public Rigidbody PresentRB;
     public AudioSource bwaaa;
     public ParticleSystem part;
+    public GameObject propane;
     public bool isShooting = false;
     void Update()
     {
@@ -34,7 +35,7 @@ public class HankMovement : CharacterMove
     public override void jump()
     {
         anim.ResetTrigger("Jump");
-        rb.AddForce(0, 11040, 0);
+        rb.AddForce(0, 8140, 0);
         canMove = true;
         Invoke("stopJump", 0.2f);
     }
@@ -42,7 +43,7 @@ public class HankMovement : CharacterMove
     {
         isJumping = false;
         iCanMove = false;
-        rb.velocity = new Vector3(0, 0, 0);
+        //rb.velocity = new Vector3(0, 0, 0);
         anim.ResetTrigger("Jump");
     }
     public void deactivate()
@@ -118,5 +119,32 @@ public class HankMovement : CharacterMove
         }
         //anim.ResetTrigger("NeutB");
     }
-
+    public void stopUltimate()
+    {
+        isShooting = false;
+        canAttack = true;
+        canMove = true;
+        anim.SetBool("CanAttack", true);
+        anim.SetBool("isAttacking", false);
+        anim.SetBool("IsIdle", true);
+        damageControl.isInvuln = false;
+        Destroy(propane);
+    }
+    public void Ultimate()
+    {
+        damageControl.isInvuln = true;
+        propane = GameObject.Instantiate((GameObject)Resources.Load("PropaneNightmare"));
+        Rigidbody propRB = propane.GetComponent<Rigidbody>();
+        if (!isRight)
+        {
+            propane.transform.rotation = new Quaternion(0, 180, 0, 0);
+            propane.transform.position = transform.position + new Vector3(0, 0.2f, 1.3f);
+            propRB.velocity = new Vector3(0, 0, -3.5f);
+        }
+        else
+        {
+            propane.transform.position = transform.position + new Vector3(0, 0.2f, -1.3f);
+            propRB.velocity = new Vector3(0, 0, 3.5f);
+        }
+    }
 }

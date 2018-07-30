@@ -10,6 +10,8 @@ public class CharacterMove : MonoBehaviour
     public string X;
     public string LeftJoystickX;
     public string LeftJoystickY;
+    public string LeftBumper = "LB";
+    public string RightJoystickDown = "RightPress";
     public bool isJumping = false;
     public Rigidbody rb;
     public bool moveLeft = false;
@@ -39,6 +41,22 @@ public class CharacterMove : MonoBehaviour
     public bool isLedged = false;
     public Vector3 ledgeOffset;
     public bool isCountering = false;
+    public bool blocking = false;
+    public bool canBlock = true;
+    public bool ultReady = false;
+    public ProgressManager progMan;
+    public bool charging;
+    public bool isWet = false;
+    public void getWet()
+    {
+        isWet = true;
+        CancelInvoke("dryOff");
+        Invoke("dryOff", 6);
+    }
+    public void dryOff()
+    {
+        isWet = false;
+    }
     public void OnEnable()
     {
         inputBufferList.Add("ShutUpCount");
@@ -50,10 +68,10 @@ public class CharacterMove : MonoBehaviour
     {
         BaseHit pdis = gameObject.GetComponent<BaseHit>();
         pdis.resetPerc();
-        //GameObject sound = GameObject.Instantiate((GameObject)Resources.Load(deathNoise));
+        GameObject sound = GameObject.Instantiate((GameObject)Resources.Load(deathNoise));
         Destroy(gameObject);
     }
-    public void OnCollisionStay(Collision other)
+    public virtual void OnCollisionStay(Collision other)
     {
         if (other.collider.tag == "Ground")
         {
@@ -89,7 +107,7 @@ public class CharacterMove : MonoBehaviour
             rb.useGravity = false;
         }
     }
-    public void OnCollisionEnter(Collision other)
+    public virtual void OnCollisionEnter(Collision other)
     {
         if (!canBUp && other.collider.tag == "Ground")
         {
@@ -121,6 +139,8 @@ public class CharacterMove : MonoBehaviour
         attackUpdate();
         moveUpdate();
         specialUpdate();
+        shieldCheck();
+        ultCheck();
     }
     public virtual void takeStun(float stunTime)
     {
@@ -139,16 +159,62 @@ public class CharacterMove : MonoBehaviour
         anim.SetBool("CanAttack", true);
 
     }
-    void specialUpdate()
+    public void ultCheck()
     {
-        if ((Input.GetButton(B) || Input.GetKey(KeyCode.A)) && canAttack && !damageControl.isKnockedBack)
+        if (ultReady && Input.GetButton(RightJoystickDown) && canAttack)
         {
-            lastInput = getLastInput();
-            canJump = false;
+            anim.SetTrigger("ult");
             canAttack = false;
             canMove = false;
-            if (neutralX && neutralY)
+            canJump = false;
+            attacking();
+            ultReady = false;
+            //ULTIMATE ATTACK!
+            progMan.reset();
+        }
+    }
+    public void StopEveryThing()
+    {
+        rb.velocity = new Vector3(0, 0, 0);
+        anim.SetBool("isAttacking", false);
+        anim.SetBool("isIdle", true);
+        anim.SetBool("knockedBack", true);
+
+    }
+
+    public void shieldCheck()
+    {
+        if (!inAir && !damageControl.isKnockedBack) {
+            if (Input.GetButton(LeftBumper) && canBlock && !anim.GetBool("isAttacking"))
             {
+                blocking = true;
+                damageControl.isBlocking = true;
+                anim.SetBool("block", true);
+                canJump = false;
+                canAttack = false;
+                canMove = false;
+
+            } else if (blocking)
+            {
+                blocking = false;
+                anim.SetBool("block", false);
+                damageControl.isBlocking = false;
+                canJump = true;
+                canAttack = true;
+                canMove = true;
+            }
+        }
+    }
+    void specialUpdate()
+    {
+        if ((Input.GetButton(B) || Input.GetKey(KeyCode.A)) && canAttack && !damageControl.isKnockedBack && !charging)
+        {
+            lastInput = getLastInput();
+            if (neutralX && neutralY && !inAir)
+            {
+                canJump = false;
+                canAttack = false;
+                canMove = false;
                 anim.SetTrigger("NeutB");
                 attacking();
             }
@@ -158,10 +224,13 @@ public class CharacterMove : MonoBehaviour
             }
         }
     }
-    void SpecialDir1()
+    public virtual void SpecialDir1()
     {
-        if (lastInput == "Right")
+        if (lastInput == "Right" && !inAir)
         {
+            canJump = false;
+            canAttack = false;
+            canMove = false;
             transform.rotation = new Quaternion(0, 0, 0, 0);
             isRight = true;
             anim.SetTrigger("BSide");
@@ -173,10 +242,13 @@ public class CharacterMove : MonoBehaviour
             SpecialDir2();
         }
     }
-    void SpecialDir2()
+    public virtual void SpecialDir2()
     {
-        if (lastInput == "Left")
+        if (lastInput == "Left" && !inAir)
         {
+            canJump = false;
+            canAttack = false;
+            canMove = false;
             isRight = false;
             transform.rotation = new Quaternion(0, 180, 0, 0);
             anim.SetTrigger("BSide");
@@ -187,10 +259,13 @@ public class CharacterMove : MonoBehaviour
             SpecialDir3();
         }
     }
-    void SpecialDir3()
+    public virtual void SpecialDir3()
     {
         if (lastInput == "Up" && canBUp)
         {
+            canJump = false;
+            canAttack = false;
+            canMove = false;
             iCanMove = true;
             canBUp = false;
             anim.SetTrigger("BUp");
@@ -202,10 +277,13 @@ public class CharacterMove : MonoBehaviour
             SpecialDir4();
         }
     }
-    void SpecialDir4()
+    public virtual void SpecialDir4()
     {
-        if (lastInput == "Down")
+        if (lastInput == "Down" && !inAir)
         {
+            canJump = false;
+            canAttack = false;
+            canMove = false;
             anim.SetTrigger("BDown");
             attacking();
         }
@@ -220,7 +298,7 @@ public class CharacterMove : MonoBehaviour
     }
     void jumpUpdate()
     {
-        if ((Input.GetButton(X) || Input.GetKey(KeyCode.X)) && canJump && !damageControl.isKnockedBack)
+        if ((Input.GetButton(X) || Input.GetKey(KeyCode.X)) && canJump && !damageControl.isKnockedBack && !isJumping)
         {
             isJumping = true;
             iCanMove = true;

@@ -34,7 +34,7 @@ public class DannyMovement : CharacterMove
     public override void jump()
     {
         anim.ResetTrigger("Jump");
-        rb.AddForce(0, 13000, 0);
+        rb.AddForce(0, 8900, 0);
         canMove = true;
         Invoke("stopJump", 0.2f);
     }
@@ -42,7 +42,7 @@ public class DannyMovement : CharacterMove
     {
         isJumping = false;
         iCanMove = false;
-        rb.velocity = new Vector3(0, 0, 0);
+        //rb.velocity = new Vector3(0, 0, 0);
         anim.ResetTrigger("Jump");
     }
     public void deactivate()
@@ -141,6 +141,25 @@ public class DannyMovement : CharacterMove
             }
             Invoke("endInvisible", 2.5f);
         }
+    }
+    public void Ultimate()
+    {
+            GameObject Present = GameObject.Instantiate((GameObject)Resources.Load("DannyPortal"));
+            PresentRB = Present.GetComponent<Rigidbody>();
+            //audioStrike.Play();
+            if (!isRight)
+            {
+                Present.transform.rotation = new Quaternion(0, 180, 0, 0);
+                Present.transform.position = transform.position + new Vector3(0, 0.3f, -0.7f);
+                PresentRB.velocity = new Vector3(0, 0, -2f);
+                //Invoke("baseStop", 0.6f);
+            }
+            else
+            {
+                Present.transform.position = transform.position + new Vector3(0, 0.3f, 0.7f);
+                PresentRB.velocity = new Vector3(0, 0, 2f);
+                //Invoke("baseStop", 0.6f);
+            }
     }
     void endInvisible()
     {

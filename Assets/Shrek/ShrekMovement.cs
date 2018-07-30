@@ -8,6 +8,7 @@ public class ShrekMovement : CharacterMove
     public Rigidbody PresentRB;
     public AudioSource audioStrike;
     public ParticleSystem part;
+    public Rigidbody OnionRB;
     public bool isShooting = false;
     void Update()
     {
@@ -34,7 +35,7 @@ public class ShrekMovement : CharacterMove
     public override void jump()
     {
         anim.ResetTrigger("Jump");
-        rb.AddForce(0, 13000, 0);
+        rb.AddForce(0, 7200, 0);
         canMove = true;
         Invoke("stopJump", 0.2f);
     }
@@ -42,7 +43,7 @@ public class ShrekMovement : CharacterMove
     {
         isJumping = false;
         iCanMove = false;
-        rb.velocity = new Vector3(0, 0, 0);
+        //rb.velocity = new Vector3(0, 0, 0);
         anim.ResetTrigger("Jump");
     }
     public void deactivate()
@@ -134,6 +135,27 @@ public class ShrekMovement : CharacterMove
             }
             //anim.ResetTrigger("NeutB");
         }
+    }
+    public void Ultimate()
+    {
+        GameObject GoldenOnion = GameObject.Instantiate((GameObject)Resources.Load("Onion"));
+        OnionRB = GoldenOnion.GetComponent<Rigidbody>();
+        LotusUltHitbox ultHB = GoldenOnion.GetComponent<LotusUltHitbox>();
+        ultHB.Lotus = this.gameObject;
+        if (!isRight)
+        {
+            GoldenOnion.transform.rotation = new Quaternion(0, 180, 0, 0);
+            GoldenOnion.transform.position = transform.position + new Vector3(0, 0, -0.2f);
+            OnionRB.velocity = new Vector3(0, 0, -4f);
+            //Invoke("baseStop", 0.6f);
+        }
+        else
+        {
+            GoldenOnion.transform.position = transform.position + new Vector3(0, 0, 0.2f);
+            OnionRB.velocity = new Vector3(0, 0, 4f);
+            //Invoke("baseStop", 0.6f);
+        }
+        //anim.ResetTrigger("NeutB");
     }
 
 }

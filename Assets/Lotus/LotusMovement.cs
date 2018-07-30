@@ -5,7 +5,7 @@ using UnityEngine;
 public class LotusMovement : CharacterMove
 {
     public Rigidbody me;
-    public Rigidbody PresentRB;
+    public Rigidbody MelonRB;
     public AudioSource audioStrike;
     public ParticleSystem part;
     public bool isShooting = false;
@@ -34,7 +34,7 @@ public class LotusMovement : CharacterMove
     public override void jump()
     {
         anim.ResetTrigger("Jump");
-        rb.AddForce(0, 13000, 0);
+        rb.AddForce(0, 8000, 0);
         canMove = true;
         Invoke("stopJump", 0.2f);
     }
@@ -42,7 +42,7 @@ public class LotusMovement : CharacterMove
     {
         isJumping = false;
         iCanMove = false;
-        rb.velocity = new Vector3(0, 0, 0);
+        //rb.velocity = new Vector3(0, 0, 0);
         anim.ResetTrigger("Jump");
     }
     public void deactivate()
@@ -115,29 +115,47 @@ public class LotusMovement : CharacterMove
         //anim.ResetTrigger("BDown");
         Invoke("deactivate", 1);
     }
-    public void present()
+    public void LotusBall()
     {
-        if (!isShooting)
+        GameObject Melon = GameObject.Instantiate((GameObject)Resources.Load("LotusMelonSB"));
+        MelonRB = Melon.GetComponent<Rigidbody>();
+        LotusMelonSB ball = Melon.GetComponent<LotusMelonSB>();
+        ball.Lotus = this.gameObject;
+        if (!isRight)
         {
-            isShooting = true;
-            GameObject Present = GameObject.Instantiate((GameObject)Resources.Load("BraumPresent"));
-            PresentRB = Present.GetComponent<Rigidbody>();
-            audioStrike.Play();
-            if (!isRight)
-            {
-                Present.transform.rotation = new Quaternion(0, 180, 0, 0);
-                Present.transform.position = transform.position + new Vector3(0, 0.3f, -1);
-                PresentRB.velocity = new Vector3(0, 0, -4);
-                Invoke("baseStop", 0.6f);
-            }
-            else
-            {
-                Present.transform.position = transform.position + new Vector3(0, 0.3f, 1);
-                PresentRB.velocity = new Vector3(0, 0, 4);
-                Invoke("baseStop", 0.6f);
-            }
-            //anim.ResetTrigger("NeutB");
+            Melon.transform.rotation = new Quaternion(0, 180, 0, 0);
+            Melon.transform.position = transform.position + new Vector3(0, 0.6f, -0.1f);
+            MelonRB.velocity = new Vector3(0, 0, -4);
+        }
+        else
+        {
+            Melon.transform.position = transform.position + new Vector3(0, 0.6f, 0.1f);
+            MelonRB.velocity = new Vector3(0, 0, 4);
         }
     }
-
+    public void Ultimate()
+    {
+        GameObject Melon = GameObject.Instantiate((GameObject)Resources.Load("LotusWaterult"));
+        Rigidbody melonUp = Melon.GetComponent<Rigidbody>();
+        Melon.transform.position = this.transform.position;
+        melonUp.velocity = new Vector3(0, 8, 0);
+    }
+    public void Ultimate2()
+    {
+        GameObject Melon = GameObject.Instantiate((GameObject)Resources.Load("LotusGiantMelon"));
+        MelonRB = Melon.GetComponent<Rigidbody>();
+        LotusUltHitbox ball = Melon.GetComponent<LotusUltHitbox>();
+        ball.Lotus = this.gameObject;
+        if (!isRight)
+        {
+            Melon.transform.rotation = new Quaternion(0, 180, 0, 0);
+            Melon.transform.position = transform.position + new Vector3(0, 4f, -1f);
+            MelonRB.velocity = new Vector3(0, -8, -1);
+        }
+        else
+        {
+            Melon.transform.position = transform.position + new Vector3(0, 4f, 1f);
+            MelonRB.velocity = new Vector3(0, -8, 1);
+        }
+    }
 }

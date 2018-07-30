@@ -1,0 +1,140 @@
+fileFormatVersion: 2
+guid: 30953d1000a8f3b459ffa86922d01312
+timeCreated: 1530554083
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armature
+    100002: Body
+    100004: Body_end
+    100006: LeftArm
+    100008: LeftForearm
+    100010: LeftForearm_end
+    100012: LeftLeg
+    100014: LeftLegEnd
+    100016: LeftLegEnd_end
+    100018: LeftLegStart
+    100020: LeftShoulder
+    100022: Mesh_002.003_DrawCall_0338.000
+    100024: Mesh_002.003_DrawCall_0338.001
+    100026: Mesh_002.003_DrawCall_0338.002
+    100028: Mesh_002.003_DrawCall_0338.005
+    100030: RightArm
+    100032: RightForearm
+    100034: RightForearm_end
+    100036: RightLeg
+    100038: RightLegEnd
+    100040: RightLegEnd_end
+    100042: RightLegStart
+    100044: RightShoulder
+    100046: Sphere
+    100048: //RootNode
+    400000: Armature
+    400002: Body
+    400004: Body_end
+    400006: LeftArm
+    400008: LeftForearm
+    400010: LeftForearm_end
+    400012: LeftLeg
+    400014: LeftLegEnd
+    400016: LeftLegEnd_end
+    400018: LeftLegStart
+    400020: LeftShoulder
+    400022: Mesh_002.003_DrawCall_0338.000
+    400024: Mesh_002.003_DrawCall_0338.001
+    400026: Mesh_002.003_DrawCall_0338.002
+    400028: Mesh_002.003_DrawCall_0338.005
+    400030: RightArm
+    400032: RightForearm
+    400034: RightForearm_end
+    400036: RightLeg
+    400038: RightLegEnd
+    400040: RightLegEnd_end
+    400042: RightLegStart
+    400044: RightShoulder
+    400046: Sphere
+    400048: //RootNode
+    2300000: Mesh_002.003_DrawCall_0338.005
+    2300002: Sphere
+    3300000: Mesh_002.003_DrawCall_0338.005
+    3300002: Sphere
+    4300000: Sphere
+    4300002: Mesh_002.003_DrawCall_0338.002
+    4300004: Mesh_002.003_DrawCall_0338.001
+    4300006: Mesh_002.003_DrawCall_0338.000
+    4300008: Mesh_002.003_DrawCall_0338.005
+    9500000: //RootNode
+    13700000: Mesh_002.003_DrawCall_0338.000
+    13700002: Mesh_002.003_DrawCall_0338.001
+    13700004: Mesh_002.003_DrawCall_0338.002
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

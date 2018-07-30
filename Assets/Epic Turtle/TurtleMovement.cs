@@ -35,7 +35,7 @@ public class TurtleMovement : CharacterMove
     public override void jump()
     {
         anim.ResetTrigger("Jump");
-        rb.AddForce(0, 13000, 0);
+        rb.AddForce(0, 7500, 0);
         canMove = true;
         Invoke("stopJump", 0.2f);
     }
@@ -43,7 +43,7 @@ public class TurtleMovement : CharacterMove
     {
         isJumping = false;
         iCanMove = false;
-        rb.velocity = new Vector3(0, 0, 0);
+        //rb.velocity = new Vector3(0, 0, 0);
         anim.ResetTrigger("Jump");
     }
     public void deactivate()
@@ -96,6 +96,7 @@ public class TurtleMovement : CharacterMove
         anim.SetBool("CanAttack", true);
         anim.SetBool("isAttacking", false);
         anim.SetBool("IsIdle", true);
+        anim.SetBool("UltHit", false);
     }
 
     public override void bUp()

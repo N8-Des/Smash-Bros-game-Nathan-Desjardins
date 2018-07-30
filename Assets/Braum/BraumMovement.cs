@@ -34,7 +34,7 @@ public class BraumMovement : CharacterMove
     public override void jump()
     {
         anim.ResetTrigger("Jump");
-        rb.AddForce(0, 10000, 0);
+        rb.AddForce(0, 8000, 0);
         canMove = true;
         Invoke("stopJump", 0.2f);
     }
@@ -42,7 +42,7 @@ public class BraumMovement : CharacterMove
     {
         isJumping = false;
         iCanMove = false;
-        rb.velocity = new Vector3(0, 0, 0);
+        //rb.velocity = new Vector3(0, 0, 0);
         anim.ResetTrigger("Jump");
     }
     public void deactivate()
@@ -98,7 +98,20 @@ public class BraumMovement : CharacterMove
             anim.SetBool("IsIdle", true);
         }
     }
-
+    public void Ultimate()
+    {
+        GameObject IceDeath = GameObject.Instantiate((GameObject)Resources.Load("BraumUlt"));
+        IceDeath.transform.position = this.transform.position;
+        if (!isRight)
+        {
+            IceDeath.transform.rotation = new Quaternion(0, 180, 0, 0);
+            IceDeath.transform.position += new Vector3(0, 0, -0.7f);
+        }
+        else
+        {
+            IceDeath.transform.position += new Vector3(0, 0, 0.7f);
+        }
+    }
     public override void bUp()
     {
         rb.AddForce(0, 6000, 0);

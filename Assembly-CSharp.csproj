@@ -47,19 +47,23 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Bacteriophage\BillyMovement.cs" />
+     <Compile Include="Assets\Bacteriophage\BillyUltHitbox.cs" />
      <Compile Include="Assets\BaseCharMove.cs" />
      <Compile Include="Assets\BaseHit.cs" />
      <Compile Include="Assets\BasicHurtbox.cs" />
      <Compile Include="Assets\BasicStunHitbox.cs" />
+     <Compile Include="Assets\BowlHead\BowlHeadMovement.cs" />
      <Compile Include="Assets\Braum\BraumBase.cs" />
      <Compile Include="Assets\Braum\BraumMovement.cs" />
      <Compile Include="Assets\BuckCluck\BuckBase.cs" />
      <Compile Include="Assets\BuckCluck\BuckMovement.cs" />
+     <Compile Include="Assets\CameraFocus.cs" />
      <Compile Include="Assets\CharSelect.cs" />
      <Compile Include="Assets\CharacterMove.cs" />
      <Compile Include="Assets\Courier\CourierBase.cs" />
      <Compile Include="Assets\DannyPhantom\DannyBase.cs" />
      <Compile Include="Assets\DannyPhantom\DannyMovement.cs" />
+     <Compile Include="Assets\DannyPhantom\Portal.cs" />
      <Compile Include="Assets\Dragonborn\DragonbornBase.cs" />
      <Compile Include="Assets\Dragonborn\DragonbornMovement.cs" />
      <Compile Include="Assets\Dragonborn\Spellbreaker.cs" />
@@ -67,10 +71,12 @@
      <Compile Include="Assets\Ekko\EkkoMovement.cs" />
      <Compile Include="Assets\Ekko\EkkoTime.cs" />
      <Compile Include="Assets\Epic Turtle\TurtleMovement.cs" />
+     <Compile Include="Assets\Epic Turtle\TurtleUlt.cs" />
      <Compile Include="Assets\Exband\ExbandMovement.cs" />
      <Compile Include="Assets\Exband\SBHitbox.cs" />
      <Compile Include="Assets\ExplodeOnHit.cs" />
      <Compile Include="Assets\FCN\FcnMovement.cs" />
+     <Compile Include="Assets\FriendlyHitbox.cs" />
      <Compile Include="Assets\GameManager.cs" />
      <Compile Include="Assets\HankHill\HankBase.cs" />
      <Compile Include="Assets\HankHill\HankMovement.cs" />
@@ -79,12 +85,16 @@
      <Compile Include="Assets\JimmyNeutron\JimmyBase.cs" />
      <Compile Include="Assets\JimmyNeutron\JimmyMovement.cs" />
      <Compile Include="Assets\KillRad.cs" />
+     <Compile Include="Assets\LevelFocus.cs" />
      <Compile Include="Assets\LifeDisplay.cs" />
+     <Compile Include="Assets\Lotus\LotusMelonSB.cs" />
      <Compile Include="Assets\Lotus\LotusMovement.cs" />
+     <Compile Include="Assets\Lotus\LotusUltHitbox.cs" />
      <Compile Include="Assets\PercentDisplay.cs" />
      <Compile Include="Assets\Pete\PenguinBase.cs" />
      <Compile Include="Assets\Pete\PeteMovement.cs" />
      <Compile Include="Assets\PlatformColl.cs" />
+     <Compile Include="Assets\ProgressManager.cs" />
      <Compile Include="Assets\ProjectileShield.cs" />
      <Compile Include="Assets\Roblox\RobloxBase.cs" />
      <Compile Include="Assets\Roblox\RobloxMovement.cs" />
@@ -96,10 +106,20 @@
      <Compile Include="Assets\Spongebob\SpongebobMovement.cs" />
      <Compile Include="Assets\Stages\BaxterAcademy\BASpawn.cs" />
      <Compile Include="Assets\Stages\BaxterAcademy\BaxterBall.cs" />
+     <Compile Include="Assets\Stages\HexagonLand\Hex.cs" />
      <Compile Include="Assets\Thomas\ThomasBase.cs" />
      <Compile Include="Assets\Thomas\ThomasMovement.cs" />
+     <Compile Include="Assets\Tiny\TinyAxe.cs" />
+     <Compile Include="Assets\Tiny\TinyMovement.cs" />
+     <Compile Include="Assets\UltHurtbox.cs" />
      <Compile Include="Assets\Vision\VisionBase.cs" />
+     <Compile Include="Assets\Waveform\Cloud.cs" />
+     <Compile Include="Assets\Waveform\Spear\SpearDamage.cs" />
+     <Compile Include="Assets\Waveform\Spear\SpearTargetting.cs" />
+     <Compile Include="Assets\Waveform\WaveformMovement.cs" />
+     <Compile Include="Assets\Waveform\WetHurtbox.cs" />
      <Compile Include="Assets\deathTimer.cs" />
+     <Compile Include="Assets\die.cs" />
      <None Include="Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

@@ -34,7 +34,7 @@ public class BuckMovement : CharacterMove
     public override void jump()
     {
         anim.ResetTrigger("Jump");
-        rb.AddForce(0, 10000, 0);
+        rb.AddForce(0, 7300, 0);
         canMove = true;
         Invoke("stopJump", 0.2f);
     }
@@ -42,7 +42,7 @@ public class BuckMovement : CharacterMove
     {
         isJumping = false;
         iCanMove = false;
-        rb.velocity = new Vector3(0, 0, 0);
+        //rb.velocity = new Vector3(0, 0, 0);
         anim.ResetTrigger("Jump");
     }
     public void deactivate()
@@ -145,5 +145,20 @@ public class BuckMovement : CharacterMove
             //anim.ResetTrigger("NeutB");
         }
     }
-
+    public void Ultimate()
+    {
+        GameObject Hexagon = GameObject.Instantiate((GameObject)Resources.Load("BuckSky"));
+        Rigidbody HexaRB = Hexagon.GetComponent<Rigidbody>();
+        //audioStrike.Play();
+        if (!isRight)
+        {
+            Hexagon.transform.position = transform.position + new Vector3(0, 5f, -3.5f);
+            HexaRB.velocity = new Vector3(0, -9, 0);
+        }
+        else
+        {
+            Hexagon.transform.position = transform.position + new Vector3(0, 5f, 3.5f);
+            HexaRB.velocity = new Vector3(0, -9, 0);
+        }
+    }
 }
