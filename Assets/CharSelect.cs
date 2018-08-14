@@ -26,6 +26,8 @@ public class CharSelect : MonoBehaviour {
     public GameObject pressStart;
     public GameObject canvas2;
     public bool isUseful = true;
+    public GameObject optionsCanvas;
+    public GameObject selectionCanvas;
 
     public void Update()
     {
@@ -46,8 +48,7 @@ public class CharSelect : MonoBehaviour {
             pressStart.SetActive(true);
             if (Input.GetButton("Start"))
             {
-                gameManager.startGame();
-                Debug.Log("WHAT");
+                selectionCanvas.SetActive(true);
                 gameObject.SetActive(false);
             }
         }
@@ -78,6 +79,13 @@ public class CharSelect : MonoBehaviour {
         else if (Input.GetButton("B"))
         {
             player1Selected = false;
+        }
+        else if (Input.GetButton("X"))
+        {
+            optionsCanvas.SetActive(true);
+            OptionsSelecter opts = optionsCanvas.GetComponent<OptionsSelecter>();
+            opts.isUseful = true;
+            gameObject.SetActive(false);
         }
     }
     public void inputBuffer()

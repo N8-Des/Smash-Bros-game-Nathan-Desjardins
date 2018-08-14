@@ -55,20 +55,6 @@ public class SpongebobMovement : CharacterMove
         anim.SetBool("CanAttack", true);
         anim.SetBool("IsIdle", true);
     }
-    public override void bRight()
-    {
-        me = gameObject.GetComponent<Rigidbody>();
-        iCanMove = true;
-        me.velocity = moveSpeed * 2;
-        Invoke("deactivate", 0.26f);
-    }
-    public override void bLeft()
-    {
-        me = gameObject.GetComponent<Rigidbody>();
-        iCanMove = true;
-        me.velocity = moveSpeed * -2;
-        Invoke("deactivate", 0.26f);
-    }
     public void bSide()
     {
         if (isRight)
@@ -102,15 +88,7 @@ public class SpongebobMovement : CharacterMove
         rb.AddForce(0, 6000, 0);
         Invoke("deactivate", 0.3f);
     }
-    public override void baseB()
-    {
-        Invoke("baseStop", 3);
-    }
-    public override void bDown()
-    {
-        //anim.ResetTrigger("BDown");
-        Invoke("deactivate", 1);
-    }
+
     public void KrabbyThrow()
     {
         GameObject Patty = GameObject.Instantiate((GameObject)Resources.Load("KrabbyPatty"));

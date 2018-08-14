@@ -25,16 +25,26 @@ public class GameManager : MonoBehaviour {
     public CameraFocus cam;
     public CharacterMove playerOne;
     public CharacterMove playerTwo;
+    public int lives = 3;
+    public bool ultimatesOn;
+    public Stage stageSelected;
 
 
     public void startGame()
     {
-        player1Life.life = 3;
+        player1Respawn = stageSelected.player1Spawn;
+        player2Respawn = stageSelected.player2Spawn;
+        player1Spawn = stageSelected.player1Spawn;
+        player2Spawn = stageSelected.player2Spawn;
+        mainCamera.transform.position = stageSelected.mainCamPos.transform.position;
+        player1Life.life = lives;
         player1Life.updateLifeDisplay();
-        player2Life.life = 3;
+        player2Life.life = lives;
         player2Life.updateLifeDisplay();
         GameObject Player1 = GameObject.Instantiate((GameObject)Resources.Load(player1Selection));
         GameObject Player2 = GameObject.Instantiate((GameObject)Resources.Load(player2Selection));
+        playerOne = Player1.GetComponent<CharacterMove>();
+        playerTwo = Player2.GetComponent<CharacterMove>();
         Player1.transform.position = player1Spawn.transform.position;
         Player2.transform.position = player2Spawn.transform.position;
         p1score = GameObject.Find(player1Selection + "P");
@@ -43,8 +53,22 @@ public class GameManager : MonoBehaviour {
         p2score.transform.position += new Vector3(0, 350, 0);
         BaseHit bh1 = Player1.GetComponent<BaseHit>();
         BaseHit bh2 = Player2.GetComponent<BaseHit>();
-        //bh1.progressBar = Prog1;
-        //bh2.progressBar = Prog2;
+        if (!ultimatesOn)
+        {
+            bh1.ultOn = false;
+            playerOne.ultsOn = false;
+            bh2.ultOn = false;
+            playerTwo.ultsOn = false;
+        }
+        else
+        {
+            bh1.progressBar = Prog1;
+            bh2.progressBar = Prog2;
+            bh1.ultOn = true;
+            bh2.ultOn = true;
+            playerOne.ultsOn = true;
+            playerOne.ultsOn = true;
+        }
         //cam.Players.Add(Player1);
         //cam.Players.Add(Player2);
 
@@ -104,7 +128,16 @@ public class GameManager : MonoBehaviour {
         GameObject Player1 = GameObject.Instantiate((GameObject)Resources.Load(player1Selection));
         Player1.transform.position = player1Respawn.transform.position;
         BaseHit bh1 = Player1.GetComponent<BaseHit>();
-        //bh1.progressBar = Prog1;
+        playerOne = Player1.GetComponent<CharacterMove>();
+        if (!ultimatesOn)
+        {
+            bh1.ultOn = false;
+            playerOne.ultsOn = false;
+        }
+        else
+        {
+            bh1.progressBar = Prog1;
+        }
         //cam.Players.RemoveRange(0, cam.Players.Count);
         //cam.Players.Add(focus);
         //cam.Players.Add(Player1);
@@ -115,7 +148,12 @@ public class GameManager : MonoBehaviour {
         GameObject Player2 = GameObject.Instantiate((GameObject)Resources.Load(player2Selection));
         Player2.transform.position = player2Respawn.transform.position;
         BaseHit bh2 = Player2.GetComponent<BaseHit>();
-        //bh2.progressBar = Prog2;
+        if (!ultimatesOn)
+        {
+            bh2.ultOn = false;
+            playerTwo.ultsOn = false;
+        }
+        bh2.progressBar = Prog2;
         //cam.Players.RemoveRange(0, cam.Players.Count);
         //cam.Players.Add(focus);
         //cam.Players.Add(Player1);

@@ -88,7 +88,7 @@ public class JimmyMovement : CharacterMove
         if (isRight)
         {
             GameObject donkey = GameObject.Instantiate((GameObject)Resources.Load("JimmyRocket"));
-            donkey.transform.position = this.transform.position - new Vector3(0, 0, -0.4f);
+            donkey.transform.position = this.transform.position - new Vector3(0, -0.2f, -0.6f);
             Rigidbody donkeyrb = donkey.GetComponent<Rigidbody>();
             donkeyrb = donkey.GetComponent<Rigidbody>();
             donkeyrb.velocity = new Vector3(0, 0, 6);
@@ -96,7 +96,7 @@ public class JimmyMovement : CharacterMove
         else
         {
             GameObject donkey = GameObject.Instantiate((GameObject)Resources.Load("JimmyRocket"));
-            donkey.transform.position = this.transform.position - new Vector3(0, 0, 0.4f);
+            donkey.transform.position = this.transform.position - new Vector3(0, -0.2f, 0.6f);
             donkey.transform.rotation = new Quaternion(0, 180, 0, 0);
             Rigidbody donkeyrb = donkey.GetComponent<Rigidbody>();
             donkeyrb.velocity = new Vector3(0, 0, -6);

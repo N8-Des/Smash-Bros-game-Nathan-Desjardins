@@ -5,15 +5,16 @@ using UnityEngine;
 public class ExplodeOnHit : MonoBehaviour {
     public void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "KillRad")
+        if (other.tag == "Char" || other.tag == "Ground")
         {
             GameObject explode = GameObject.Instantiate((GameObject)Resources.Load("Explode"));
             explode.transform.position = transform.position;
-            Invoke("kill", 0.01f);
+            kill();
         }
     }
     void kill()
     {
-        Destroy(gameObject);
+        GameObject dad = gameObject.transform.parent.gameObject;
+        Destroy(dad);
     }
 }

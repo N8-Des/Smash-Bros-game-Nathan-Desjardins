@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Bacteriophage\BillyBullet.cs" />
      <Compile Include="Assets\Bacteriophage\BillyMovement.cs" />
      <Compile Include="Assets\Bacteriophage\BillyUltHitbox.cs" />
      <Compile Include="Assets\BaseCharMove.cs" />
@@ -64,6 +65,7 @@
      <Compile Include="Assets\DannyPhantom\DannyBase.cs" />
      <Compile Include="Assets\DannyPhantom\DannyMovement.cs" />
      <Compile Include="Assets\DannyPhantom\Portal.cs" />
+     <Compile Include="Assets\DieOnHit.cs" />
      <Compile Include="Assets\Dragonborn\DragonbornBase.cs" />
      <Compile Include="Assets\Dragonborn\DragonbornMovement.cs" />
      <Compile Include="Assets\Dragonborn\Spellbreaker.cs" />
@@ -106,11 +108,20 @@
      <Compile Include="Assets\Spongebob\SpongebobMovement.cs" />
      <Compile Include="Assets\Stages\BaxterAcademy\BASpawn.cs" />
      <Compile Include="Assets\Stages\BaxterAcademy\BaxterBall.cs" />
+     <Compile Include="Assets\Stages\BaxterAcademy\TimeKiller.cs" />
+     <Compile Include="Assets\Stages\GravityFighter.cs" />
      <Compile Include="Assets\Stages\HexagonLand\Hex.cs" />
+     <Compile Include="Assets\Stages\Stage.cs" />
      <Compile Include="Assets\Thomas\ThomasBase.cs" />
      <Compile Include="Assets\Thomas\ThomasMovement.cs" />
      <Compile Include="Assets\Tiny\TinyAxe.cs" />
      <Compile Include="Assets\Tiny\TinyMovement.cs" />
+     <Compile Include="Assets\UI\Options\LivesOpt.cs" />
+     <Compile Include="Assets\UI\Options\OptBase.cs" />
+     <Compile Include="Assets\UI\Options\OptionsSelecter.cs" />
+     <Compile Include="Assets\UI\Options\UltAttackOpt.cs" />
+     <Compile Include="Assets\UI\StageSelect\StageSelector.cs" />
+     <Compile Include="Assets\UI\StageSelect\StageUI.cs" />
      <Compile Include="Assets\UltHurtbox.cs" />
      <Compile Include="Assets\Vision\VisionBase.cs" />
      <Compile Include="Assets\Waveform\Cloud.cs" />

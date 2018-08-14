@@ -11,7 +11,7 @@ public class BasicHurtbox : MonoBehaviour {
         if (gameObject.transform.parent.tag == "Char")
         {
             CharacterMove player = gameObject.transform.parent.GetComponent<CharacterMove>();
-            if (player.isRight == false)
+            if (!player.isRight)
             {
                 KB.z *= -1;
             }

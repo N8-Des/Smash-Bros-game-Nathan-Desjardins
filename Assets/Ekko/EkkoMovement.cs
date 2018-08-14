@@ -161,14 +161,14 @@ public class EkkoMovement : CharacterMove
             if (!isRight)
             {
                 Timewinder.transform.rotation = new Quaternion(0, 180, 0, 0);
-                Timewinder.transform.position = transform.position + new Vector3(0, 0.05f, -0.6f);
+                Timewinder.transform.position = transform.position + new Vector3(0, 0.1f, -0.6f);
                 PresentRB.velocity = new Vector3(0, 0, -3);
                 Invoke("baseStop", 0.05f);
                 Invoke("waitForDeath", 1.7f);
             }
             else
             {
-                Timewinder.transform.position = transform.position + new Vector3(0, 0.05f, 0.6f);
+                Timewinder.transform.position = transform.position + new Vector3(0, 0.1f, 0.6f);
                 PresentRB.velocity = new Vector3(0, 0, 3);
                 Invoke("baseStop", 0.05f);
                 Invoke("waitForDeath", 1.7f);

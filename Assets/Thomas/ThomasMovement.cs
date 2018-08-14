@@ -31,10 +31,17 @@ public class ThomasMovement : CharacterMove
             anim.SetBool("isAttacking", true);
         }
     }
+    public override void OnCollisionEnter(Collision other)
+    {
+        if (!canBUp && other.collider.tag == "Ground")
+        {
+            canBUp = true;
+        }
+    }
     public override void jump()
     {
         anim.ResetTrigger("Jump");
-        rb.AddForce(0, 5800, 0);
+        rb.AddForce(0, 6400, 0);
         canMove = true;
         Invoke("stopJump", 0.2f);
     }
@@ -99,6 +106,7 @@ public class ThomasMovement : CharacterMove
 
     public override void bUp()
     {
+        canJump = false;
         if (isRight)
         {
             rb.velocity = new Vector3(0, 3.5f, 2);

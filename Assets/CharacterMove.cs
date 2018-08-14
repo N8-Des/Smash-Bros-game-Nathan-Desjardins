@@ -33,6 +33,7 @@ public class CharacterMove : MonoBehaviour
     public bool onGround;
     public bool canJump;
     public bool canBUp = true;
+    public bool usingGravity = false;
     public bool iCanMove = false;
     public bool inAir = false;
     public BaseHit damageControl;
@@ -47,6 +48,8 @@ public class CharacterMove : MonoBehaviour
     public ProgressManager progMan;
     public bool charging;
     public bool isWet = false;
+    public bool ultsOn = true;
+    public bool canAirdodge = true;
     public void getWet()
     {
         isWet = true;
@@ -68,7 +71,10 @@ public class CharacterMove : MonoBehaviour
     {
         BaseHit pdis = gameObject.GetComponent<BaseHit>();
         pdis.resetPerc();
-        GameObject sound = GameObject.Instantiate((GameObject)Resources.Load(deathNoise));
+        if (edgeDeath)
+        {
+            GameObject sound = GameObject.Instantiate((GameObject)Resources.Load(deathNoise));
+        }
         Destroy(gameObject);
     }
     public virtual void OnCollisionStay(Collision other)
@@ -96,6 +102,9 @@ public class CharacterMove : MonoBehaviour
                 {
                     rb.velocity = new Vector3(0, 0, 0);
                 }
+            }else if (anim.GetCurrentAnimatorStateInfo(0).IsName("Airdodge"))
+            {
+                endAirdodge();
             }
         }
         else if (other.collider.tag == "EdgeGrab")
@@ -112,6 +121,15 @@ public class CharacterMove : MonoBehaviour
         if (!canBUp && other.collider.tag == "Ground")
         {
             canBUp = true;
+        }
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("UpB"))
+        {
+            canAttack = true;
+            canMove = true;
+            iCanMove = false;
+            anim.SetBool("CanAttack", true);
+            anim.SetBool("isAttacking", false);
+            anim.SetBool("IsIdle", true);
         }
     }
     public void OnCollisionExit(Collision other)
@@ -132,6 +150,7 @@ public class CharacterMove : MonoBehaviour
     public virtual void attacking() { }
     public virtual void counter(int damage) { }
     public virtual void bSideGrab(GameObject playerHit) { }
+
     public void FixedUpdate()
     {
         inputBuffer();
@@ -140,7 +159,10 @@ public class CharacterMove : MonoBehaviour
         moveUpdate();
         specialUpdate();
         shieldCheck();
-        ultCheck();
+        if (ultsOn)
+        {
+            ultCheck();
+        }
     }
     public virtual void takeStun(float stunTime)
     {
@@ -179,29 +201,58 @@ public class CharacterMove : MonoBehaviour
         anim.SetBool("isAttacking", false);
         anim.SetBool("isIdle", true);
         anim.SetBool("knockedBack", true);
-
     }
-
+    public void stopVelocity()
+    {
+        rb.velocity = new Vector3(0, 0, 0);
+    }
+    public void endAirdodge()
+    {
+        canAirdodge = true;
+        canAttack = true;
+        canMove = true;
+        anim.SetBool("CanAttack", true);
+        anim.SetBool("isAttacking", false);
+        anim.SetBool("IsIdle", true);
+        anim.SetBool("block", false);
+    }
     public void shieldCheck()
     {
-        if (!inAir && !damageControl.isKnockedBack) {
-            if (Input.GetButton(LeftBumper) && canBlock && !anim.GetBool("isAttacking"))
+        if (!inAir)
+        {
+            if (!damageControl.isKnockedBack)
             {
-                blocking = true;
-                damageControl.isBlocking = true;
+                if (Input.GetButton(LeftBumper) && canBlock && !anim.GetBool("isAttacking"))
+                {
+                    blocking = true;
+                    damageControl.isBlocking = true;
+                    anim.SetBool("block", true);
+                    canJump = false;
+                    canAttack = false;
+                    canMove = false;
+
+                }
+                else if (blocking)
+                {
+                    blocking = false;
+                    anim.SetBool("block", false);
+                    damageControl.isBlocking = false;
+                    canJump = true;
+                    canAttack = true;
+                    canMove = true;
+                }
+            }
+        }else if (!damageControl.isKnockedBack)
+        {
+            if (Input.GetButton(LeftBumper) && !anim.GetBool("isAttacking") && canAirdodge)
+            {
                 anim.SetBool("block", true);
+                anim.SetBool("IsIdle", false);
+                anim.SetTrigger("airdodge");
+                canAirdodge = false;
                 canJump = false;
                 canAttack = false;
                 canMove = false;
-
-            } else if (blocking)
-            {
-                blocking = false;
-                anim.SetBool("block", false);
-                damageControl.isBlocking = false;
-                canJump = true;
-                canAttack = true;
-                canMove = true;
             }
         }
     }
@@ -263,7 +314,6 @@ public class CharacterMove : MonoBehaviour
     {
         if (lastInput == "Up" && canBUp)
         {
-            canJump = false;
             canAttack = false;
             canMove = false;
             iCanMove = true;
@@ -291,9 +341,13 @@ public class CharacterMove : MonoBehaviour
         {
             canAttack = true;
             canMove = true;
-            canJump = true;
             anim.SetBool("IsIdle", true);
             anim.SetBool("CanAttack", true);
+            if (!inAir)
+            {
+                canJump = true;
+
+            }
         }
     }
     void jumpUpdate()
@@ -350,8 +404,19 @@ public class CharacterMove : MonoBehaviour
     {
         if (lastInput == "Right")
         {
-            anim.SetTrigger("Fair");
-            attacking();
+            if (!isRight)
+            {
+                transform.rotation = new Quaternion(0, 0, 0, 0);
+                isRight = true;
+                anim.SetTrigger("Fair");
+                attacking();
+            }
+            else
+            {
+                anim.SetTrigger("Fair");
+                attacking();
+            }
+
         }
         else
         {
@@ -386,8 +451,19 @@ public class CharacterMove : MonoBehaviour
     {
         if (lastInput == "Left")
         {
-            anim.SetTrigger("Bair");
-            attacking();
+            if (isRight)
+            {
+                anim.SetTrigger("Bair");
+                transform.rotation = new Quaternion(0, 180, 0, 0);
+                isRight = false;
+                attacking();
+            }
+            else
+            {
+                anim.SetTrigger("Bair");
+                isRight = false;
+                attacking();
+            }
         }
         else
         {
@@ -400,10 +476,12 @@ public class CharacterMove : MonoBehaviour
     {
         if (lastInput == "Right")
         {
-            if (transform.rotation == new Quaternion(0, -180, 0, 0))
+            if (!isRight)
             {
                 transform.rotation = new Quaternion(0, 0, 0, 0);
                 anim.SetTrigger("RightA");
+                isRight = true;
+                attacking();
             }
             else
             {
@@ -421,10 +499,11 @@ public class CharacterMove : MonoBehaviour
     {
         if (lastInput == "Left")
         {
-            if (transform.rotation == new Quaternion(0, 0, 0, 0))
+            if (isRight)
             {
-                transform.rotation = new Quaternion(0, 0, 0, 0);
+                transform.rotation = new Quaternion(0, 180, 0, 0);
                 anim.SetTrigger("RightA");
+                isRight = false;
                 attacking();
             }
             else
@@ -553,6 +632,7 @@ public class CharacterMove : MonoBehaviour
                         rb.AddForce(0, 0, 5000);
                     }
                     isWalking = true;
+                    isRight = true;
                 }
                 if (lastInput == "Left")
                 {
@@ -562,6 +642,8 @@ public class CharacterMove : MonoBehaviour
                         rb.AddForce(0, 0, -5000);
                     }
                     isWalking = true;
+                    isRight = false;
+
                 }
             }
         }

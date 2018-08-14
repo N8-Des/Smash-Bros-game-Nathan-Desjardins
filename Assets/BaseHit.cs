@@ -13,21 +13,38 @@ public class BaseHit : MonoBehaviour {
     public CharacterMove charMove;
     public Animator anim;
     public GameObject shield;
-    public int shieldHealth = 100;
+    public int shieldHealth = 50;
     public bool isBlocking = false;
     public float SSM;
     public float OriginalShieldSize;
     public bool isInvuln = false;
-    //public ProgressManager progressBar;
+    public ProgressManager progressBar;
+    public bool ultOn = true;
+    public GameObject invulnIndicator;
+
+    public void invulnStart()
+    {
+        invulnIndicator.SetActive(true);
+        isInvuln = true;
+        Invoke("invulnEnd", 2.2f);
+    }
+    public void invulnEnd()
+    {
+        invulnIndicator.SetActive(false);
+        isInvuln = false;
+    }
     public void Start()
     {
         anim = gameObject.GetComponent<Animator>();
-        pdisplay = GameObject.Find(UIname).GetComponent<PercentDisplay>();
         OriginalShieldSize = shield.transform.localScale.x;
-        //charMove = gameObject.GetComponent<CharacterMove>();
-        //charMove.progMan = progressBar;
-        //progressBar.selectedPlayer = gameObject.GetComponent<CharacterMove>();
-        SSM = OriginalShieldSize / 100;
+        charMove = gameObject.GetComponent<CharacterMove>();
+        SSM = OriginalShieldSize / 50;
+        pdisplay = GameObject.Find(UIname).GetComponent<PercentDisplay>();
+        if (ultOn)
+        {
+            progressBar.selectedPlayer = gameObject.GetComponent<CharacterMove>();
+            charMove.progMan = progressBar;
+        }
     }
     public virtual void TakeAttack(int damage, Vector3 knockback)
     {
@@ -64,7 +81,10 @@ public class BaseHit : MonoBehaviour {
                 percent += damage;
                 rb.velocity = knockback * (percent / 10) * kbResist;
                 Invoke("stopKB", ((knockback.y + knockback.z) * (percent / 10) * (kbResist)) / 10);
-                //progressBar.ChangeValue(damage);
+                if (ultOn)
+                {
+                    progressBar.ChangeValue(damage);
+                }
             }
         }
     }
@@ -109,5 +129,13 @@ public class BaseHit : MonoBehaviour {
         double healthReduce = Math.Ceiling((double)percent / 5);
         int healthReduceInt = Convert.ToInt32(healthReduce);
         pdisplay.takeDamage(healthReduceInt * -1);
+    }
+    public void setInvBoolTrue()
+    {
+        isInvuln = true;
+    }
+    public void setInvBoolFalse()
+    {
+        isInvuln = false;
     }
 }

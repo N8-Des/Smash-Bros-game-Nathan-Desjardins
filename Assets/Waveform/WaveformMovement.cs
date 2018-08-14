@@ -34,6 +34,29 @@ public class WaveformMovement : CharacterMove
             anim.SetBool("isAttacking", true);
         }
     }
+    public override void SpecialDir4()
+    {
+        if (lastInput == "Down")
+        {
+            canJump = false;
+            canAttack = false;
+            canMove = false;
+            anim.SetTrigger("BDown");
+            attacking();
+        }
+        else
+        {
+            canAttack = true;
+            canMove = true;
+            anim.SetBool("IsIdle", true);
+            anim.SetBool("CanAttack", true);
+            if (!inAir)
+            {
+                canJump = true;
+
+            }
+        }
+    }
     public override void jump()
     {
         anim.ResetTrigger("Jump");
