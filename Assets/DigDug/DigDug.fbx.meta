@@ -1,0 +1,203 @@
+fileFormatVersion: 2
+guid: b1543abdc3360bf48a98aa65ffa88ce9
+timeCreated: 1535132593
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armature
+    100002: Cube.001_Cube.002
+    100004: Cube.002_Cube.003
+    100006: Cube.003_Cube.004
+    100008: Cube_Cube.001
+    100010: Cylinder
+    100012: Cylinder.001_Cylinder.012
+    100014: Cylinder.003
+    100016: Cylinder.004
+    100018: Cylinder.005
+    100020: Cylinder.006
+    100022: Cylinder.007
+    100024: Cylinder.010
+    100026: Cylinder.011
+    100028: //RootNode
+    100030: Head
+    100032: Head_end
+    100034: Head_end_end
+    100036: Head_end_end_end
+    100038: LeftArm
+    100040: LeftFoot
+    100042: LeftFoot_end
+    100044: LeftFoot_end_end
+    100046: LeftFoot_end_end_end
+    100048: LeftForearm
+    100050: LeftHand
+    100052: LeftHand_end
+    100054: LeftHand_end_end
+    100056: LeftHand_end_end_end
+    100058: LeftHip
+    100060: LeftLeg
+    100062: LeftShoulder
+    100064: LowerSpine
+    100066: Plane
+    100068: RightArm
+    100070: RightFoot
+    100072: RightFoot_end
+    100074: RightFoot_end_end
+    100076: RightFoot_end_end_end
+    100078: RightForearm
+    100080: RightHand
+    100082: RightHand_end
+    100084: RightHand_end_end
+    100086: RightHand_end_end_end
+    100088: RightHip
+    100090: RightLeg
+    100092: RightShoulder
+    100094: Spine
+    400000: Armature
+    400002: Cube.001_Cube.002
+    400004: Cube.002_Cube.003
+    400006: Cube.003_Cube.004
+    400008: Cube_Cube.001
+    400010: Cylinder
+    400012: Cylinder.001_Cylinder.012
+    400014: Cylinder.003
+    400016: Cylinder.004
+    400018: Cylinder.005
+    400020: Cylinder.006
+    400022: Cylinder.007
+    400024: Cylinder.010
+    400026: Cylinder.011
+    400028: //RootNode
+    400030: Head
+    400032: Head_end
+    400034: Head_end_end
+    400036: Head_end_end_end
+    400038: LeftArm
+    400040: LeftFoot
+    400042: LeftFoot_end
+    400044: LeftFoot_end_end
+    400046: LeftFoot_end_end_end
+    400048: LeftForearm
+    400050: LeftHand
+    400052: LeftHand_end
+    400054: LeftHand_end_end
+    400056: LeftHand_end_end_end
+    400058: LeftHip
+    400060: LeftLeg
+    400062: LeftShoulder
+    400064: LowerSpine
+    400066: Plane
+    400068: RightArm
+    400070: RightFoot
+    400072: RightFoot_end
+    400074: RightFoot_end_end
+    400076: RightFoot_end_end_end
+    400078: RightForearm
+    400080: RightHand
+    400082: RightHand_end
+    400084: RightHand_end_end
+    400086: RightHand_end_end_end
+    400088: RightHip
+    400090: RightLeg
+    400092: RightShoulder
+    400094: Spine
+    2300000: Cylinder.011
+    3300000: Cylinder.011
+    4300000: Cube.001_Cube.002
+    4300002: Cylinder.001_Cylinder.012
+    4300004: Cylinder
+    4300006: Cylinder.011
+    4300008: Cylinder.006
+    4300010: Cylinder.007
+    4300012: Cylinder.004
+    4300014: Cylinder.005
+    4300016: Cube.003_Cube.004
+    4300018: Cube_Cube.001
+    4300020: Plane
+    4300022: Cylinder.003
+    4300024: Cube.002_Cube.003
+    4300026: Cylinder.010
+    9500000: //RootNode
+    13700000: Cube.001_Cube.002
+    13700002: Cube.002_Cube.003
+    13700004: Cube.003_Cube.004
+    13700006: Cube_Cube.001
+    13700008: Cylinder
+    13700010: Cylinder.001_Cylinder.012
+    13700012: Cylinder.003
+    13700014: Cylinder.004
+    13700016: Cylinder.005
+    13700018: Cylinder.006
+    13700020: Cylinder.007
+    13700022: Cylinder.010
+    13700024: Plane
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

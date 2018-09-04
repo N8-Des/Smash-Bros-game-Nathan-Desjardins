@@ -9,6 +9,7 @@ public class PeteMovement : CharacterMove
     public AudioSource audioStrike;
     public ParticleSystem part;
     public bool isShooting = false;
+    public bool needToTurn = false;
     void Update()
     {
         if (moveRight == true || moveLeft == true)
@@ -31,20 +32,20 @@ public class PeteMovement : CharacterMove
             anim.SetBool("isAttacking", true);
         }
     }
-    public override void jump()
+
+    public override void TurnLeft()
     {
-        anim.ResetTrigger("Jump");
-        rb.AddForce(0, 7300, 0);
-        canMove = true;
-        Invoke("stopJump", 0.2f);
+        needToTurn = true;
     }
-    public void stopJump()
+    public void turnIfNeeded()
     {
-        isJumping = false;
-        iCanMove = false;
-        //rb.velocity = new Vector3(0, 0, 0);
-        anim.ResetTrigger("Jump");
+        if (needToTurn)
+        {
+            transform.rotation = new Quaternion(0, 180, 0, 0);
+            isRight = false;
+        }
     }
+
     public void deactivate()
     {
         iCanMove = false;

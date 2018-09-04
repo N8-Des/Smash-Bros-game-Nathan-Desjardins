@@ -32,20 +32,7 @@ public class HankMovement : CharacterMove
             anim.SetBool("isAttacking", true);
         }
     }
-    public override void jump()
-    {
-        anim.ResetTrigger("Jump");
-        rb.AddForce(0, 8140, 0);
-        canMove = true;
-        Invoke("stopJump", 0.2f);
-    }
-    public void stopJump()
-    {
-        isJumping = false;
-        iCanMove = false;
-        //rb.velocity = new Vector3(0, 0, 0);
-        anim.ResetTrigger("Jump");
-    }
+
     public void deactivate()
     {
         iCanMove = false;

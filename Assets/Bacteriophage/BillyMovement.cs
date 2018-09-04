@@ -31,29 +31,19 @@ public class BillyMovement : CharacterMove
             anim.SetBool("isAttacking", true);
         }
     }
-    public override void jump()
-    {
-        anim.ResetTrigger("Jump");
-        rb.AddForce(0, 8400, 0);
-        canMove = true;
-        Invoke("stopJump", 0.2f);
-    }
-    public void stopJump()
-    {
-        isJumping = false;
-        iCanMove = false;
-        //rb.velocity = new Vector3(0, 0, 0);
-        anim.ResetTrigger("Jump");
-    }
+
     public void deactivate()
     {
         iCanMove = false;
+        rb.useGravity = true;
         me.velocity = new Vector3(0, 0, 0);
         canMove = true;
         canAttack = true;
         anim.SetBool("isAttacking", false);
         anim.SetBool("CanAttack", true);
         anim.SetBool("IsIdle", true);
+        anim.SetBool("Jumping", false);
+
     }
     public override void bRight()
     {
@@ -95,10 +85,13 @@ public class BillyMovement : CharacterMove
         anim.SetBool("CanAttack", true);
         anim.SetBool("isAttacking", false);
         anim.SetBool("IsIdle", true);
+        anim.SetBool("Jumping", false);
     }
 
     public override void bUp()
     {
+        rb.velocity = Vector3.zero;
+        rb.useGravity = false;
         rb.AddForce(0, 6000, 0);
         Invoke("deactivate", 0.3f);
     }

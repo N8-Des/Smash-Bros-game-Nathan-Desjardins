@@ -9,6 +9,7 @@ public class DannyMovement : CharacterMove
     public AudioSource audioStrike;
     public ParticleSystem part;
     public bool isShooting = false;
+    public bool needToTurn = false;
     void Update()
     {
         if (moveRight == true || moveLeft == true)
@@ -31,22 +32,12 @@ public class DannyMovement : CharacterMove
             anim.SetBool("isAttacking", true);
         }
     }
-    public override void jump()
-    {
-        anim.ResetTrigger("Jump");
-        rb.AddForce(0, 8900, 0);
-        canMove = true;
-        Invoke("stopJump", 0.2f);
-    }
-    public void stopJump()
-    {
-        isJumping = false;
-        iCanMove = false;
-        //rb.velocity = new Vector3(0, 0, 0);
-        anim.ResetTrigger("Jump");
-    }
+
+
     public void deactivate()
     {
+        rb.velocity = Vector3.zero;
+        rb.useGravity = true;
         iCanMove = false;
         me.velocity = new Vector3(0, 0, 0);
         canMove = true;
@@ -54,6 +45,8 @@ public class DannyMovement : CharacterMove
         anim.SetBool("isAttacking", false);
         anim.SetBool("CanAttack", true);
         anim.SetBool("IsIdle", true);
+        anim.SetBool("Jumping", false);
+
     }
     public override void bRight()
     {
@@ -68,6 +61,18 @@ public class DannyMovement : CharacterMove
         iCanMove = true;
         me.velocity = moveSpeed * -2;
         Invoke("deactivate", 0.26f);
+    }
+    public override void TurnLeft()
+    {
+        needToTurn = true;
+    }
+    public void turnIfNeeded()
+    {
+        if (needToTurn)
+        {
+            transform.rotation = new Quaternion(0, 180, 0, 0);
+            isRight = false;
+        }
     }
     public void bSide()
     {
@@ -95,16 +100,19 @@ public class DannyMovement : CharacterMove
         anim.SetBool("CanAttack", true);
         anim.SetBool("isAttacking", false);
         anim.SetBool("IsIdle", true);
+        anim.SetBool("Jumping", false);
     }
 
     public override void bUp()
     {
+        rb.velocity = Vector3.zero;
+        rb.useGravity = false;
         rb.AddForce(0, 6000, 0);
         Invoke("deactivate", 0.3f);
     }
     public override void baseB()
     {
-        Invoke("baseStop", 3);
+        Invoke("baseStop", 3); 
     }
     public override void bDown()
     {

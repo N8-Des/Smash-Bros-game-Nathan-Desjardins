@@ -5,6 +5,7 @@ using UnityEngine;
 public class BasicHurtbox : MonoBehaviour {
     public Vector3 KB;
     public int damage;
+    public bool alreadyNegative;
 
     public virtual void OnTriggerEnter(Collider collider)
     {
@@ -13,7 +14,14 @@ public class BasicHurtbox : MonoBehaviour {
             CharacterMove player = gameObject.transform.parent.GetComponent<CharacterMove>();
             if (!player.isRight)
             {
-                KB.z *= -1;
+                if (!alreadyNegative)
+                {
+                    KB.z *= -1;
+                }
+                alreadyNegative = true;
+            } else
+            {
+                KB.z = Mathf.Abs(KB.z);
             }
             GameObject other = collider.gameObject;
             BaseHit dmgCtrl = other.GetComponent<BaseHit>();

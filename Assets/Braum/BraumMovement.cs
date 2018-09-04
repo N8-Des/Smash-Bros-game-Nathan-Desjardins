@@ -47,13 +47,14 @@ public class BraumMovement : CharacterMove
     }
     public void deactivate()
     {
+        rb.useGravity = true;
         iCanMove = false;
         me.velocity = new Vector3(0, 0, 0);
         canMove = true;
         canAttack = true;
         anim.SetBool("isAttacking", false);
         anim.SetBool("IsIdle", true);
-
+        anim.SetBool("Jumping", false);
 
     }
     public override void bRight()
@@ -97,6 +98,7 @@ public class BraumMovement : CharacterMove
         {
             anim.SetBool("IsIdle", true);
         }
+        anim.SetBool("Jumping", false);
     }
     public void Ultimate()
     {
@@ -114,6 +116,8 @@ public class BraumMovement : CharacterMove
     }
     public override void bUp()
     {
+        rb.velocity = Vector3.zero;
+        rb.useGravity = false;
         rb.AddForce(0, 6000, 0);
         Invoke("deactivate", 0.3f);
     }

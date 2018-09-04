@@ -32,33 +32,7 @@ public class JimmyMovement : CharacterMove
             anim.SetBool("isAttacking", true);
         }
     }
-    public override void jump()
-    {
-        anim.ResetTrigger("Jump");
-        rb.AddRelativeForce(0, 8600, 0);
-        canMove = true;
-        Invoke("stopJump", 0.2f);
-        /*
-         *         anim.ResetTrigger("Jump");
-        if (neutralX)
-        {
-            rb.AddRelativeForce(0, 13000, 0);
-        }
-        else
-        {
-            rb.AddRelativeForce(0, 13000, 6000);
-        }
-        canMove = true;
-        Invoke("stopJump", 0.2f);
-        */
-    }
-    public void stopJump()
-    {
-        isJumping = false;
-        iCanMove = false;
-        //rb.velocity = new Vector3(0, 0, 0);
-        anim.ResetTrigger("Jump");
-    }
+
     public void deactivate()
     {
         iCanMove = false;

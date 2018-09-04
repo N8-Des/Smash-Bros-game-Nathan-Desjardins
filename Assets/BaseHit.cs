@@ -64,7 +64,7 @@ public class BaseHit : MonoBehaviour {
                     charMove.canBlock = false;
                     TakeAttack(30, new Vector3(0, 0.8f, 0));
                     shield.transform.localScale = new Vector3(OriginalShieldSize, OriginalShieldSize, OriginalShieldSize);
-                    shieldHealth = 100;
+                    shieldHealth = 50;
                 }
             }
             else

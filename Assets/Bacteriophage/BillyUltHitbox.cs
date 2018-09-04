@@ -23,16 +23,18 @@ public class BillyUltHitbox : UltHurtbox
                 playerHit.canAttack = false;
                 playerHit.canMove = false;
                 playerHit.canJump = false;
-                StartCoroutine(takeHit(dmgCtrl));
+                StartCoroutine(takeHit(dmgCtrl, other));
+                other.transform.localScale *= 1.8f;
                 GameObject Particle = GameObject.Instantiate((GameObject)Resources.Load("BillyExplosion"));
                 Particle.transform.position = other.transform.position;
                 hitNoise.Play();
             }
         }
     }
-    public IEnumerator takeHit(BaseHit control)
+    public IEnumerator takeHit(BaseHit control, GameObject other)
     {
         yield return new WaitForSeconds(1f);
+        other.transform.localScale /= 1.8f;
         control.takeUlt(damage, KB);
 
     }

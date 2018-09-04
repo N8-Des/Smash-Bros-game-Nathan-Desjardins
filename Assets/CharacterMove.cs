@@ -12,6 +12,7 @@ public class CharacterMove : MonoBehaviour
     public string LeftJoystickY;
     public string LeftBumper = "LB";
     public string RightJoystickDown = "RightPress";
+    public int JumpHeight = 6500;
     public bool isJumping = false;
     public Rigidbody rb;
     public bool moveLeft = false;
@@ -59,6 +60,26 @@ public class CharacterMove : MonoBehaviour
     public void dryOff()
     {
         isWet = false;
+    }
+    public virtual void jump()
+    {
+        if (inAir)
+        {
+            rb.velocity = Vector3.zero;
+        }
+        rb.useGravity = false;
+        anim.ResetTrigger("Jump");
+        rb.AddForce(0, JumpHeight, 0);
+        canMove = true;
+        Invoke("stopJump", 0.2f);
+    }
+    public void stopJump()
+    {
+        rb.useGravity = true;
+        isJumping = false;
+        iCanMove = false;
+        //rb.velocity = new Vector3(0, 0, 0);
+        anim.ResetTrigger("Jump");
     }
     public void OnEnable()
     {
@@ -118,6 +139,10 @@ public class CharacterMove : MonoBehaviour
     }
     public virtual void OnCollisionEnter(Collision other)
     {
+        if (other.collider.tag == "Ground")
+        {
+            anim.SetBool("isWalking", false);
+        }
         if (!canBUp && other.collider.tag == "Ground")
         {
             canBUp = true;
@@ -141,12 +166,26 @@ public class CharacterMove : MonoBehaviour
             onGround = false;
         }
     }
+    public void LeaveGround() //only used by Montezuma's dissapearing platforms as of now
+    {
+        inAir = true;
+        anim.SetBool("InAir", true);
+        onGround = false;
+    }
+    public virtual void EndSpawnAnim()
+    {
+        anim.SetBool("isAttacking", false);
+    }
+    public void Spawn()
+    {
+        anim.SetBool("isAttacking", true);
+        anim.SetTrigger("Spawn");
+    }
     public virtual void bRight() { }
     public virtual void bLeft() { }
     public virtual void bUp() { }
     public virtual void baseB() { }
     public virtual void bDown() { }
-    public virtual void jump() { }
     public virtual void attacking() { }
     public virtual void counter(int damage) { }
     public virtual void bSideGrab(GameObject playerHit) { }
@@ -159,10 +198,27 @@ public class CharacterMove : MonoBehaviour
         moveUpdate();
         specialUpdate();
         shieldCheck();
+        //gravCheck(); taken out because it doesn't work. Falling off the edge is still needlessly unforgiving
         if (ultsOn)
         {
             ultCheck();
         }
+    }
+    public virtual void TurnLeft()
+    {
+        isRight = false;
+        transform.rotation = new Quaternion(0, 180, 0, 0);
+    }
+    public virtual void TurnRight()
+    {
+        isRight = true;
+        transform.rotation = new Quaternion(0, 0, 0, 0);
+    }
+    public void SendToIdle()
+    {
+        anim.SetBool("IsIdle", false);
+        anim.SetBool("isAttacking", false);
+        anim.SetBool("knockedBack", true);
     }
     public virtual void takeStun(float stunTime)
     {
@@ -179,6 +235,29 @@ public class CharacterMove : MonoBehaviour
         canJump = true;
         anim.SetBool("IsIdle", true);
         anim.SetBool("CanAttack", true);
+    }
+    void gravCheck()
+    {
+        if (rb.velocity.y <= -2.5 )
+        {
+            rb.AddForce(0, 2500, 0);
+        }
+    }
+    public virtual void stopMoving() //used by GameManager to stop moving before the round starts
+    {
+        canAttack = false;
+        canMove = false;
+        canJump = false;
+        canBlock = false;
+    }
+    public virtual void startMoving() //used by GameManager to start moving at start of match
+    {
+        canAttack = true;
+        canMove = true;
+        canJump = true;
+        canBlock = true;
+        anim.SetBool("isAttacking", false);
+        anim.SetBool("isIdle", true);
 
     }
     public void ultCheck()
@@ -191,7 +270,6 @@ public class CharacterMove : MonoBehaviour
             canJump = false;
             attacking();
             ultReady = false;
-            //ULTIMATE ATTACK!
             progMan.reset();
         }
     }
@@ -279,11 +357,11 @@ public class CharacterMove : MonoBehaviour
     {
         if (lastInput == "Right" && !inAir)
         {
+            isRight = true;
             canJump = false;
             canAttack = false;
             canMove = false;
             transform.rotation = new Quaternion(0, 0, 0, 0);
-            isRight = true;
             anim.SetTrigger("BSide");
             attacking();
 
@@ -297,10 +375,10 @@ public class CharacterMove : MonoBehaviour
     {
         if (lastInput == "Left" && !inAir)
         {
+            isRight = false;
             canJump = false;
             canAttack = false;
             canMove = false;
-            isRight = false;
             transform.rotation = new Quaternion(0, 180, 0, 0);
             anim.SetTrigger("BSide");
             attacking();
@@ -350,6 +428,10 @@ public class CharacterMove : MonoBehaviour
             }
         }
     }
+    public void JumpEnd()
+    {
+        anim.SetBool("Jumping", false);
+    }
     void jumpUpdate()
     {
         if ((Input.GetButton(X) || Input.GetKey(KeyCode.X)) && canJump && !damageControl.isKnockedBack && !isJumping)
@@ -360,7 +442,9 @@ public class CharacterMove : MonoBehaviour
             canMove = false;
             anim.SetBool("IsIdle", false);
             anim.SetTrigger("Jump");
-            Invoke("jump", JDelay);
+            //anim.SetBool("Jumping", true);
+            //Invoke("jump", JDelay);
+            jump();
             inAir = true;
         }
     }
@@ -406,8 +490,8 @@ public class CharacterMove : MonoBehaviour
         {
             if (!isRight)
             {
-                transform.rotation = new Quaternion(0, 0, 0, 0);
                 isRight = true;
+                transform.rotation = new Quaternion(0, 0, 0, 0);
                 anim.SetTrigger("Fair");
                 attacking();
             }
@@ -453,15 +537,15 @@ public class CharacterMove : MonoBehaviour
         {
             if (isRight)
             {
+                isRight = false;
                 anim.SetTrigger("Bair");
                 transform.rotation = new Quaternion(0, 180, 0, 0);
-                isRight = false;
                 attacking();
             }
             else
             {
-                anim.SetTrigger("Bair");
                 isRight = false;
+                anim.SetTrigger("Bair");
                 attacking();
             }
         }
@@ -476,15 +560,26 @@ public class CharacterMove : MonoBehaviour
     {
         if (lastInput == "Right")
         {
+            /*if (isWalking)
+            {
+                if (isRight)
+                {
+                    anim.SetTrigger("DashAttack");
+                    rb.AddForce(0, 0, 1000);
+                    attacking();
+                    iCanMove = true;
+                }
+            } */
             if (!isRight)
             {
+                isRight = true;
                 transform.rotation = new Quaternion(0, 0, 0, 0);
                 anim.SetTrigger("RightA");
-                isRight = true;
                 attacking();
             }
             else
             {
+                isRight = true;
                 anim.SetTrigger("RightA");
                 attacking();
             }
@@ -499,15 +594,26 @@ public class CharacterMove : MonoBehaviour
     {
         if (lastInput == "Left")
         {
+            /*if (isWalking)
+            {
+                if (!isRight)
+                {
+                    anim.SetTrigger("DashAttack");
+                    rb.AddForce(0, 0, -1000);
+                    attacking();
+                    iCanMove = true;
+                }
+            }*/
             if (isRight)
             {
+                isRight = false;
                 transform.rotation = new Quaternion(0, 180, 0, 0);
                 anim.SetTrigger("RightA");
-                isRight = false;
                 attacking();
             }
             else
             {
+                isRight = false;
                 anim.SetTrigger("RightA");
                 attacking();
             }
@@ -624,27 +730,7 @@ public class CharacterMove : MonoBehaviour
             }
             else if (canMove)
             {
-                if (lastInput == "Right")
-                {
-                    transform.rotation = new Quaternion(0, 0, 0, 0);
-                    if (rb.velocity.z <= 1)
-                    {
-                        rb.AddForce(0, 0, 5000);
-                    }
-                    isWalking = true;
-                    isRight = true;
-                }
-                if (lastInput == "Left")
-                {
-                    transform.rotation = new Quaternion(0, 180, 0, 0);
-                    if (rb.velocity.z >= -1)
-                    {
-                        rb.AddForce(0, 0, -5000);
-                    }
-                    isWalking = true;
-                    isRight = false;
-
-                }
+                moveInAir();
             }
         }
         else if (isLedged)
@@ -664,6 +750,30 @@ public class CharacterMove : MonoBehaviour
                 transform.rotation = new Quaternion(0, 180, 0, 0);
                 rb.useGravity = true;
             }
+        }
+    }
+
+    public virtual void moveInAir()
+    {
+        if (lastInput == "Right")
+        {
+            transform.rotation = new Quaternion(0, 0, 0, 0);
+            if (rb.velocity.z <= 1)
+            {
+                rb.AddForce(0, 0, 5000);
+            }
+            isWalking = true;
+            isRight = true;
+        }
+        if (lastInput == "Left")
+        {
+            transform.rotation = new Quaternion(0, 180, 0, 0);
+            if (rb.velocity.z >= -1)
+            {
+                rb.AddForce(0, 0, -5000);
+            }
+            isWalking = true;
+            isRight = false;
         }
     }
 }

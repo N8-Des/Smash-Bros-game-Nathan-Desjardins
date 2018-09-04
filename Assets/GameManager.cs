@@ -28,12 +28,14 @@ public class GameManager : MonoBehaviour {
     public int lives = 3;
     public bool ultimatesOn;
     public Stage stageSelected;
-
+    public Animator canvas2;
+    public GameObject UltimateMeters;
+    
 
     public void startGame()
     {
-        player1Respawn = stageSelected.player1Spawn;
-        player2Respawn = stageSelected.player2Spawn;
+        player1Respawn = stageSelected.player1Respawn;
+        player2Respawn = stageSelected.player2Respawn;
         player1Spawn = stageSelected.player1Spawn;
         player2Spawn = stageSelected.player2Spawn;
         mainCamera.transform.position = stageSelected.mainCamPos.transform.position;
@@ -53,6 +55,9 @@ public class GameManager : MonoBehaviour {
         p2score.transform.position += new Vector3(0, 350, 0);
         BaseHit bh1 = Player1.GetComponent<BaseHit>();
         BaseHit bh2 = Player2.GetComponent<BaseHit>();
+        playerOne.stopMoving();
+        playerTwo.stopMoving();
+        canvas2.SetTrigger("StartGame");
         if (!ultimatesOn)
         {
             bh1.ultOn = false;
@@ -71,7 +76,11 @@ public class GameManager : MonoBehaviour {
         }
         //cam.Players.Add(Player1);
         //cam.Players.Add(Player2);
-
+    }
+    public void startGameInput()
+    {
+        playerOne.startMoving();
+        playerTwo.startMoving();
     }
     public void respawnP1()
     {
@@ -84,6 +93,7 @@ public class GameManager : MonoBehaviour {
         {
             CharacterMove[] players = FindObjectsOfType<CharacterMove>();
             winner = GameObject.Find(player2Selection + "W");
+            UltimateMeters.SetActive(false);
             Invoke("moveWinner", 1);
             background.SetActive(true);
             foreach (CharacterMove target in players)
@@ -95,6 +105,12 @@ public class GameManager : MonoBehaviour {
             basic.death(false);
             Invoke("newGame", 3);
         }
+    }
+    public void startSpawnAnimPlayer()
+    {
+        playerOne.Spawn();
+        playerTwo.Spawn();
+        playerTwo.TurnLeft();
     }
     void moveWinner()
     {
@@ -111,6 +127,7 @@ public class GameManager : MonoBehaviour {
         {
             CharacterMove[] players = FindObjectsOfType<CharacterMove>();
             winner = GameObject.Find(player1Selection + "W");
+            UltimateMeters.SetActive(false);
             Invoke("moveWinner", 1);
             background.SetActive(true);
             foreach (CharacterMove target in players)
@@ -129,6 +146,7 @@ public class GameManager : MonoBehaviour {
         Player1.transform.position = player1Respawn.transform.position;
         BaseHit bh1 = Player1.GetComponent<BaseHit>();
         playerOne = Player1.GetComponent<CharacterMove>();
+        bh1.invulnStart();
         if (!ultimatesOn)
         {
             bh1.ultOn = false;
@@ -148,6 +166,7 @@ public class GameManager : MonoBehaviour {
         GameObject Player2 = GameObject.Instantiate((GameObject)Resources.Load(player2Selection));
         Player2.transform.position = player2Respawn.transform.position;
         BaseHit bh2 = Player2.GetComponent<BaseHit>();
+        bh2.invulnStart();
         if (!ultimatesOn)
         {
             bh2.ultOn = false;
@@ -164,6 +183,7 @@ public class GameManager : MonoBehaviour {
         p1score.transform.position -= new Vector3(0, 350, 0);
         p2score.transform.position -= new Vector3(0, 350, 0);
         winner.transform.position -= new Vector3(0, 700, 0);
+        UltimateMeters.SetActive(true);
         background.SetActive(false);
         selectionCanvas.SetActive(true);
         CharSelect charSelection = selectionCanvas.GetComponent<CharSelect>();

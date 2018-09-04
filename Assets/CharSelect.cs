@@ -28,6 +28,14 @@ public class CharSelect : MonoBehaviour {
     public bool isUseful = true;
     public GameObject optionsCanvas;
     public GameObject selectionCanvas;
+    public GameObject SelectedP1Indicator;
+    public GameObject SelectedP2Indicator;
+    public GameObject MainMenu;
+    public void OnEnable()
+    {
+        isUseful = false;
+        Invoke("usefulness", 0.3f);
+    }
 
     public void Update()
     {
@@ -49,6 +57,8 @@ public class CharSelect : MonoBehaviour {
             if (Input.GetButton("Start"))
             {
                 selectionCanvas.SetActive(true);
+                StageSelector selectCan = selectionCanvas.GetComponent<StageSelector>();
+                selectCan.isUseful = true;
                 gameObject.SetActive(false);
             }
         }
@@ -56,37 +66,56 @@ public class CharSelect : MonoBehaviour {
         {
             pressStart.SetActive(false);
         }
-}
+    }
     public void testForButton2() { 
         if (Input.GetButton("A2"))
         {
             gameManager.player2Selection = currentlySelected2.ToString();
             player2Selected = true;
+            SelectedP2Indicator.SetActive(true);
             
         } else if (Input.GetButton("B2"))
         {
             player2Selected = false;
+            SelectedP2Indicator.SetActive(false);
         }
     }
     public void testForButton()
     {
-        if (Input.GetButton("A"))
+        if (Input.GetButton("A") || Input.GetKey(KeyCode.Z))
         {
             gameManager.player1Selection = currentlySelected.ToString();
             player1Selected = true;
+            SelectedP1Indicator.SetActive(true);
 
         }
-        else if (Input.GetButton("B"))
+        else if (Input.GetButton("B") || Input.GetKey(KeyCode.X))
         {
-            player1Selected = false;
+            if (player1Selected)
+            {
+                player1Selected = false;
+                SelectedP1Indicator.SetActive(false);
+            }else
+            {
+                MainMenu.SetActive(true);
+                MainMenuNavigation mm = MainMenu.GetComponent<MainMenuNavigation>();
+                mm.isUseful = true;
+                isUseful = false;
+                gameObject.SetActive(false);
+            }
+
         }
-        else if (Input.GetButton("X"))
+        else if (Input.GetButton("X") || Input.GetKey(KeyCode.A))
         {
             optionsCanvas.SetActive(true);
             OptionsSelecter opts = optionsCanvas.GetComponent<OptionsSelecter>();
             opts.isUseful = true;
             gameObject.SetActive(false);
         }
+    }
+    void usefulness()
+    {
+        isUseful = true;
     }
     public void inputBuffer()
     {
