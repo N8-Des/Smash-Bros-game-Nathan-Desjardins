@@ -96,17 +96,16 @@ public class RobloxMovement : CharacterMove
     }
     public void shotBack()
     {
+        iCanMove = true;
         if (!isRight)
         {
             //Debug.Log("left");
-            rb.AddForce(0, 500, 50000);
-            Invoke("deactivate", 0.4f);
+            rb.AddForce(0, 500, 5000);
         }
         else
         {
             //Debug.Log("right");
-            rb.AddForce(0, 500, -50000);
-            Invoke("deactivate", 0.4f);
+            rb.AddForce(0, 500, -5000);
         }
     }
     public void blast()
@@ -118,13 +117,11 @@ public class RobloxMovement : CharacterMove
             blast.transform.rotation = new Quaternion(0, 180, 0, 0);
             blast.transform.position = transform.position + new Vector3(0, 0.1f, -0.4f);
             PresentRB.velocity = new Vector3(0, 0, -3.2f);
-            Invoke("baseStop", 1.1f);
         }
         else
         {
             blast.transform.position = transform.position + new Vector3(0, 0.1f, 0.4f);
             PresentRB.velocity = new Vector3(0, 0, 3.2f);
-            Invoke("baseStop", 1.1f);
         }
     }
 

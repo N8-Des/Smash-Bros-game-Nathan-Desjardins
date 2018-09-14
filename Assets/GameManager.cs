@@ -30,8 +30,61 @@ public class GameManager : MonoBehaviour {
     public Stage stageSelected;
     public Animator canvas2;
     public GameObject UltimateMeters;
+    public Stage TrainingStage;
+    public GameObject DummyScore;
+    public Canvas2 HUD;
+    public BaseHit bh1;
+    public MainMenuNavigation MainMenu;
     
-
+    public void StartTraining()
+    {
+        player1Life.gameObject.SetActive(false);
+        player2Life.gameObject.SetActive(false);
+        player1Respawn = TrainingStage.player1Respawn;
+        player2Respawn = TrainingStage.player2Respawn;
+        player1Spawn = TrainingStage.player1Spawn;
+        player2Spawn = TrainingStage.player2Spawn;
+        mainCamera.transform.position = TrainingStage.mainCamPos.transform.position;
+        Player1 = GameObject.Instantiate((GameObject)Resources.Load(player1Selection));
+        Player2 = GameObject.Instantiate((GameObject)Resources.Load("TrainingDummy"));
+        Player1.transform.position = player1Spawn.transform.position;
+        Player2.transform.position = player2Spawn.transform.position;
+        p1score = GameObject.Find(player1Selection + "P");
+        p2score = DummyScore;
+        p1score.transform.position += new Vector3(0, 350, 0);
+        p2score.transform.position += new Vector3(0, 350, 0);
+        bh1 = Player1.GetComponent<BaseHit>();
+        BaseHit bh2 = Player2.GetComponent<BaseHit>();
+        playerOne = Player1.GetComponent<CharacterMove>();
+        bh1.progressBar = Prog1;
+        bh2.progressBar = Prog2;
+        bh1.ultOn = true;
+        bh2.ultOn = true;
+        playerOne.ultsOn = true;
+        Prog1.selectedPlayer = playerOne;
+        playerOne.progMan = Prog1;
+        HUD.InTraining = true;
+    }
+    public void spawnP1Training()
+    {
+        Invoke("respawnP1Training", 2.3f);
+    }
+    public void respawnP1Training()
+    {
+        GameObject Player1 = GameObject.Instantiate((GameObject)Resources.Load(player1Selection));
+        Player1.transform.position = player1Respawn.transform.position;
+        BaseHit bh1 = Player1.GetComponent<BaseHit>();
+        playerOne = Player1.GetComponent<CharacterMove>();
+        bh1.invulnStart();
+        if (!ultimatesOn)
+        bh1.progressBar = Prog1;
+    }
+    public void respawnSandbag()
+    {
+        GameObject Player2 = GameObject.Instantiate((GameObject)Resources.Load("TrainingDummy"));
+        Player2.transform.position = player2Respawn.transform.position;
+        BaseHit bh2 = Player2.GetComponent<BaseHit>();
+    }
     public void startGame()
     {
         player1Respawn = stageSelected.player1Respawn;
@@ -53,7 +106,7 @@ public class GameManager : MonoBehaviour {
         p2score = GameObject.Find(player2Selection + "P");
         p1score.transform.position += new Vector3(0, 350, 0);
         p2score.transform.position += new Vector3(0, 350, 0);
-        BaseHit bh1 = Player1.GetComponent<BaseHit>();
+        bh1 = Player1.GetComponent<BaseHit>();
         BaseHit bh2 = Player2.GetComponent<BaseHit>();
         playerOne.stopMoving();
         playerTwo.stopMoving();
@@ -72,7 +125,7 @@ public class GameManager : MonoBehaviour {
             bh1.ultOn = true;
             bh2.ultOn = true;
             playerOne.ultsOn = true;
-            playerOne.ultsOn = true;
+            playerTwo.ultsOn = true;
         }
         //cam.Players.Add(Player1);
         //cam.Players.Add(Player2);
@@ -80,7 +133,18 @@ public class GameManager : MonoBehaviour {
     public void startGameInput()
     {
         playerOne.startMoving();
-        playerTwo.startMoving();
+        if (playerTwo != null)
+        {
+            playerTwo.startMoving();
+        }
+    }
+    public void stopGameInput()
+    {
+        playerOne.stopMoving();
+        if (playerTwo != null)
+        {
+            playerTwo.stopMoving();
+        }
     }
     public void respawnP1()
     {
@@ -115,6 +179,8 @@ public class GameManager : MonoBehaviour {
     void moveWinner()
     {
         winner.transform.position += new Vector3(0, -700, 0);
+        AudioSource audio = winner.GetComponent<AudioSource>();
+        audio.Play();
     }
     public void respawnP2()
     {
@@ -140,6 +206,22 @@ public class GameManager : MonoBehaviour {
             Invoke("newGame", 3);
         }
     }
+    public void EndTraining()
+    {
+        MainMenu.gameObject.SetActive(true);
+        MainMenu.isUseful = true;
+        HUD.NeedsInput = false;
+        p1score.transform.position -= new Vector3(0, 350, 0);
+        p2score.transform.position -= new Vector3(0, 350, 0);
+        GameObject[] characters;
+        characters = GameObject.FindGameObjectsWithTag("Char");
+        foreach (GameObject player in characters)
+        {
+            Destroy(player);
+        }
+        Prog1.reset();
+        Prog2.reset();
+    }
     void spawnp1()
     {
         GameObject Player1 = GameObject.Instantiate((GameObject)Resources.Load(player1Selection));
@@ -156,10 +238,6 @@ public class GameManager : MonoBehaviour {
         {
             bh1.progressBar = Prog1;
         }
-        //cam.Players.RemoveRange(0, cam.Players.Count);
-        //cam.Players.Add(focus);
-        //cam.Players.Add(Player1);
-        //cam.Players.Add(Player2);
     }
     void spawnp2()
     {
@@ -173,10 +251,6 @@ public class GameManager : MonoBehaviour {
             playerTwo.ultsOn = false;
         }
         bh2.progressBar = Prog2;
-        //cam.Players.RemoveRange(0, cam.Players.Count);
-        //cam.Players.Add(focus);
-        //cam.Players.Add(Player1);
-        //cam.Players.Add(Player2);
     }
     public void newGame()
     {

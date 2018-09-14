@@ -22,18 +22,18 @@ public class BaseHit : MonoBehaviour {
     public bool ultOn = true;
     public GameObject invulnIndicator;
 
-    public void invulnStart()
+    public virtual void invulnStart()
     {
         invulnIndicator.SetActive(true);
         isInvuln = true;
         Invoke("invulnEnd", 2.2f);
     }
-    public void invulnEnd()
+    public virtual void invulnEnd()
     {
         invulnIndicator.SetActive(false);
         isInvuln = false;
     }
-    public void Start()
+    public virtual void Start()
     {
         anim = gameObject.GetComponent<Animator>();
         OriginalShieldSize = shield.transform.localScale.x;
@@ -45,6 +45,11 @@ public class BaseHit : MonoBehaviour {
             progressBar.selectedPlayer = gameObject.GetComponent<CharacterMove>();
             charMove.progMan = progressBar;
         }
+    }
+    public void takeDamage(int damage)
+    {
+        percent += damage;
+        pdisplay.takeDamage(damage);
     }
     public virtual void TakeAttack(int damage, Vector3 knockback)
     {
@@ -88,7 +93,7 @@ public class BaseHit : MonoBehaviour {
             }
         }
     }
-    void stopKB()
+    public virtual void stopKB()
     {
         anim.SetBool("knockedBack", false);
         anim.SetBool("IsIdle", true);
@@ -98,15 +103,15 @@ public class BaseHit : MonoBehaviour {
         isKnockedBack = false;
         charMove.canBlock = true;
     }
-    public void resetPerc() {
+    public virtual void resetPerc() {
         percent = 0;
         pdisplay.resetPercentDisplay();
     }
-    public void heal()
+    public virtual void heal()
     {
         pdisplay.takeDamage(-12);
     }
-    public void takeUlt(int damage, Vector3 knockback)
+    public virtual void takeUlt(int damage, Vector3 knockback)
     {
         if (!isInvuln)
         {
@@ -124,17 +129,17 @@ public class BaseHit : MonoBehaviour {
             Invoke("stopKB", ((knockback.y + knockback.z) * (percent / 10) * (kbResist)) / 10);
         }
     }
-    public void EkkoUlt()
+    public virtual void EkkoUlt()
     {
         double healthReduce = Math.Ceiling((double)percent / 5);
         int healthReduceInt = Convert.ToInt32(healthReduce);
         pdisplay.takeDamage(healthReduceInt * -1);
     }
-    public void setInvBoolTrue()
+    public virtual void setInvBoolTrue()
     {
         isInvuln = true;
     }
-    public void setInvBoolFalse()
+    public virtual void setInvBoolFalse()
     {
         isInvuln = false;
     }

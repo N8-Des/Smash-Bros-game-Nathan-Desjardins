@@ -81,7 +81,7 @@ public class ExbandMovement : CharacterMove
     public void bSideTP()
     {
         baseStop();
-        Invoke("teleport", 0.02f);
+        teleport();
     }
     void teleport()
     {

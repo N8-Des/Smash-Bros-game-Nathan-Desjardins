@@ -31,6 +31,7 @@ public class CharSelect : MonoBehaviour {
     public GameObject SelectedP1Indicator;
     public GameObject SelectedP2Indicator;
     public GameObject MainMenu;
+    public bool canBack = true;
     public void OnEnable()
     {
         isUseful = false;
@@ -54,7 +55,7 @@ public class CharSelect : MonoBehaviour {
         if (player1Selected && player2Selected)
         {
             pressStart.SetActive(true);
-            if (Input.GetButton("Start"))
+            if (Input.GetButton("Start") || Input.GetKey(KeyCode.Return))
             {
                 selectionCanvas.SetActive(true);
                 StageSelector selectCan = selectionCanvas.GetComponent<StageSelector>();
@@ -89,12 +90,15 @@ public class CharSelect : MonoBehaviour {
             SelectedP1Indicator.SetActive(true);
 
         }
-        else if (Input.GetButton("B") || Input.GetKey(KeyCode.X))
+        else if ((Input.GetButton("B") || Input.GetKey(KeyCode.X)) && canBack)
         {
             if (player1Selected)
             {
+                canBack = false;
+                Invoke("waitToBack", 0.3f);
                 player1Selected = false;
                 SelectedP1Indicator.SetActive(false);
+                
             }else
             {
                 MainMenu.SetActive(true);
@@ -273,6 +277,10 @@ public class CharSelect : MonoBehaviour {
     public void waitToSelect()
     {
         canSelect = true;
+    }
+    public void waitToBack()
+    {
+        canBack = true;
     }
     public void waitToSelect2()
     {

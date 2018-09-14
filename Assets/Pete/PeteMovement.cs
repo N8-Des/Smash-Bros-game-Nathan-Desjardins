@@ -89,7 +89,7 @@ public class PeteMovement : CharacterMove
     }
     public override void bUp()
     {
-        rb.AddForce(0, 2000, 0);
+        rb.AddForce(0, 4500, 0);
         Invoke("deactivate", 0.3f);
     }
     public void StopMovement()

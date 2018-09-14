@@ -77,13 +77,11 @@ public class BraumMovement : CharacterMove
             me = gameObject.GetComponent<Rigidbody>();
             iCanMove = true;
             me.velocity = moveSpeed * 2;
-            Invoke("deactivate", 0.26f);
         } else
         {
             me = gameObject.GetComponent<Rigidbody>();
             iCanMove = true;
             me.velocity = moveSpeed * -2;
-            Invoke("deactivate", 0.26f);
         }
 
     }
@@ -140,6 +138,8 @@ public class BraumMovement : CharacterMove
             audioStrike.Play();
             if (!isRight)
             {
+                BasicHurtbox presentHitbox = Present.GetComponentInChildren<BasicHurtbox>();
+                presentHitbox.isRight = false;
                 Present.transform.rotation = new Quaternion(0, 180, 0, 0);
                 Present.transform.position = transform.position + new Vector3(0, 0.3f, -1);
                 PresentRB.velocity = new Vector3(0, 0, -4);

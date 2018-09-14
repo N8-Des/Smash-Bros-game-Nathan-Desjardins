@@ -6,6 +6,7 @@ public class BasicHurtbox : MonoBehaviour {
     public Vector3 KB;
     public int damage;
     public bool alreadyNegative;
+    public bool isRight = true;
 
     public virtual void OnTriggerEnter(Collider collider)
     {
@@ -22,15 +23,20 @@ public class BasicHurtbox : MonoBehaviour {
             } else
             {
                 KB.z = Mathf.Abs(KB.z);
+                alreadyNegative = false;
             }
             GameObject other = collider.gameObject;
             BaseHit dmgCtrl = other.GetComponent<BaseHit>();
+            ThanosCar thanosCar = other.GetComponent<ThanosCar>();
             if (dmgCtrl != null && dmgCtrl.transform.parent != this)
             {
                 dmgCtrl.TakeAttack(damage, KB);
+            } else if (thanosCar != null)
+            {
+                thanosCar.Explode();
             }
         }
-        else if (gameObject.transform.parent.transform.rotation.eulerAngles.y == 180)
+        else if (!isRight)
         {
             KB.z *= -1;
             GameObject other = collider.gameObject;

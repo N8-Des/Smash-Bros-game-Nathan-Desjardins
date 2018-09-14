@@ -15,6 +15,7 @@ public class ProgressManager : MonoBehaviour {
     {
         me.fillAmount = 0;
         amount = 0;
+        ultimate = false;
         ultIndication.SetActive(false);
     }
     private void start()

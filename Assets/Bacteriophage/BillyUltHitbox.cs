@@ -20,14 +20,26 @@ public class BillyUltHitbox : UltHurtbox
             CharacterMove playerHit = other.GetComponent<CharacterMove>();
             if (dmgCtrl != null && dmgCtrl.transform.parent != this)
             {
-                playerHit.canAttack = false;
-                playerHit.canMove = false;
-                playerHit.canJump = false;
-                StartCoroutine(takeHit(dmgCtrl, other));
-                other.transform.localScale *= 1.8f;
-                GameObject Particle = GameObject.Instantiate((GameObject)Resources.Load("BillyExplosion"));
-                Particle.transform.position = other.transform.position;
-                hitNoise.Play();
+                if (playerHit != null)
+                {
+                    playerHit.canAttack = false;
+                    playerHit.canMove = false;
+                    playerHit.canJump = false;
+                    StartCoroutine(takeHit(dmgCtrl, other));
+                    other.transform.localScale *= 1.8f;
+                    GameObject Particle = GameObject.Instantiate((GameObject)Resources.Load("BillyExplosion"));
+                    Particle.transform.position = other.transform.position;
+                    hitNoise.Play();
+                }
+                else
+                {
+                    StartCoroutine(takeHit(dmgCtrl, other));
+                    other.transform.localScale *= 1.8f;
+                    GameObject Particle = GameObject.Instantiate((GameObject)Resources.Load("BillyExplosion"));
+                    Particle.transform.position = other.transform.position;
+                    hitNoise.Play();
+                }
+
             }
         }
     }

@@ -147,6 +147,8 @@ public class EkkoMovement : CharacterMove
             PresentRB = Timewinder.GetComponent<Rigidbody>();
             if (!isRight)
             {
+                BasicHurtbox timeHitbox = Timewinder.GetComponentInChildren<BasicHurtbox>();
+                timeHitbox.isRight = false;
                 Timewinder.transform.rotation = new Quaternion(0, 180, 0, 0);
                 Timewinder.transform.position = transform.position + new Vector3(0, 0.1f, -0.6f);
                 PresentRB.velocity = new Vector3(0, 0, -3);

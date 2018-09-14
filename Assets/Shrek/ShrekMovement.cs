@@ -107,20 +107,21 @@ public class ShrekMovement : CharacterMove
             GameObject Present = GameObject.Instantiate((GameObject)Resources.Load("DonkeyShrek"));
             PresentRB = Present.GetComponent<Rigidbody>();
             audioStrike.Play();
+            FriendlyHitbox donkeyFriend = Present.GetComponentInChildren<FriendlyHitbox>();
+            donkeyFriend.friend = gameObject;
             if (!isRight)
             {
+                BasicHurtbox donkeyHitbox = Present.GetComponentInChildren<BasicHurtbox>();
+                donkeyHitbox.isRight = false;
                 Present.transform.rotation = new Quaternion(0, 180, 0, 0);
                 Present.transform.position = transform.position + new Vector3(0, 0.1f, -0.4f);
                 PresentRB.velocity = new Vector3(0, 0, -3f);
-                //Invoke("baseStop", 0.6f);
             }
             else
             {
                 Present.transform.position = transform.position + new Vector3(0, 0.1f, 0.4f);
                 PresentRB.velocity = new Vector3(0, 0, 3f);
-                //Invoke("baseStop", 0.6f);
             }
-            //anim.ResetTrigger("NeutB");
         }
     }
     public void Ultimate()

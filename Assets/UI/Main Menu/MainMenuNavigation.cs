@@ -83,7 +83,7 @@ public class MainMenuNavigation : MonoBehaviour
                     onNumber = 0;
                     currentlySelected = Buttons[0];
                     currentlySelected.isSelected = true;
-                    Invoke("waitToSelect", 0.3f);
+                    Invoke("waitToSelect", 0.2f);
                 }
                 else
                 {
@@ -91,7 +91,7 @@ public class MainMenuNavigation : MonoBehaviour
                     onNumber += 1;
                     currentlySelected = Buttons[onNumber];
                     currentlySelected.isSelected = true;
-                    Invoke("waitToSelect", 0.3f);
+                    Invoke("waitToSelect", 0.2f);
                 }
             }
             else if (lastInput == "Down" && !player1Selected)
@@ -102,7 +102,7 @@ public class MainMenuNavigation : MonoBehaviour
                     onNumber = Buttons.Count - 1;
                     currentlySelected = Buttons[onNumber];
                     currentlySelected.isSelected = true;
-                    Invoke("waitToSelect", 0.3f);
+                    Invoke("waitToSelect", 0.2f);
                 }
                 else
                 {
@@ -110,7 +110,7 @@ public class MainMenuNavigation : MonoBehaviour
                     onNumber -= 1;
                     currentlySelected = Buttons[onNumber];
                     currentlySelected.isSelected = true;
-                    Invoke("waitToSelect", 0.3f);
+                    Invoke("waitToSelect", 0.2f);
                 }
             }
             else

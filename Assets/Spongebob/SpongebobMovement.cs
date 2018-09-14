@@ -83,6 +83,8 @@ public class SpongebobMovement : CharacterMove
         //audioStrike.Play();
         if (!isRight)
         {
+            BasicHurtbox pattyHitbox = Patty.GetComponentInChildren<BasicHurtbox>();
+            pattyHitbox.isRight = false;
             Patty.transform.rotation = new Quaternion(0, 180, 0, 0);
             Patty.transform.position = transform.position + new Vector3(0, 0.3f, -0.3f);
             pattyrb.velocity = new Vector3(0, 0, -4);

@@ -262,7 +262,7 @@ public class CharacterMove : MonoBehaviour
     }
     public void ultCheck()
     {
-        if (ultReady && Input.GetButton(RightJoystickDown) && canAttack)
+        if (ultReady && (Input.GetButton(RightJoystickDown) || Input.GetKey(KeyCode.Q)) && canAttack)
         {
             anim.SetTrigger("ult");
             canAttack = false;

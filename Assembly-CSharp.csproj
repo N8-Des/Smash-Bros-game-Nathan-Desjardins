@@ -65,6 +65,7 @@
      <Compile Include="Assets\DannyPhantom\DannyBase.cs" />
      <Compile Include="Assets\DannyPhantom\DannyMovement.cs" />
      <Compile Include="Assets\DannyPhantom\Portal.cs" />
+     <Compile Include="Assets\DeathTraining.cs" />
      <Compile Include="Assets\DieOnHit.cs" />
      <Compile Include="Assets\DigDug\DigDugHitbox.cs" />
      <Compile Include="Assets\DigDug\DigdugMovement.cs" />
@@ -88,6 +89,9 @@
      <Compile Include="Assets\JimmyNeutron\BrainBlast.cs" />
      <Compile Include="Assets\JimmyNeutron\JimmyBase.cs" />
      <Compile Include="Assets\JimmyNeutron\JimmyMovement.cs" />
+     <Compile Include="Assets\Kermit\KermitMovement.cs" />
+     <Compile Include="Assets\Kermit\KermitUltHitbox.cs" />
+     <Compile Include="Assets\Kermit\TongueHitbox.cs" />
      <Compile Include="Assets\KillRad.cs" />
      <Compile Include="Assets\LevelFocus.cs" />
      <Compile Include="Assets\LifeDisplay.cs" />
@@ -102,10 +106,9 @@
      <Compile Include="Assets\ProjectileShield.cs" />
      <Compile Include="Assets\Roblox\RobloxBase.cs" />
      <Compile Include="Assets\Roblox\RobloxMovement.cs" />
+     <Compile Include="Assets\Sandbag\SandbagHit.cs" />
      <Compile Include="Assets\Shrek\ShrekBase.cs" />
      <Compile Include="Assets\Shrek\ShrekMovement.cs" />
-     <Compile Include="Assets\Sora\SoraBase.cs" />
-     <Compile Include="Assets\Sora\SoraMovement.cs" />
      <Compile Include="Assets\Spongebob\SpongeBase.cs" />
      <Compile Include="Assets\Spongebob\SpongebobMovement.cs" />
      <Compile Include="Assets\Stages\BaxterAcademy\BASpawn.cs" />
@@ -133,6 +136,11 @@
      <Compile Include="Assets\UI\Options\UltAttackOpt.cs" />
      <Compile Include="Assets\UI\StageSelect\StageSelector.cs" />
      <Compile Include="Assets\UI\StageSelect\StageUI.cs" />
+     <Compile Include="Assets\UI\Training\ExitScript.cs" />
+     <Compile Include="Assets\UI\Training\ResumeScript.cs" />
+     <Compile Include="Assets\UI\Training\TrainOptions.cs" />
+     <Compile Include="Assets\UI\Training\TrainingSelect.cs" />
+     <Compile Include="Assets\UI\Training\UltToggleScript.cs" />
      <Compile Include="Assets\UltHurtbox.cs" />
      <Compile Include="Assets\Waluigi\WaluigiMovement.cs" />
      <Compile Include="Assets\Waveform\Cloud.cs" />
@@ -140,6 +148,10 @@
      <Compile Include="Assets\Waveform\Spear\SpearTargetting.cs" />
      <Compile Include="Assets\Waveform\WaveformMovement.cs" />
      <Compile Include="Assets\Waveform\WetHurtbox.cs" />
+     <Compile Include="Assets\Worst Character\HadToHitbox.cs" />
+     <Compile Include="Assets\Worst Character\ThanosCar.cs" />
+     <Compile Include="Assets\Worst Character\WorstMovement.cs" />
+     <Compile Include="Assets\Worst Character\YouKnow.cs" />
      <Compile Include="Assets\Youtube\MoneyHit.cs" />
      <Compile Include="Assets\Youtube\YoutubeAdSteal.cs" />
      <Compile Include="Assets\Youtube\YoutubeMovement.cs" />

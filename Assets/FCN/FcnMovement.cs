@@ -108,6 +108,8 @@ public class FcnMovement : CharacterMove
             //audioStrike.Play();
             if (!isRight)
             {
+                BasicHurtbox darkHitbox = Present.GetComponentInChildren<BasicHurtbox>();
+                darkHitbox.isRight = false;
                 Present.transform.rotation = new Quaternion(0, 180, 0, 0);
                 Present.transform.position = transform.position + new Vector3(0, 0.3f, -0.6f);
                 PresentRB.velocity = new Vector3(0, 0, -2.5f);

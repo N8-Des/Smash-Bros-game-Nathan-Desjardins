@@ -9,9 +9,18 @@ public class FriendlyHitbox : BasicHurtbox {
         if (other.tag == "Char" && other.gameObject != friend)
         {
             BaseHit dmgCtrl = other.GetComponent<BaseHit>();
+
             if (dmgCtrl != null && dmgCtrl.transform.parent != this)
             {
-                dmgCtrl.TakeAttack(damage, KB);
+                if (!isRight)
+                {
+                    KB.z *= -1;
+                    dmgCtrl.TakeAttack(damage, KB);
+                }
+                else
+                {
+                    dmgCtrl.TakeAttack(damage, KB);
+                }
             }
         }
     }
