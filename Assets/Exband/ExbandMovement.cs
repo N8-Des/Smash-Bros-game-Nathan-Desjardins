@@ -76,7 +76,8 @@ public class ExbandMovement : CharacterMove
     public void bSideHit()
     {
         BaseHit charHit = sbTarget.GetComponent<BaseHit>();
-        charHit.TakeAttack(10, new Vector3(0, 0.5f, 0.4f));
+        charHit.TakeAttack(10, new Vector3(0, 0.5f, 0.4f), this);
+        GameObject Audio = GameObject.Instantiate((GameObject)Resources.Load("Audh2"));
     }
     public void bSideTP()
     {

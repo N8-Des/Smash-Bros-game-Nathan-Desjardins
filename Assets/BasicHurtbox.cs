@@ -7,7 +7,7 @@ public class BasicHurtbox : MonoBehaviour {
     public int damage;
     public bool alreadyNegative;
     public bool isRight = true;
-
+    public float AudioHitNumber = 1;
     public virtual void OnTriggerEnter(Collider collider)
     {
         if (gameObject.transform.parent.tag == "Char")
@@ -30,8 +30,11 @@ public class BasicHurtbox : MonoBehaviour {
             ThanosCar thanosCar = other.GetComponent<ThanosCar>();
             if (dmgCtrl != null && dmgCtrl.transform.parent != this)
             {
-                dmgCtrl.TakeAttack(damage, KB);
-            } else if (thanosCar != null)
+                dmgCtrl.TakeAttack(damage, KB, player);
+                GameObject Audio = GameObject.Instantiate((GameObject)Resources.Load("Audh" + AudioHitNumber));
+
+            }
+            else if (thanosCar != null)
             {
                 thanosCar.Explode();
             }
@@ -43,15 +46,18 @@ public class BasicHurtbox : MonoBehaviour {
             BaseHit dmgCtrl = other.GetComponent<BaseHit>();
             if (dmgCtrl != null && dmgCtrl.transform.parent != this)
             {
-                dmgCtrl.TakeAttack(damage, KB);
+                dmgCtrl.TakeAttack(damage, KB, null);
+                GameObject Audio = GameObject.Instantiate((GameObject)Resources.Load("Audh" + AudioHitNumber));
             }
-        }else
+        }
+        else
         {
             GameObject other = collider.gameObject;
             BaseHit dmgCtrl = other.GetComponent<BaseHit>();
             if (dmgCtrl != null && dmgCtrl.transform.parent != this)
             {
-                dmgCtrl.TakeAttack(damage, KB);
+                dmgCtrl.TakeAttack(damage, KB, null);
+                GameObject Audio = GameObject.Instantiate((GameObject)Resources.Load("Audh" + AudioHitNumber));
             }
         }
     }

@@ -85,6 +85,7 @@
     <Compile Include="Assets\BaseHit.cs" />
     <Compile Include="Assets\BasicHurtbox.cs" />
     <Compile Include="Assets\BasicStunHitbox.cs" />
+    <Compile Include="Assets\Blitz\BlitzMovement.cs" />
     <Compile Include="Assets\BowlHead\BowlHeadMovement.cs" />
     <Compile Include="Assets\Braum\BraumBase.cs" />
     <Compile Include="Assets\Braum\BraumMovement.cs" />
@@ -121,6 +122,9 @@
     <Compile Include="Assets\JimmyNeutron\BrainBlast.cs" />
     <Compile Include="Assets\JimmyNeutron\JimmyBase.cs" />
     <Compile Include="Assets\JimmyNeutron\JimmyMovement.cs" />
+    <Compile Include="Assets\Kermit\KermitMovement.cs" />
+    <Compile Include="Assets\Kermit\KermitUltHitbox.cs" />
+    <Compile Include="Assets\Kermit\TongueHitbox.cs" />
     <Compile Include="Assets\KillRad.cs" />
     <Compile Include="Assets\LevelFocus.cs" />
     <Compile Include="Assets\LifeDisplay.cs" />
@@ -138,8 +142,6 @@
     <Compile Include="Assets\Sandbag\SandbagHit.cs" />
     <Compile Include="Assets\Shrek\ShrekBase.cs" />
     <Compile Include="Assets\Shrek\ShrekMovement.cs" />
-    <Compile Include="Assets\Sora\SoraBase.cs" />
-    <Compile Include="Assets\Sora\SoraMovement.cs" />
     <Compile Include="Assets\Spongebob\SpongeBase.cs" />
     <Compile Include="Assets\Spongebob\SpongebobMovement.cs" />
     <Compile Include="Assets\Stages\BaxterAcademy\BASpawn.cs" />
@@ -179,7 +181,10 @@
     <Compile Include="Assets\Waveform\Spear\SpearTargetting.cs" />
     <Compile Include="Assets\Waveform\WaveformMovement.cs" />
     <Compile Include="Assets\Waveform\WetHurtbox.cs" />
+    <Compile Include="Assets\Worst Character\HadToHitbox.cs" />
+    <Compile Include="Assets\Worst Character\ThanosCar.cs" />
     <Compile Include="Assets\Worst Character\WorstMovement.cs" />
+    <Compile Include="Assets\Worst Character\YouKnow.cs" />
     <Compile Include="Assets\Youtube\MoneyHit.cs" />
     <Compile Include="Assets\Youtube\YoutubeAdSteal.cs" />
     <Compile Include="Assets\Youtube\YoutubeMovement.cs" />

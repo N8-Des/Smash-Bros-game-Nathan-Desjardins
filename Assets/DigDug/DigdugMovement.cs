@@ -77,11 +77,11 @@ public class DigdugMovement : CharacterMove
         hitPlayer.transform.localScale /= 1.6f;
         if (isRight)
         {
-            damageControlHit.TakeAttack(16, new Vector3(0, 0.85f, 0.75f));
+            damageControlHit.TakeAttack(16, new Vector3(0, 0.85f, 0.75f), null);
         }
         else
         {
-            damageControlHit.TakeAttack(16, new Vector3(0, 0.85f, -0.75f));
+            damageControlHit.TakeAttack(16, new Vector3(0, 0.85f, -0.75f), null);
         }
     }
     public void bSide()

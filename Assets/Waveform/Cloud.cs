@@ -6,12 +6,14 @@ public class Cloud : MonoBehaviour {
     public CharacterMove friendly; //very important to set up correctly, use this when starting anim to make sure the thunder hurtbox won't damage summoner
     public FriendlyHitbox hurtbox;
     public Animator anim;
+    public GameObject audioThunder;
     public void Start()
     {
         hurtbox.friend = friendly.gameObject;
     }
     public void SendThunder()
     {
+        GameObject Thunder = Instantiate(audioThunder);
         anim.SetTrigger("Thunder");
     }
     public void die() //for the animation to trigger upon finishing

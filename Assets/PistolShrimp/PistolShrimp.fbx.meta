@@ -1,0 +1,206 @@
+fileFormatVersion: 2
+guid: 268273229dc06d748bc387afc5237521
+timeCreated: 1539813536
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armature.001
+    100002: BigClaw
+    100004: BigClaw 1
+    100006: BigClaw_end
+    100008: BigClawArm
+    100010: BigClawArm_S
+    100012: BigClawForearm
+    100014: Circle
+    100016: Claw
+    100018: Cylinder
+    100020: Cylinder.004
+    100022: Cylinder.005
+    100024: LeftBackLeg
+    100026: LeftBackLeg_S
+    100028: LeftBackLegTip
+    100030: LeftBackLegTip_end
+    100032: LeftFrontLeg
+    100034: LeftFrontLeg_S
+    100036: LeftFrontLegTip
+    100038: LeftFrontLegTip_end
+    100040: LeftMidLeg
+    100042: LeftMidLeg_S
+    100044: LeftMidLegTip
+    100046: LeftMidLegTip_end
+    100048: Legs
+    100050: //RootNode
+    100052: RighBackLegTIp
+    100054: RighBackLegTIp_end
+    100056: RightBackLeg
+    100058: RightBackLeg_S
+    100060: RightFrontLeg
+    100062: RightFrontLeg_S
+    100064: RightMidLeg
+    100066: RightMidLeg_S
+    100068: RightMidLegTip
+    100070: RightMidLegTip_end
+    100072: RigthFrontLegTip
+    100074: RigthFrontLegTip_end
+    100076: SmallClaw
+    100078: SmallClaw_end
+    100080: SmallClawArm
+    100082: SmallClawArm_S
+    100084: Sphere
+    100086: Sphere.001
+    100088: Spine1
+    100090: Spine1_end
+    100092: Spine2
+    100094: Spine3
+    100096: Spine4
+    100098: Spine5
+    100100: Spine6
+    100102: Spine7
+    100104: Spine8
+    100106: spine9
+    100108: spine9_end
+    400000: Armature.001
+    400002: BigClaw
+    400004: BigClaw 1
+    400006: BigClaw_end
+    400008: BigClawArm
+    400010: BigClawArm_S
+    400012: BigClawForearm
+    400014: Circle
+    400016: Claw
+    400018: Cylinder
+    400020: Cylinder.004
+    400022: Cylinder.005
+    400024: LeftBackLeg
+    400026: LeftBackLeg_S
+    400028: LeftBackLegTip
+    400030: LeftBackLegTip_end
+    400032: LeftFrontLeg
+    400034: LeftFrontLeg_S
+    400036: LeftFrontLegTip
+    400038: LeftFrontLegTip_end
+    400040: LeftMidLeg
+    400042: LeftMidLeg_S
+    400044: LeftMidLegTip
+    400046: LeftMidLegTip_end
+    400048: Legs
+    400050: //RootNode
+    400052: RighBackLegTIp
+    400054: RighBackLegTIp_end
+    400056: RightBackLeg
+    400058: RightBackLeg_S
+    400060: RightFrontLeg
+    400062: RightFrontLeg_S
+    400064: RightMidLeg
+    400066: RightMidLeg_S
+    400068: RightMidLegTip
+    400070: RightMidLegTip_end
+    400072: RigthFrontLegTip
+    400074: RigthFrontLegTip_end
+    400076: SmallClaw
+    400078: SmallClaw_end
+    400080: SmallClawArm
+    400082: SmallClawArm_S
+    400084: Sphere
+    400086: Sphere.001
+    400088: Spine1
+    400090: Spine1_end
+    400092: Spine2
+    400094: Spine3
+    400096: Spine4
+    400098: Spine5
+    400100: Spine6
+    400102: Spine7
+    400104: Spine8
+    400106: spine9
+    400108: spine9_end
+    4300000: BigClaw
+    4300002: Claw
+    4300004: Sphere.001
+    4300006: Cylinder
+    4300008: Circle
+    4300010: Cylinder.005
+    4300012: Cylinder.004
+    4300014: Sphere
+    4300016: Legs
+    9500000: //RootNode
+    13700000: BigClaw
+    13700002: Circle
+    13700004: Claw
+    13700006: Cylinder
+    13700008: Cylinder.004
+    13700010: Cylinder.005
+    13700012: Legs
+    13700014: Sphere
+    13700016: Sphere.001
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

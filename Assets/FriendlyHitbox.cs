@@ -15,11 +15,11 @@ public class FriendlyHitbox : BasicHurtbox {
                 if (!isRight)
                 {
                     KB.z *= -1;
-                    dmgCtrl.TakeAttack(damage, KB);
+                    dmgCtrl.TakeAttack(damage, KB, null);
                 }
                 else
                 {
-                    dmgCtrl.TakeAttack(damage, KB);
+                    dmgCtrl.TakeAttack(damage, KB, null);
                 }
             }
         }

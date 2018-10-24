@@ -116,22 +116,22 @@ public class KermitMovement : CharacterMove
         hitPlayer.transform.localScale *= 100;
         if (!isRight)
         {
-            damageControlHit.TakeAttack(10, new Vector3(0, 0.5f, -0.5f));
+            damageControlHit.TakeAttack(10, new Vector3(0, 0.5f, -0.5f), this);
 
         }
         else
         {
-            damageControlHit.TakeAttack(10, new Vector3(0, 0.5f, 0.5f));
+            damageControlHit.TakeAttack(10, new Vector3(0, 0.5f, 0.5f), this);
         }
     }
     public void ultHitPlayer()
     {
         if (!isRight)
         {
-            playerHit.TakeAttack(17, new Vector3(0, 1f, -1f));
+            playerHit.TakeAttack(17, new Vector3(0, 1f, -1f), this);
         }else
         {
-            playerHit.TakeAttack(17, new Vector3(0, 1f, 1f));
+            playerHit.TakeAttack(17, new Vector3(0, 1f, 1f), this);
         }
     }
     public void DamagePlayer()

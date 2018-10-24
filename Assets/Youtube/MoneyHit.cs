@@ -6,6 +6,7 @@ public class MoneyHit : MonoBehaviour
 {
     public Vector3 KB;
     public int damage;
+    public float AudioHitNumber = 1;
 
     public virtual void OnTriggerEnter(Collider collider)
     {
@@ -22,7 +23,8 @@ public class MoneyHit : MonoBehaviour
             {
                 GameObject MoneyFall = GameObject.Instantiate((GameObject)Resources.Load("YoutubeMoney"));
                 MoneyFall.transform.position = this.transform.position;
-                dmgCtrl.TakeAttack(damage, KB);
+                dmgCtrl.TakeAttack(damage, KB, player);
+                GameObject Audio = GameObject.Instantiate((GameObject)Resources.Load("Audh" + AudioHitNumber));
 
             }
         }
@@ -33,7 +35,8 @@ public class MoneyHit : MonoBehaviour
             BaseHit dmgCtrl = other.GetComponent<BaseHit>();
             if (dmgCtrl != null && dmgCtrl.transform.parent != this)
             {
-                dmgCtrl.TakeAttack(damage, KB);
+                dmgCtrl.TakeAttack(damage, KB, null);
+                GameObject Audio = GameObject.Instantiate((GameObject)Resources.Load("Audh" + AudioHitNumber));
             }
         }
         else
@@ -42,7 +45,8 @@ public class MoneyHit : MonoBehaviour
             BaseHit dmgCtrl = other.GetComponent<BaseHit>();
             if (dmgCtrl != null && dmgCtrl.transform.parent != this)
             {
-                dmgCtrl.TakeAttack(damage, KB);
+                dmgCtrl.TakeAttack(damage, KB, null);
+                GameObject Audio = GameObject.Instantiate((GameObject)Resources.Load("Audh" + AudioHitNumber));
             }
         }
     }

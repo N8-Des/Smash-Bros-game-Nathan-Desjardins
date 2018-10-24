@@ -17,7 +17,7 @@ public class WetHurtbox : BasicHurtbox {
             CharacterMove hitPlayer = other.GetComponent<CharacterMove>();
             if (dmgCtrl != null && dmgCtrl.transform.parent != this)
             {
-                dmgCtrl.TakeAttack(damage, KB);
+                dmgCtrl.TakeAttack(damage, KB, null);
                 hitPlayer.getWet();
             }
         }

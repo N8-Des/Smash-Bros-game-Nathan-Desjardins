@@ -9,7 +9,7 @@ public class BasicStunHitbox : MonoBehaviour
     public void OnTriggerEnter(Collider collider)
     {
         GameObject other = collider.gameObject;
-        BaseCharMove Basic = other.GetComponent<BaseCharMove>();
+        CharacterMove Basic = other.GetComponent<CharacterMove>();
         if (Basic != null && Basic.transform.parent != this)
         {
             Basic.takeStun(stunDuration);

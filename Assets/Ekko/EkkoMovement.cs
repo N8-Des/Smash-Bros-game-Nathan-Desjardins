@@ -116,7 +116,6 @@ public class EkkoMovement : CharacterMove
     {
         BaseHit box = gameObject.GetComponent<BaseHit>();
         box.percent -= 12;
-        box.heal();
         isShooting = false;
         canAttack = true;
         canMove = true;
@@ -150,14 +149,14 @@ public class EkkoMovement : CharacterMove
                 BasicHurtbox timeHitbox = Timewinder.GetComponentInChildren<BasicHurtbox>();
                 timeHitbox.isRight = false;
                 Timewinder.transform.rotation = new Quaternion(0, 180, 0, 0);
-                Timewinder.transform.position = transform.position + new Vector3(0, 0.1f, -0.6f);
+                Timewinder.transform.position = transform.position + new Vector3(0, 0.1f, -0.0f);
                 PresentRB.velocity = new Vector3(0, 0, -3);
                 Invoke("baseStop", 0.05f);
                 Invoke("waitForDeath", 1.7f);
             }
             else
             {
-                Timewinder.transform.position = transform.position + new Vector3(0, 0.1f, 0.6f);
+                Timewinder.transform.position = transform.position + new Vector3(0, 0.1f, 0.9f);
                 PresentRB.velocity = new Vector3(0, 0, 3);
                 Invoke("baseStop", 0.05f);
                 Invoke("waitForDeath", 1.7f);

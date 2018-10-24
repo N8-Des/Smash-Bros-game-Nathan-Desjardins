@@ -14,7 +14,7 @@ public class SpearDamage : MonoBehaviour {
             BaseHit dmgCtrl = other.GetComponent<BaseHit>();
             if (dmgCtrl != null && dmgCtrl.transform.parent != this)
             {
-                dmgCtrl.TakeAttack(damage, KB);
+                dmgCtrl.TakeAttack(damage, KB, null);
                 Destroy(gameObject.transform.parent.gameObject);
             }
         }
@@ -24,7 +24,7 @@ public class SpearDamage : MonoBehaviour {
             BaseHit dmgCtrl = other.GetComponent<BaseHit>();
             if (dmgCtrl != null && dmgCtrl.transform.parent != this)
             {
-                dmgCtrl.TakeAttack(damage, KB);
+                dmgCtrl.TakeAttack(damage, KB, null);
                 Destroy(gameObject.transform.parent.gameObject);
             }
         }

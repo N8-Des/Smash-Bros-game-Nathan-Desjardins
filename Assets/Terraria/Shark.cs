@@ -17,7 +17,7 @@ public class Shark : MonoBehaviour
             BaseHit dmgCtrl = other.GetComponent<BaseHit>();
             if (dmgCtrl != null && dmgCtrl.transform.parent != this)
             {
-                dmgCtrl.TakeAttack(damage, KB);
+                dmgCtrl.TakeAttack(damage, KB, null);
             }
         }
         else
@@ -27,7 +27,7 @@ public class Shark : MonoBehaviour
             BaseHit dmgCtrl = other.GetComponent<BaseHit>();
             if (dmgCtrl != null && dmgCtrl.transform.parent != this)
             {
-                dmgCtrl.TakeAttack(damage, KB);
+                dmgCtrl.TakeAttack(damage, KB, null);
             }
         }
     }

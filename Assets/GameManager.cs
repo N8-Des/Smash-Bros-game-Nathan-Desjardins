@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour {
     public ProgressManager Prog1;
     public ProgressManager Prog2;
     public CameraFocus cam;
+    public CameraMove cameraControl;
     public CharacterMove playerOne;
     public CharacterMove playerTwo;
     public int lives = 3;
@@ -110,6 +111,8 @@ public class GameManager : MonoBehaviour {
         BaseHit bh2 = Player2.GetComponent<BaseHit>();
         playerOne.stopMoving();
         playerTwo.stopMoving();
+        cameraControl.player1 = Player1;
+        cameraControl.player2 = Player2;
         canvas2.SetTrigger("StartGame");
         if (!ultimatesOn)
         {
@@ -229,6 +232,7 @@ public class GameManager : MonoBehaviour {
         BaseHit bh1 = Player1.GetComponent<BaseHit>();
         playerOne = Player1.GetComponent<CharacterMove>();
         bh1.invulnStart();
+        cameraControl.player1 = Player1;
         if (!ultimatesOn)
         {
             bh1.ultOn = false;
@@ -245,6 +249,7 @@ public class GameManager : MonoBehaviour {
         Player2.transform.position = player2Respawn.transform.position;
         BaseHit bh2 = Player2.GetComponent<BaseHit>();
         bh2.invulnStart();
+        cameraControl.player2 = Player2;
         if (!ultimatesOn)
         {
             bh2.ultOn = false;

@@ -23,7 +23,7 @@ public class SandbagHit : BaseHit
         SSM = OriginalShieldSize / 50;
         pdisplay = GameObject.Find(UIname).GetComponent<PercentDisplay>();
     }
-    public override void TakeAttack(int damage, Vector3 knockback)
+    public override void TakeAttack(int damage, Vector3 knockback, CharacterMove attacker)
     {
         if (!isInvuln)
         {
@@ -47,10 +47,6 @@ public class SandbagHit : BaseHit
     {
         percent = 0;
         pdisplay.resetPercentDisplay();
-    }
-    public override void heal()
-    {
-        pdisplay.takeDamage(-12);
     }
     public override void takeUlt(int damage, Vector3 knockback)
     {

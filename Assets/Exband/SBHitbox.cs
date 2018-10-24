@@ -17,7 +17,7 @@ public class SBHitbox : MonoBehaviour
             BaseHit dmgCtrl = other.GetComponent<BaseHit>();
             if (dmgCtrl != null && dmgCtrl.transform.parent != this)
             {
-                dmgCtrl.TakeAttack(damage, KB);
+                dmgCtrl.TakeAttack(damage, KB, null);
                 thisChar.bSideGrab(other);
                 player.canAttack = false;
                 player.canMove = false;

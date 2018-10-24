@@ -154,10 +154,10 @@ public class YoutubeMovement : CharacterMove
     {
         if (isRight)
         {
-            damageTaker.TakeAttack(23, new Vector3(0, 0.6f, 0.4f));
+            damageTaker.TakeAttack(23, new Vector3(0, 0.6f, 0.4f), this);
         } else
         {
-            damageTaker.TakeAttack(23, new Vector3(0, 0.6f, -0.4f));
+            damageTaker.TakeAttack(23, new Vector3(0, 0.6f, -0.4f), this);
         }
     }
     public void ShootBilly()

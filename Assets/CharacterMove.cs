@@ -12,6 +12,7 @@ public class CharacterMove : MonoBehaviour
     public string LeftJoystickY;
     public string LeftBumper = "LB";
     public string RightJoystickDown = "RightPress";
+    public string DPadX = "DPadX";
     public int JumpHeight = 6500;
     public bool isJumping = false;
     public Rigidbody rb;
@@ -198,6 +199,7 @@ public class CharacterMove : MonoBehaviour
         moveUpdate();
         specialUpdate();
         shieldCheck();
+        tauntInput();
         //gravCheck(); taken out because it doesn't work. Falling off the edge is still needlessly unforgiving
         if (ultsOn)
         {
@@ -222,11 +224,24 @@ public class CharacterMove : MonoBehaviour
     }
     public virtual void takeStun(float stunTime)
     {
-        canMove = false;
-        canAttack = false;
-        canJump = false;
-        anim.SetBool("CanAttack", false);
-        Invoke("endStun", stunTime);
+        if (stunTime > 0)
+        {
+            anim.SetBool("IsIdle", true);
+            anim.SetBool("IsAttacking", false);
+            anim.SetBool("CanAttack", true);
+            canMove = false;
+            canAttack = false;
+            canJump = false;
+            anim.SetBool("CanAttack", false);
+            Invoke("endStun", stunTime);
+        }
+    }
+    public virtual void tauntInput()
+    {
+        if ((Input.GetAxis(DPadX) > threshold || Input.GetAxis(DPadX) < -threshold) && canAttack && !damageControl.isKnockedBack && !charging)
+        {
+            //taunts go here. :(
+        }
     }
     void endStun()
     {
@@ -249,6 +264,16 @@ public class CharacterMove : MonoBehaviour
         canMove = false;
         canJump = false;
         canBlock = false;
+    }
+    public virtual void gotCountered()
+    {
+        canAttack = false;
+        canMove = false;
+        canJump = false;
+        canBlock = false;
+        anim.SetBool("isAttacking", false);
+        anim.SetBool("isIdle", true);
+        anim.SetBool("canAttack", false);
     }
     public virtual void startMoving() //used by GameManager to start moving at start of match
     {

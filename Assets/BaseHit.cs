@@ -46,20 +46,27 @@ public class BaseHit : MonoBehaviour {
             charMove.progMan = progressBar;
         }
     }
+
     public void takeDamage(int damage)
     {
         percent += damage;
         pdisplay.takeDamage(damage);
     }
-    public virtual void TakeAttack(int damage, Vector3 knockback)
+    public virtual void TakeAttack(int damage, Vector3 knockback, CharacterMove attacker)
     {
-        if (!isInvuln)
+        if (charMove.isCountering)
         {
-            if (charMove.isCountering)
+            charMove.isCountering = false;
+            charMove.counter(damage);
+            if (attacker != null)
             {
-                charMove.counter(damage);
+                attacker.gotCountered();
+                isInvuln = true;
             }
-            else if (isBlocking)
+        }
+        else if (!isInvuln)
+        {
+            if (isBlocking)
             {
                 shieldHealth -= damage;
                 shield.transform.localScale -= new Vector3((damage * SSM), (damage * SSM), (damage * SSM));
@@ -67,7 +74,7 @@ public class BaseHit : MonoBehaviour {
                 {
                     isBlocking = false;
                     charMove.canBlock = false;
-                    TakeAttack(30, new Vector3(0, 0.8f, 0));
+                    TakeAttack(30, new Vector3(0, 0.8f, 0), null);
                     shield.transform.localScale = new Vector3(OriginalShieldSize, OriginalShieldSize, OriginalShieldSize);
                     shieldHealth = 50;
                 }
@@ -100,16 +107,19 @@ public class BaseHit : MonoBehaviour {
         anim.SetBool("CanAttack", true);
         charMove.canMove = true;
         charMove.canAttack = true;
+        charMove.iCanMove = false;
         isKnockedBack = false;
         charMove.canBlock = true;
+        charMove.charging = false;
     }
     public virtual void resetPerc() {
         percent = 0;
         pdisplay.resetPercentDisplay();
     }
-    public virtual void heal()
+    public virtual void heal(int healAmount)
     {
-        pdisplay.takeDamage(-12);
+        percent += healAmount;
+        pdisplay.takeDamage(healAmount);
     }
     public virtual void takeUlt(int damage, Vector3 knockback)
     {
