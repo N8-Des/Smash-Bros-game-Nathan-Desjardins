@@ -9,6 +9,7 @@ public class BlitzMovement : CharacterMove
     public AudioSource audioStrike;
     public ParticleSystem part;
     public bool isShooting = false;
+    int numFrames = 0;
     void Update()
     {
         if (moveRight == true || moveLeft == true)
@@ -84,12 +85,12 @@ public class BlitzMovement : CharacterMove
         me.useGravity = false;
         if (!isRight)
         {
-            me.velocity = moveSpeed * -1.4f;
+            me.velocity = new Vector3(0, 0, MaxSpeedGround * -1.4f);
             Invoke("stopRunning", 0.78f);
         }
         else
         {
-            me.velocity = moveSpeed * 1.4f;
+            me.velocity = new Vector3(0, 0, MaxSpeedGround * 1.4f);
             Invoke("stopRunning", 0.78f);
         }
     }
@@ -123,12 +124,29 @@ public class BlitzMovement : CharacterMove
     {
         rb.useGravity = false;
     }
+    public void startBUp()
+    {
+        StartCoroutine(upB());
+    }
+    public void kickDamageUThrow()
+    {
+        grabbedPlayer.GetComponent<BaseHit>().takeDamage(7);
+    }
+    IEnumerator upB()
+    {
+        while (numFrames <= 50)
+        {
+            transform.position = Vector3.Lerp(transform.position, transform.position + new Vector3(0, 2, 0), Time.deltaTime * 2);
+            numFrames += 1;
+            yield return new WaitForEndOfFrame();
+        }
+        numFrames = 0;
+    }
     public override void bUp()
     {
         deactivate();
         rb.velocity = Vector3.zero;
         rb.useGravity = true;
-        transform.position += new Vector3(0, 2, 0);
     }
     public void Dair()
     {

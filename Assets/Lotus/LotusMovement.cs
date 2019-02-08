@@ -34,14 +34,13 @@ public class LotusMovement : CharacterMove
 
     public void deactivate()
     {
+        rb.useGravity = true;
         iCanMove = false;
         me.velocity = new Vector3(0, 0, 0);
         canMove = true;
         canAttack = true;
         anim.SetBool("isAttacking", false);
         anim.SetBool("IsIdle", true);
-
-
     }
     public override void bRight()
     {
@@ -80,6 +79,7 @@ public class LotusMovement : CharacterMove
         isShooting = false;
         canAttack = true;
         canMove = true;
+        canJump = true;
         anim.SetBool("CanAttack", true);
         anim.SetBool("isAttacking", false);
         if (onGround)
@@ -87,11 +87,33 @@ public class LotusMovement : CharacterMove
             anim.SetBool("IsIdle", true);
         }
     }
-
+    public override void OnCollisionEnter(Collision other)
+    {
+        if (other.collider.tag == "Ground")
+        {
+            jumpsLeft = 2;
+            anim.SetBool("isWalking", false);
+        }
+        if (!canBUp && other.collider.tag == "Ground")
+        {
+            canBUp = true;
+        }
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("UpB"))
+        {
+            canAttack = true;
+            canMove = true;
+            iCanMove = false;
+            anim.SetBool("CanAttack", true);
+            anim.SetBool("isAttacking", false);
+            anim.SetBool("IsIdle", true);
+        }
+    }
     public override void bUp()
     {
-        rb.AddForce(0, 6000, 0);
-        Invoke("deactivate", 0.3f);
+        rb.velocity = Vector3.zero;
+        rb.useGravity = false;
+        rb.AddForce(0, 3000, 0);
+        Invoke("deactivate", 0.8f);
     }
     public override void baseB()
     {
@@ -101,6 +123,41 @@ public class LotusMovement : CharacterMove
     {
         //anim.ResetTrigger("BDown");
         Invoke("deactivate", 1);
+    }
+    public override void SpecialDir1()
+    {
+        if (lastInput == "Right")
+        {
+            isRight = true;
+            canJump = false;
+            canAttack = false;
+            canMove = false;
+            transform.rotation = new Quaternion(0, 0, 0, 0);
+            anim.SetTrigger("BSide");
+            attacking();
+
+        }
+        else
+        {
+            SpecialDir2();
+        }
+    }
+    public override void SpecialDir2()
+    {
+        if (lastInput == "Left")
+        {
+            isRight = false;
+            canJump = false;
+            canAttack = false;
+            canMove = false;
+            transform.rotation = new Quaternion(0, 180, 0, 0);
+            anim.SetTrigger("BSide");
+            attacking();
+        }
+        else
+        {
+            SpecialDir3();
+        }
     }
     public void LotusBall()
     {

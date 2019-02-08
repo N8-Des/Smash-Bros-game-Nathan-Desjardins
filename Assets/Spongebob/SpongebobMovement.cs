@@ -84,7 +84,7 @@ public class SpongebobMovement : CharacterMove
         if (!isRight)
         {
             BasicHurtbox pattyHitbox = Patty.GetComponentInChildren<BasicHurtbox>();
-            pattyHitbox.isRight = false;
+            pattyHitbox.KB.z *= -1;
             Patty.transform.rotation = new Quaternion(0, 180, 0, 0);
             Patty.transform.position = transform.position + new Vector3(0, 0.3f, -0.3f);
             pattyrb.velocity = new Vector3(0, 0, -4);
@@ -106,13 +106,13 @@ public class SpongebobMovement : CharacterMove
         {
             Jelly.transform.rotation = new Quaternion(0, 180, 0, 0);
             Jelly.transform.position = transform.position + new Vector3(0, 0.3f, -0.3f);
-            pattyrb.velocity = new Vector3(0, 0, -0.2f);
+            pattyrb.velocity = new Vector3(0, 0, -0.6f);
             //Invoke("baseStop", 0.2f);
         }
         else
         {
             Jelly.transform.position = transform.position + new Vector3(0, 0.3f, 0.3f);
-            pattyrb.velocity = new Vector3(0, 0, 0.2f);
+            pattyrb.velocity = new Vector3(0, 0, 0.6f);
             //Invoke("baseStop", 0.2f);
         }
     }

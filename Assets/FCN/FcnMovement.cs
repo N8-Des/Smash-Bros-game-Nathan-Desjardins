@@ -56,20 +56,43 @@ public class FcnMovement : CharacterMove
         me.velocity = moveSpeed * -2;
         Invoke("deactivate", 0.26f);
     }
+    public override void jump()
+    {
+        if (jumpsLeft >= 1 && canJump)
+        {
+            if (inAir)
+            {
+                rb.velocity = Vector3.zero;
+            }
+            rb.useGravity = false;
+            if (jumpsLeft > 0)
+            {
+                canMove = true;
+                //canAttack = false;
+                anim.SetBool("Jumping", true);
+                anim.SetTrigger("Jump");
+                rb.AddForce(0, JumpHeight, 0);
+                jumpsLeft -= 1;
+                canJump = false;
+                Invoke("jDelay", 0.3f);
+                Invoke("stopJump", 0.3f);
+            }
+        }
+    }
     public void bSide()
     {
         if (isRight)
         {
             me = gameObject.GetComponent<Rigidbody>();
             iCanMove = true;
-            me.velocity = moveSpeed * 2.4f;
+            me.AddForce(0, 0, 7500);
             //Invoke("deactivate", 0.56f);
         }
         else
         {
             me = gameObject.GetComponent<Rigidbody>();
             iCanMove = true;
-            me.velocity = moveSpeed * -2.4f;
+            me.AddForce(0, 0, -7500);
             //Invoke("deactivate", 0.56f);
         }
 
@@ -86,7 +109,7 @@ public class FcnMovement : CharacterMove
 
     public override void bUp()
     {
-        rb.AddForce(0, 6000, 0);
+        rb.AddForce(0, 8000, 0);
         Invoke("deactivate", 0.3f);
     }
     public override void baseB()

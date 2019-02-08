@@ -31,20 +31,6 @@ public class BraumMovement : CharacterMove
             anim.SetBool("isAttacking", true);
         }
     }
-    public override void jump()
-    {
-        anim.ResetTrigger("Jump");
-        rb.AddForce(0, 8000, 0);
-        canMove = true;
-        Invoke("stopJump", 0.2f);
-    }
-    public void stopJump()
-    {
-        isJumping = false;
-        iCanMove = false;
-        //rb.velocity = new Vector3(0, 0, 0);
-        anim.ResetTrigger("Jump");
-    }
     public void deactivate()
     {
         rb.useGravity = true;
@@ -141,13 +127,13 @@ public class BraumMovement : CharacterMove
                 BasicHurtbox presentHitbox = Present.GetComponentInChildren<BasicHurtbox>();
                 presentHitbox.isRight = false;
                 Present.transform.rotation = new Quaternion(0, 180, 0, 0);
-                Present.transform.position = transform.position + new Vector3(0, 0.3f, -1);
+                Present.transform.position = transform.position + new Vector3(0, 0.3f, -0.5f);
                 PresentRB.velocity = new Vector3(0, 0, -4);
                 Invoke("baseStop", 0.6f);
             }
             else
             {
-                Present.transform.position = transform.position + new Vector3(0, 0.3f, 1);
+                Present.transform.position = transform.position + new Vector3(0, 0.3f, 0.5f);
                 PresentRB.velocity = new Vector3(0, 0, 4);
                 Invoke("baseStop", 0.6f);
             }

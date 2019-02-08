@@ -11,6 +11,8 @@ public class ExbandMovement : CharacterMove
     public GameObject sbTarget;
     public bool isShooting = false;
     public Vector3 BUOffset;
+    int numFrames;
+    bool sideB;
     void Update()
     {
         if (moveRight == true || moveLeft == true)
@@ -55,6 +57,12 @@ public class ExbandMovement : CharacterMove
     {
         anim.SetTrigger("BSide2");
         sbTarget = playerHit;
+        sideB = true;
+        attacking();
+        canAttack = false;
+        canMove = false;
+        canJump = false;
+        StartCoroutine(moveToTargetPlayer());
     }
     public void bSide()
     {
@@ -78,16 +86,23 @@ public class ExbandMovement : CharacterMove
         BaseHit charHit = sbTarget.GetComponent<BaseHit>();
         charHit.TakeAttack(10, new Vector3(0, 0.5f, 0.4f), this);
         GameObject Audio = GameObject.Instantiate((GameObject)Resources.Load("Audh2"));
+        sideB = false;
     }
-    public void bSideTP()
+    IEnumerator moveToTargetPlayer()
     {
-        baseStop();
-        teleport();
-    }
-    void teleport()
-    {
-        this.transform.position = sbTarget.transform.position;
-
+        float DistX;
+        Vector3 offsetSB = new Vector3(0, 0, -0.4f);
+        if (!isRight)
+        {
+            offsetSB.z *= -1;
+        }
+        gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        DistX = transform.position.z - sbTarget.transform.position.z;
+        while (!canMove && damageControl.isKnockedBack == false)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, sbTarget.transform.position + offsetSB, Time.deltaTime * 5);
+            yield return new WaitForEndOfFrame();
+        }
     }
     public void baseStop()
     {
@@ -100,8 +115,20 @@ public class ExbandMovement : CharacterMove
     }
     public override void bUp()
     {
-        deactivate();
-        transform.position += BUOffset;
+        rb.useGravity = false;
+        StartCoroutine(upB());
+    }
+    IEnumerator upB()
+    {
+        while (numFrames <= 20)
+        {
+            transform.position = Vector3.Lerp(transform.position, transform.position + new Vector3(0, 3, 0), Time.deltaTime * 2);
+            numFrames += 1;
+            yield return new WaitForEndOfFrame();
+        }
+        numFrames = 0;
+        rb.useGravity = true;
+
     }
     public override void baseB()
     {

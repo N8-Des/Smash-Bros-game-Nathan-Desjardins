@@ -112,6 +112,10 @@ public class BuckMovement : CharacterMove
         //anim.ResetTrigger("BDown");
         Invoke("deactivate", 1);
     }
+    public void damageNoiseBat()
+    {
+        GameObject sound = GameObject.Instantiate((GameObject)Resources.Load("Audh12"));
+    }
     public void ShootBilly()
     {
         if (!isShooting)

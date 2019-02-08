@@ -75,9 +75,11 @@
      <Compile Include="Assets\Dragonborn\DragonbornBase.cs" />
      <Compile Include="Assets\Dragonborn\DragonbornMovement.cs" />
      <Compile Include="Assets\Dragonborn\Spellbreaker.cs" />
+     <Compile Include="Assets\EdgeStop.cs" />
      <Compile Include="Assets\Ekko\EkkoBase.cs" />
      <Compile Include="Assets\Ekko\EkkoMovement.cs" />
      <Compile Include="Assets\Ekko\EkkoTime.cs" />
+     <Compile Include="Assets\Ekko\TimeWinder.cs" />
      <Compile Include="Assets\Epic Turtle\TurtleMovement.cs" />
      <Compile Include="Assets\Epic Turtle\TurtleUlt.cs" />
      <Compile Include="Assets\Exband\ExbandMovement.cs" />
@@ -87,6 +89,7 @@
      <Compile Include="Assets\FriendlyHitbox.cs" />
      <Compile Include="Assets\GameManager.cs" />
      <Compile Include="Assets\Gilman\GilmanMovement.cs" />
+     <Compile Include="Assets\GrabHitbox.cs" />
      <Compile Include="Assets\HankHill\HankBase.cs" />
      <Compile Include="Assets\HankHill\HankMovement.cs" />
      <Compile Include="Assets\HankHill\Propane.cs" />
@@ -101,6 +104,7 @@
      <Compile Include="Assets\Kermit\KermitUltHitbox.cs" />
      <Compile Include="Assets\Kermit\TongueHitbox.cs" />
      <Compile Include="Assets\KillRad.cs" />
+     <Compile Include="Assets\Ledge.cs" />
      <Compile Include="Assets\LevelFocus.cs" />
      <Compile Include="Assets\LifeDisplay.cs" />
      <Compile Include="Assets\Lotus\LotusMelonSB.cs" />
@@ -135,6 +139,7 @@
      <Compile Include="Assets\Terraria\VortexRocket.cs" />
      <Compile Include="Assets\Thomas\ThomasBase.cs" />
      <Compile Include="Assets\Thomas\ThomasMovement.cs" />
+     <Compile Include="Assets\ThrowConstants.cs" />
      <Compile Include="Assets\Tiny\TinyAxe.cs" />
      <Compile Include="Assets\Tiny\TinyMovement.cs" />
      <Compile Include="Assets\UI\Canvas2.cs" />

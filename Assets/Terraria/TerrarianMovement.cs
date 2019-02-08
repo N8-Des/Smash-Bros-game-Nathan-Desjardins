@@ -139,7 +139,7 @@ public class TerrarianMovement : CharacterMove
         if (!isRight)
         {
             BasicHurtbox vortexHitbox = Present.GetComponentInChildren<BasicHurtbox>();
-            vortexHitbox.isRight = false;
+            vortexHitbox.KB.z *= -2;
             Present.transform.rotation = new Quaternion(0, 180, 0, 0);
             Present.transform.position = transform.position + new Vector3(0, 0.05f, -0.6f);
             PresentRB.velocity = new Vector3(0, 0, -5f);

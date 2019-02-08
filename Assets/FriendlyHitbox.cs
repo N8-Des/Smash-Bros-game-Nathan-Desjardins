@@ -9,18 +9,31 @@ public class FriendlyHitbox : BasicHurtbox {
         if (other.tag == "Char" && other.gameObject != friend)
         {
             BaseHit dmgCtrl = other.GetComponent<BaseHit>();
-
-            if (dmgCtrl != null && dmgCtrl.transform.parent != this)
+            CharacterMove player = friend.GetComponent<CharacterMove>();
+            if (player.isRight)
             {
-                if (!isRight)
+                if (!alreadyNegative)
                 {
                     KB.z *= -1;
+                }
+                alreadyNegative = true;
+            }
+            else
+            {
+                KB.z = Mathf.Abs(KB.z);
+                alreadyNegative = false;
+            }
+            if (dmgCtrl != null && dmgCtrl.transform.parent != this)
+            {
+                if (player.isRight == false)
+                {                  
                     dmgCtrl.TakeAttack(damage, KB, null);
                 }
                 else
                 {
                     dmgCtrl.TakeAttack(damage, KB, null);
                 }
+                GameObject Audio = GameObject.Instantiate((GameObject)Resources.Load("Audh" + AudioHitNumber));
             }
         }
     }

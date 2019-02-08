@@ -48,19 +48,15 @@ public class EkkoMovement : CharacterMove
     }
     public void bSide()
     {
+        me = gameObject.GetComponent<Rigidbody>();
+        iCanMove = true;
         if (isRight)
         {
-            me = gameObject.GetComponent<Rigidbody>();
-            iCanMove = true;
             me.velocity = moveSpeed * 1.4f;
-            //Invoke("deactivate", 0.56f);
         }
         else
         {
-            me = gameObject.GetComponent<Rigidbody>();
-            iCanMove = true;
             me.velocity = moveSpeed * -1.4f;
-            //Invoke("deactivate", 0.56f);
         }
     }
     public void SBpt2()
@@ -144,22 +140,20 @@ public class EkkoMovement : CharacterMove
             canNB = false;
             GameObject Timewinder = GameObject.Instantiate((GameObject)Resources.Load("EkkoQ"));
             PresentRB = Timewinder.GetComponent<Rigidbody>();
+            TimeWinder TimewindProj = Timewinder.GetComponent<TimeWinder>();
+            TimewindProj.EkkoSpawn = this;
             if (!isRight)
             {
                 BasicHurtbox timeHitbox = Timewinder.GetComponentInChildren<BasicHurtbox>();
                 timeHitbox.isRight = false;
                 Timewinder.transform.rotation = new Quaternion(0, 180, 0, 0);
-                Timewinder.transform.position = transform.position + new Vector3(0, 0.1f, -0.0f);
-                PresentRB.velocity = new Vector3(0, 0, -3);
-                Invoke("baseStop", 0.05f);
-                Invoke("waitForDeath", 1.7f);
+                Timewinder.transform.position = transform.position + new Vector3(0, 0.1f, -0.4f);
+                PresentRB.velocity = new Vector3(0, 0, -4);
             }
             else
             {
-                Timewinder.transform.position = transform.position + new Vector3(0, 0.1f, 0.9f);
-                PresentRB.velocity = new Vector3(0, 0, 3);
-                Invoke("baseStop", 0.05f);
-                Invoke("waitForDeath", 1.7f);
+                Timewinder.transform.position = transform.position + new Vector3(0, 0.1f, 0.4f);
+                PresentRB.velocity = new Vector3(0, 0, 4);
             }
         }
         else

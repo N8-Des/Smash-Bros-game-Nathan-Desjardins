@@ -1,0 +1,164 @@
+fileFormatVersion: 2
+guid: 958eacf656b1d8743a748c55dfb71323
+timeCreated: 1547937966
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Angel_Wings_T3
+    100002: Armature
+    100004: Articuno
+    100006: //RootNode
+    100008: Bone
+    100010: Bone.001
+    100012: Bone.002
+    100014: Bone.002_end
+    100016: Bone.002_end_end
+    100018: Bone.002_end_end_end
+    100020: Bone.003
+    100022: Bone.004
+    100024: Bone.004_end
+    100026: Bone.004_end_end
+    100028: Bone.004_end_end_end
+    100030: Bone.005
+    100032: Bone.005_end
+    100034: Bone.005_end_end
+    100036: Bone.005_end_end_end
+    100038: Bone.006
+    100040: Bone.007
+    100042: Bone.007_end
+    100044: Bone.007_end_end
+    100046: Bone.007_end_end_end
+    100048: Bone.008
+    100050: Bone.009
+    100052: Bone.009_end
+    100054: Bone.009_end_end
+    100056: Bone.009_end_end_end
+    100058: Bone_end
+    100060: Bone_end_end
+    100062: Bone_end_end_end
+    100064: Cylinder
+    100066: Cylinder.001
+    100068: Cylinder.002
+    100070: Wing 003+(1)
+    400000: Angel_Wings_T3
+    400002: Armature
+    400004: Articuno
+    400006: //RootNode
+    400008: Bone
+    400010: Bone.001
+    400012: Bone.002
+    400014: Bone.002_end
+    400016: Bone.002_end_end
+    400018: Bone.002_end_end_end
+    400020: Bone.003
+    400022: Bone.004
+    400024: Bone.004_end
+    400026: Bone.004_end_end
+    400028: Bone.004_end_end_end
+    400030: Bone.005
+    400032: Bone.005_end
+    400034: Bone.005_end_end
+    400036: Bone.005_end_end_end
+    400038: Bone.006
+    400040: Bone.007
+    400042: Bone.007_end
+    400044: Bone.007_end_end
+    400046: Bone.007_end_end_end
+    400048: Bone.008
+    400050: Bone.009
+    400052: Bone.009_end
+    400054: Bone.009_end_end
+    400056: Bone.009_end_end_end
+    400058: Bone_end
+    400060: Bone_end_end
+    400062: Bone_end_end_end
+    400064: Cylinder
+    400066: Cylinder.001
+    400068: Cylinder.002
+    400070: Wing 003+(1)
+    2300000: Angel_Wings_T3
+    2300002: Wing 003+(1)
+    3300000: Angel_Wings_T3
+    3300002: Wing 003+(1)
+    4300000: Cylinder.001
+    4300002: Wing 003+(1)
+    4300004: Cylinder.002
+    4300006: Cylinder
+    4300008: Angel_Wings_T3
+    4300010: Articuno
+    9500000: //RootNode
+    13700000: Articuno
+    13700002: Cylinder
+    13700004: Cylinder.001
+    13700006: Cylinder.002
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

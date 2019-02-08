@@ -10,23 +10,37 @@ public class CharacterMove : MonoBehaviour
     public string X;
     public string LeftJoystickX;
     public string LeftJoystickY;
+    public string RightJoystickX = "RightJoystickX";
+    public string RightJoystickY = "RightJoystickY";
     public string LeftBumper = "LB";
+    public string RightBumper = "RB";
     public string RightJoystickDown = "RightPress";
     public string DPadX = "DPadX";
     public int JumpHeight = 6500;
+    public float MaxSpeedGround;
+    public int AccelerationGround;
+    public float MaxSpeedAir;
+    public int AccelerationAir;
     public bool isJumping = false;
     public Rigidbody rb;
+    protected int jumpsLeft = 2;
+    public GameObject grabPosition;
     public bool moveLeft = false;
     public bool moveRight = false;
     public bool isIdle = false;
     public bool isWalking = false;
     public float threshold = 0.7f;
+    public int maxJumps = 2;
     public bool neutralX = false;
     public bool neutralY = false;
+    public bool neutralXRight = false;
+    public bool neutralYRight = false;
     public bool canMove = true;
     public bool canAttack = true;
     public string lastInput;
+    public string lastInputRightStick;
     public List<string> inputBufferList = new List<string>();
+    public List<string> inputBufferListRight = new List<string>();
     public Vector3 moveSpeed;
     public Vector3 moveSpeedAirR;
     public Vector3 moveSpeedAirL;
@@ -49,9 +63,33 @@ public class CharacterMove : MonoBehaviour
     public bool ultReady = false;
     public ProgressManager progMan;
     public bool charging;
+    public int numSmash;
     public bool isWet = false;
     public bool ultsOn = true;
     public bool canAirdodge = true;
+    public BasicHurtbox FSmashHitbox;
+    public BasicHurtbox USmashHitbox;
+    public BasicHurtbox DSmashHitbox;
+    public GameObject ledgePlacement;
+    public bool isGrabbing;
+    int layerMask = 1 << 8;
+    public bool canSmash = true;
+    public Vector3 pullLocation;
+    bool maxVelocity = false;
+    GameObject enemyGrabLocation;
+    public CharacterMove grabbedPlayer;
+    bool isGrabbed;
+    int throwDirection;
+    bool canPummel = true;
+    bool negativeThrow;
+    ThrowConstants throwConstants;
+    bool isThrowing;
+    bool grabberRight;
+    bool isStunned;
+    bool isDashing;
+    int baseDamage;
+    public Vector3 GrabOffset = new Vector3(0, 0, 0);
+
     public void getWet()
     {
         isWet = true;
@@ -64,15 +102,41 @@ public class CharacterMove : MonoBehaviour
     }
     public virtual void jump()
     {
-        if (inAir)
+        if (jumpsLeft >= 1 && canJump)
         {
-            rb.velocity = Vector3.zero;
+            if (inAir)
+            {
+                rb.velocity = Vector3.zero;
+            }
+            rb.useGravity = false;
+            if (jumpsLeft == 2)
+            {
+                canMove = true;
+                //canAttack = false;
+                anim.SetBool("Jumping", true);
+                anim.SetTrigger("Jump");
+                rb.AddForce(0, JumpHeight, 0);
+                jumpsLeft -= 1;
+                canJump = false;
+                Invoke("jDelay", 0.4f);
+                Invoke("stopJump", 0.4f);
+            }
+            else if (jumpsLeft == 1)
+            {
+                canMove = true;
+                isJumping = true;
+                onGround = false;
+                anim.SetBool("Jumping", true);
+                anim.SetTrigger("Jump2");
+                jumpsLeft -= 1;
+                rb.AddForce(0, JumpHeight, 0);
+                Invoke("stopJump", 0.4f);
+            }
         }
-        rb.useGravity = false;
-        anim.ResetTrigger("Jump");
-        rb.AddForce(0, JumpHeight, 0);
-        canMove = true;
-        Invoke("stopJump", 0.2f);
+    }
+    void jDelay()
+    {
+        canJump = true;
     }
     public void stopJump()
     {
@@ -80,7 +144,7 @@ public class CharacterMove : MonoBehaviour
         isJumping = false;
         iCanMove = false;
         //rb.velocity = new Vector3(0, 0, 0);
-        anim.ResetTrigger("Jump");
+        anim.SetBool("Jumping", false);
     }
     public void OnEnable()
     {
@@ -88,6 +152,9 @@ public class CharacterMove : MonoBehaviour
         damageControl = gameObject.GetComponent<BaseHit>();
         anim = gameObject.GetComponent<Animator>();
         rb = gameObject.GetComponent<Rigidbody>();
+        throwConstants = gameObject.GetComponent<ThrowConstants>();
+        threshold = 0.1f;
+        jumpsLeft = maxJumps;
     }
     public void death(bool edgeDeath)
     {
@@ -112,10 +179,15 @@ public class CharacterMove : MonoBehaviour
             {
                 inAir = false;
             }
-
-            if (anim.GetCurrentAnimatorStateInfo(0).IsName("IdleAir") || anim.GetCurrentAnimatorStateInfo(0).IsName("Dair") || anim.GetCurrentAnimatorStateInfo(0).IsName("BDown") || anim.GetCurrentAnimatorStateInfo(0).IsName("Nair") || anim.GetCurrentAnimatorStateInfo(0).IsName("Fair") || anim.GetCurrentAnimatorStateInfo(0).IsName("Bair") || anim.GetCurrentAnimatorStateInfo(0).IsName("Uair"))
+            //Hey, uh, don't worry about this part, code reviewer. I was but a young lad. And if it ain't broke, don't fix it, or you'll just make more bugs.
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName("IdleAir") || anim.GetCurrentAnimatorStateInfo(0).IsName("Dair") || anim.GetCurrentAnimatorStateInfo(0).IsName("BDown") || 
+                anim.GetCurrentAnimatorStateInfo(0).IsName("Nair") || anim.GetCurrentAnimatorStateInfo(0).IsName("Fair") || anim.GetCurrentAnimatorStateInfo(0).IsName("Bair") || 
+                anim.GetCurrentAnimatorStateInfo(0).IsName("Uair") || anim.GetCurrentAnimatorStateInfo(0).IsName("Jump") || anim.GetCurrentAnimatorStateInfo(0).IsName("Jump2"))
             {
+                isJumping = false;
                 canJump = true;
+                stopJump();
+                jumpsLeft = maxJumps;
                 anim.SetBool("isAttacking", false);
                 anim.SetBool("IsIdle", true);
                 canAttack = true;
@@ -124,7 +196,8 @@ public class CharacterMove : MonoBehaviour
                 {
                     rb.velocity = new Vector3(0, 0, 0);
                 }
-            }else if (anim.GetCurrentAnimatorStateInfo(0).IsName("Airdodge"))
+            }
+            else if (anim.GetCurrentAnimatorStateInfo(0).IsName("Airdodge"))
             {
                 endAirdodge();
             }
@@ -200,7 +273,8 @@ public class CharacterMove : MonoBehaviour
         specialUpdate();
         shieldCheck();
         tauntInput();
-        //gravCheck(); taken out because it doesn't work. Falling off the edge is still needlessly unforgiving
+        smashUpdate();
+        grabCheck();
         if (ultsOn)
         {
             ultCheck();
@@ -224,15 +298,18 @@ public class CharacterMove : MonoBehaviour
     }
     public virtual void takeStun(float stunTime)
     {
-        if (stunTime > 0)
+        if (stunTime > 0 && !isStunned)
         {
-            anim.SetBool("IsIdle", true);
-            anim.SetBool("IsAttacking", false);
+            anim.SetBool("IsIdle", false);
+            anim.SetBool("isAttacking", false);
             anim.SetBool("CanAttack", true);
             canMove = false;
             canAttack = false;
             canJump = false;
+            isStunned = true;
+            canBlock = false;
             anim.SetBool("CanAttack", false);
+            anim.SetBool("isStunned", true);
             Invoke("endStun", stunTime);
         }
     }
@@ -248,8 +325,11 @@ public class CharacterMove : MonoBehaviour
         canMove = true;
         canAttack = true;
         canJump = true;
+        isStunned = false;
+        canBlock = true;
         anim.SetBool("IsIdle", true);
         anim.SetBool("CanAttack", true);
+        anim.SetBool("isStunned", false);
     }
     void gravCheck()
     {
@@ -298,6 +378,17 @@ public class CharacterMove : MonoBehaviour
             progMan.reset();
         }
     }
+    public void endDash()
+    {
+        canAttack = true;
+        canMove = true;
+        isDashing = false;
+        anim.SetBool("CanAttack", true);
+        anim.SetBool("isAttacking", false);
+        anim.SetBool("IsIdle", true);
+        anim.SetBool("Jumping", false);
+
+    }
     public void StopEveryThing()
     {
         rb.velocity = new Vector3(0, 0, 0);
@@ -318,6 +409,187 @@ public class CharacterMove : MonoBehaviour
         anim.SetBool("isAttacking", false);
         anim.SetBool("IsIdle", true);
         anim.SetBool("block", false);
+    }
+    public void grabCheck()
+    {
+        if (Input.GetButton(RightBumper) && canAttack && !isGrabbing && !inAir)
+        {
+            rb.velocity = Vector3.zero;
+            attacking();
+            anim.SetTrigger("Grab");
+            canAttack = false;
+            canMove = false;
+            canJump = false;
+        }
+        if (isGrabbed)
+        {
+            transform.position = enemyGrabLocation.transform.position + GrabOffset;
+            transform.rotation = enemyGrabLocation.transform.rotation;
+        }else if (isGrabbing)
+        {
+            if (Input.GetButton(RightBumper) && canPummel && !isThrowing)
+            {
+                anim.SetTrigger("Pummel");
+                anim.SetBool("pummeling", true);
+                anim.SetBool("isAttacking", true);
+                canPummel = false;
+            } else if (canPummel && !isThrowing)
+            {
+                if (!isRight && !negativeThrow)
+                {
+                    negativeThrow = true;
+                    throwConstants.uThrowLaunch.z *= -1;
+                    throwConstants.dThrowLaunch.z *= -1;
+                    throwConstants.fThrowLaunch.z *= -1;
+                    throwConstants.bThrowLaunch.z *= -1;
+                } else if (isRight && negativeThrow)
+                {
+                    negativeThrow = false;
+                    throwConstants.uThrowLaunch.z *= -1;
+                    throwConstants.dThrowLaunch.z *= -1;
+                    throwConstants.fThrowLaunch.z *= -1;
+                    throwConstants.bThrowLaunch.z *= -1;
+                }
+                if (lastInput == "Up")
+                {
+                    anim.SetBool("isAttacking", true);
+                    throwDirection = 0;
+                    anim.SetTrigger("UpThrow");
+                    anim.SetBool("pummeling", true);
+                    isThrowing = true;
+                }
+                else if (lastInput == "Down")
+                {
+                    anim.SetBool("isAttacking", true);
+                    throwDirection = 1;
+                    anim.SetTrigger("DownThrow");
+                    anim.SetBool("pummeling", true);
+                    isThrowing = true;
+                }
+                else if (lastInput == "Right")
+                {
+                    if (isRight)
+                    {
+                        anim.SetBool("isAttacking", true);
+                        throwDirection = 2;
+                        anim.SetTrigger("ForwardThrow");
+                        anim.SetBool("pummeling", true);
+                        isThrowing = true;
+                    }
+                    else
+                    {
+                        anim.SetBool("isAttacking", true);
+                        throwDirection = 3;
+                        anim.SetTrigger("BackThrow");
+                        anim.SetBool("pummeling", true);
+                        isThrowing = true;
+                    }
+                } else if (lastInput == "Left")
+                {
+                    if (!isRight)
+                    {
+                        anim.SetBool("isAttacking", true);
+                        throwDirection = 2;
+                        anim.SetTrigger("ForwardThrow");
+                        anim.SetBool("pummeling", true);
+                        isThrowing = true;
+                    }
+                    else
+                    {
+                        anim.SetBool("isAttacking", true);
+                        throwDirection = 3;
+                        anim.SetTrigger("BackThrow");
+                        anim.SetBool("pummeling", true);
+                        isThrowing = true;
+                    }
+                }
+            }
+        }
+    }
+    public void grabDamage(int damage)
+    {
+        grabbedPlayer.GetComponent<BaseHit>().takeDamage(damage);
+    }
+    public void endThrow()
+    {
+        anim.SetBool("pummeling", false);    
+        grabbedPlayer.GetComponent<Rigidbody>().useGravity = true;
+        grabbedPlayer.isGrabbed = false;
+        grabbedPlayer.GetComponent<Collider>().isTrigger = true;
+
+        switch (throwDirection)
+        {
+            case 0:
+                grabbedPlayer.GetComponent<BaseHit>().TakeAttack(throwConstants.uThrowDamage, throwConstants.uThrowLaunch, this);
+                break;
+            case 1:
+                grabbedPlayer.GetComponent<BaseHit>().TakeAttack(throwConstants.dThrowDamage, throwConstants.dThrowLaunch, this);
+                break;
+            case 2:
+                grabbedPlayer.GetComponent<BaseHit>().TakeAttack(throwConstants.fThrowDamage, throwConstants.fThrowLaunch, this);
+                break;
+            case 3:
+                grabbedPlayer.GetComponent<BaseHit>().TakeAttack(throwConstants.bThrowDamage, throwConstants.bThrowLaunch, this);
+                break;           
+        }
+        if (isRight)
+        {
+            if (throwDirection != 3)
+            {
+                grabbedPlayer.TurnLeft();
+            }
+            else
+            {
+                grabbedPlayer.TurnRight();
+            } 
+        }
+        else
+        {
+            if (throwDirection != 3)
+            {
+                grabbedPlayer.TurnRight();
+            }
+            else
+            {
+                grabbedPlayer.TurnLeft();
+            }
+        }
+        grabbedPlayer.anim.SetBool("IsGrabbed", false);
+        isGrabbing = false;
+        anim.SetBool("GrabIdle", false);
+        isThrowing = false;
+        grabbedPlayer.GetComponent<Collider>().isTrigger = false;
+    }
+    public void damageNoise1()
+    {
+        GameObject sound = GameObject.Instantiate((GameObject)Resources.Load("Audh1"));
+    }
+    public void damageNoise2()
+    {
+        GameObject sound = GameObject.Instantiate((GameObject)Resources.Load("Audh2"));
+    }
+    public void damageNoise3()
+    {
+        GameObject sound = GameObject.Instantiate((GameObject)Resources.Load("Audh3"));
+    }
+    public void endPummel()
+    {
+        canPummel = true;
+        anim.SetBool("isAttacking", false);
+        anim.SetBool("pummeling", true);
+        grabbedPlayer.GetComponent<BaseHit>().takeDamage(2);
+    }
+    public void grabbed(CharacterMove attackingPlayer, bool right)
+    {
+        grabberRight = right;
+        canMove = false;
+        canAttack = false;
+        canJump = false;
+        isGrabbed = true;
+        rb.useGravity = false;
+        enemyGrabLocation = attackingPlayer.grabPosition;
+        anim.SetBool("IsIdle", false);
+        anim.SetBool("IsGrabbed", true);
     }
     public void shieldCheck()
     {
@@ -359,10 +631,195 @@ public class CharacterMove : MonoBehaviour
             }
         }
     }
+    void smashUpdate()
+    {
+        inputBufferRight();
+        if ((!neutralXRight || !neutralYRight) && canSmash && !inAir)
+        {
+            lastInputRightStick = getLastInputRight();
+            canJump = false;
+            canAttack = false;
+            canMove = false;
+            canSmash = false;
+            attacking();
+            smashDirection1();
+        }
+    }
+    public virtual void smashDirection1()
+    {
+        if (lastInputRightStick == "Right")
+        {
+            rb.velocity = Vector3.zero;
+            if (!isRight)
+            {
+                transform.rotation = new Quaternion(0, 0, 0, 0);
+            }
+            anim.SetTrigger("FSmashCharge");
+            numSmash = 0;
+        }
+        else
+        {
+            smashDirection2();    
+        }
+    }
+    public virtual void smashDirection2()
+    {
+        if (lastInputRightStick == "Left")
+        {
+            rb.velocity = Vector3.zero;
+            if (isRight)
+            {
+                transform.rotation = new Quaternion(0, 180, 0, 0);
+            }
+            anim.SetTrigger("FSmashCharge");
+            numSmash = 0;
+        }
+        else
+        {
+            smashDirection3();
+        }
+    }
+    public virtual void smashDirection3()
+    {
+        if (lastInputRightStick == "Up")
+        {
+            rb.velocity = Vector3.zero;
+            anim.SetTrigger("USmashCharge");
+            numSmash = 1;
+        }
+        else
+        {
+            smashDirection4();
+        }
+    }
+    public virtual void smashDirection4()
+    {
+        if (lastInputRightStick == "Down")
+        {
+            rb.velocity = Vector3.zero;
+            anim.SetTrigger("DSmashCharge");
+            numSmash = 2;
+        }
+        else
+        {
+            canAttack = true;
+            canMove = true;
+            anim.SetBool("IsIdle", true);
+            anim.SetBool("CanAttack", true);
+            canSmash = true;
+            if (!inAir)
+            {
+                canJump = true;
+
+            }
+        }
+    }
+    public void startSmashCharge()
+    {
+        StartCoroutine(smashCharge());
+    }
+    public IEnumerator smashCharge()
+    {
+        int framesCharged = 0;
+        float extraDamage = 0;
+        while (!neutralXRight && !neutralYRight && framesCharged <= 200)
+        {
+            extraDamage += 0.1f;
+            framesCharged += 1;
+            yield return new WaitForEndOfFrame();
+        }
+        anim.ResetTrigger("FSmashCharge");
+        anim.ResetTrigger("DSmashCharge");
+        anim.ResetTrigger("USmashCharge");
+
+        framesCharged = 0;
+        switch (numSmash)
+        {
+            case 0:
+                baseDamage = FSmashHitbox.damage;
+                FSmashHitbox.damage += (int)(extraDamage);
+                anim.SetTrigger("FSmash");
+                break;
+            case 1:
+                baseDamage = USmashHitbox.damage;
+                USmashHitbox.damage += (int)(extraDamage);
+                anim.SetTrigger("USmash");
+                break;
+            case 2:
+                baseDamage = DSmashHitbox.damage;
+                DSmashHitbox.damage += (int)(extraDamage);
+                anim.SetTrigger("DSmash");
+                break;
+        }
+        extraDamage = 0;
+    }
+    public void smashStop()
+    {
+        canSmash = true;
+        canAttack = true;
+        canMove = true;
+        switch (numSmash)
+        {
+            case 0:
+                FSmashHitbox.damage = baseDamage;
+                break;
+            case 1:
+                USmashHitbox.damage = baseDamage;
+                break;
+            case 2:
+                DSmashHitbox.damage = baseDamage;
+                break;
+        }
+        anim.SetBool("CanAttack", true);
+        anim.SetBool("isAttacking", false);
+        anim.SetBool("IsIdle", true);
+        anim.SetBool("Jumping", false);
+
+    }
+    public void grabLedge(Vector3 ledgePos, bool isRightSide)
+    {
+        RaycastHit hit;
+        if (inAir)
+        {
+            if (Physics.Raycast(transform.position - new Vector3(0, 1, 0), transform.TransformDirection(-Vector3.up), out hit, Mathf.Infinity, layerMask))
+            {
+
+            }
+            else
+            {
+                if (isRightSide)
+                {
+                    transform.rotation = new Quaternion(0, 180, 0, 0);
+                    isRight = true;
+                }
+                else
+                {
+                    transform.rotation = new Quaternion(0, 0, 0, 0);
+                    isRight = false;
+                }
+                Vector3 offset = ledgePos - ledgePlacement.transform.position;
+                transform.localPosition += offset;
+                rb.useGravity = false;
+                rb.velocity = Vector3.zero;
+                isLedged = true;
+                jumpsLeft = maxJumps;
+                CancelInvoke();
+                anim.SetBool("LedgeGrab", true);
+                anim.SetBool("KnockedBack", false);
+                canJump = false;
+                canAttack = false;
+                Invoke("jDelay", 0.2f);
+            }
+        }
+    }
     void specialUpdate()
     {
         if ((Input.GetButton(B) || Input.GetKey(KeyCode.A)) && canAttack && !damageControl.isKnockedBack && !charging)
         {
+            if (!inAir && !isJumping)
+            {
+                stopVelocity();
+            }
             lastInput = getLastInput();
             if (neutralX && neutralY && !inAir)
             {
@@ -453,30 +910,48 @@ public class CharacterMove : MonoBehaviour
             }
         }
     }
-    public void JumpEnd()
-    {
-        anim.SetBool("Jumping", false);
-    }
     void jumpUpdate()
     {
-        if ((Input.GetButton(X) || Input.GetKey(KeyCode.X)) && canJump && !damageControl.isKnockedBack && !isJumping)
+        if ((Input.GetButton(X) || Input.GetKeyDown(KeyCode.X)) && canJump && !damageControl.isKnockedBack)
         {
-            isJumping = true;
-            iCanMove = true;
-            canJump = false;
-            canMove = false;
-            anim.SetBool("IsIdle", false);
-            anim.SetTrigger("Jump");
-            //anim.SetBool("Jumping", true);
-            //Invoke("jump", JDelay);
             jump();
+            isJumping = true;
+            //canMove = false;
+            anim.SetBool("IsIdle", false);
+            anim.SetBool("LedgeGrab", false);
+            isLedged = false;
             inAir = true;
+            onGround = false;
         }
     }
+    public void endVelocityEdge()
+    {
+        rb.velocity = Vector3.zero;
+        canMove = false;
+        canAttack = false;
+        Invoke("canMoveAgain", 0.15f);
+    }
+    void canMoveAgain()
+    {
+        canMove = true;
+        canAttack = true;
+    }
+    void endMovementWalk()
+    {
+        if (!isWalking && !isJumping && !iCanMove && !damageControl.isKnockedBack)
+        {
+            rb.velocity = Vector3.zero;
+        }
+    }
+    public void damageNoiseAny(int numDam)
+    {
+        GameObject sound = GameObject.Instantiate((GameObject)Resources.Load("Audh" + numDam));
+    }
+    #region attack update
     void attackUpdate()
     {
         lastInput = getLastInput();
-        if ((Input.GetButton(A) || Input.GetKey(KeyCode.Z)) && canAttack && onGround && !damageControl.isKnockedBack)
+        if ((Input.GetButton(A) || Input.GetKey(KeyCode.Z)) && canAttack && onGround && !damageControl.isKnockedBack && !isGrabbing)
         {
             canJump = false;
             canAttack = false;
@@ -492,7 +967,7 @@ public class CharacterMove : MonoBehaviour
                 attackDir1();
             }
         }
-        else if ((Input.GetButton(A) || Input.GetKey(KeyCode.Z)) && canAttack && inAir)
+        else if ((Input.GetButton(A) || Input.GetKey(KeyCode.Z)) && canAttack && inAir && !damageControl.isKnockedBack)
         {
             lastInput = getLastInput();
             canAttack = false;
@@ -500,7 +975,9 @@ public class CharacterMove : MonoBehaviour
             anim.SetBool("IsIdle", false);
             if (neutralY && neutralX)
             {
+                anim.ResetTrigger("Jump");
                 anim.SetTrigger("Nair");
+                anim.SetBool("Jumping", false);
                 attacking();
             }
             else
@@ -517,12 +994,16 @@ public class CharacterMove : MonoBehaviour
             {
                 isRight = true;
                 transform.rotation = new Quaternion(0, 0, 0, 0);
-                anim.SetTrigger("Fair");
+                anim.ResetTrigger("Jump");
+                anim.SetTrigger("Bair");
+                anim.SetBool("Jumping", false);
                 attacking();
             }
             else
             {
+                anim.ResetTrigger("Jump");
                 anim.SetTrigger("Fair");
+                anim.SetBool("Jumping", false);
                 attacking();
             }
 
@@ -536,7 +1017,11 @@ public class CharacterMove : MonoBehaviour
     {
         if (lastInput == "Down")
         {
+            anim.ResetTrigger("Jump");
             anim.SetTrigger("Dair");
+            anim.SetBool("Jumping", false);
+            canAttack = false;
+            canMove = false;
             attacking();
         }
         else
@@ -548,7 +1033,9 @@ public class CharacterMove : MonoBehaviour
     {
         if (lastInput == "Up")
         {
+            anim.ResetTrigger("Jump");
             anim.SetTrigger("Uair");
+            anim.SetBool("Jumping", false);
             attacking();
         }
         else
@@ -563,14 +1050,18 @@ public class CharacterMove : MonoBehaviour
             if (isRight)
             {
                 isRight = false;
+                anim.ResetTrigger("Jump");
                 anim.SetTrigger("Bair");
+                anim.SetBool("Jumping", false);
                 transform.rotation = new Quaternion(0, 180, 0, 0);
                 attacking();
             }
             else
             {
                 isRight = false;
-                anim.SetTrigger("Bair");
+                anim.ResetTrigger("Jump");
+                anim.SetTrigger("Fair");
+                anim.SetBool("Jumping", false);
                 attacking();
             }
         }
@@ -581,32 +1072,64 @@ public class CharacterMove : MonoBehaviour
             anim.SetBool("CanAttack", true);
         }
     }
-    void attackDir1()
+    void attackDir1() //this part looks, and probably is, very poorly optimized. 
     {
         if (lastInput == "Right")
         {
-            /*if (isWalking)
+            //parameters for dash attack vs side tilt.
+            if (isWalking)
             {
-                if (isRight)
+                if (maxVelocity)
                 {
-                    anim.SetTrigger("DashAttack");
-                    rb.AddForce(0, 0, 1000);
-                    attacking();
-                    iCanMove = true;
+                    if (isRight)
+                    {
+                        anim.SetTrigger("dashAttack");
+                        rb.AddForce(0, 0, 1000);
+                        isDashing = true;
+                        attacking();
+                    } else
+                    {
+                        isRight = true;
+                        transform.rotation = new Quaternion(0, 0, 0, 0);
+                        anim.SetTrigger("RightA");
+                        attacking();
+                    }
+
                 }
-            } */
-            if (!isRight)
-            {
-                isRight = true;
-                transform.rotation = new Quaternion(0, 0, 0, 0);
-                anim.SetTrigger("RightA");
-                attacking();
+                else //yes I do realize that I could just create a method to prevent this level of copy-pasting. It's not worth my time right now. 
+                {
+                    stopVelocity();
+                    if (!isRight)
+                    {
+                        isRight = true;
+                        transform.rotation = new Quaternion(0, 0, 0, 0);
+                        anim.SetTrigger("RightA");
+                        attacking();
+                    }
+                    else
+                    {
+                        isRight = true;
+                        anim.SetTrigger("RightA");
+                        attacking();
+                    }
+                }
             }
             else
             {
-                isRight = true;
-                anim.SetTrigger("RightA");
-                attacking();
+                stopVelocity();
+                if (!isRight)
+                {
+                    isRight = true;
+                    transform.rotation = new Quaternion(0, 0, 0, 0);
+                    anim.SetTrigger("RightA");
+                    attacking();
+                }
+                else
+                {
+                    isRight = true;
+                    anim.SetTrigger("RightA");
+                    attacking();
+                }
             }
         }
         else
@@ -619,28 +1142,59 @@ public class CharacterMove : MonoBehaviour
     {
         if (lastInput == "Left")
         {
-            /*if (isWalking)
+            if (isWalking)
             {
-                if (!isRight)
+                if (maxVelocity)
                 {
-                    anim.SetTrigger("DashAttack");
-                    rb.AddForce(0, 0, -1000);
-                    attacking();
-                    iCanMove = true;
+                    if (!isRight)
+                    {
+                        anim.SetTrigger("dashAttack");
+                        rb.AddForce(0, 0, -1000);
+                        isDashing = true;
+                        attacking();
+                    }
+                    else
+                    {
+                        isRight = false;
+                        transform.rotation = new Quaternion(0, 180, 0, 0);
+                        anim.SetTrigger("RightA");
+                        attacking();
+                    }
                 }
-            }*/
-            if (isRight)
-            {
-                isRight = false;
-                transform.rotation = new Quaternion(0, 180, 0, 0);
-                anim.SetTrigger("RightA");
-                attacking();
+                else
+                {
+                    stopVelocity();
+                    if (isRight)
+                    {
+                        isRight = false;
+                        transform.rotation = new Quaternion(0, 180, 0, 0);
+                        anim.SetTrigger("RightA");
+                        attacking();
+                    }
+                    else
+                    {
+                        isRight = false;
+                        anim.SetTrigger("RightA");
+                        attacking();
+                    }
+                }
             }
             else
             {
-                isRight = false;
-                anim.SetTrigger("RightA");
-                attacking();
+                stopVelocity();
+                if (isRight)
+                {
+                    isRight = false;
+                    transform.rotation = new Quaternion(0, 180, 0, 0);
+                    anim.SetTrigger("RightA");
+                    attacking();
+                }
+                else
+                {
+                    isRight = false;
+                    anim.SetTrigger("RightA");
+                    attacking();
+                }
             }
         }
         else
@@ -652,6 +1206,10 @@ public class CharacterMove : MonoBehaviour
     {
         if (lastInput == "Up")
         {
+            if (maxVelocity)
+            {
+                stopVelocity();
+            }            
             anim.SetTrigger("UpA");
             attacking();
         }
@@ -664,6 +1222,10 @@ public class CharacterMove : MonoBehaviour
     {
         if (lastInput == "Down")
         {
+            if (maxVelocity)
+            {
+                stopVelocity();
+            }
             anim.SetTrigger("DownA");
             attacking();
         }
@@ -675,6 +1237,8 @@ public class CharacterMove : MonoBehaviour
             anim.SetBool("IsIdle", true);
         }
     }
+    #endregion
+    #region input buffers
     public void inputBuffer()
     {
         neutralX = false;
@@ -702,15 +1266,49 @@ public class CharacterMove : MonoBehaviour
             neutralX = true;
         }
     }
+    public void inputBufferRight()
+    {
+        neutralXRight = false;
+        neutralYRight = false;
+        if (Input.GetAxis(RightJoystickX) > 0.7 || Input.GetKey(KeyCode.RightArrow))
+        {
+            inputBufferListRight.Add("Right");
+        }
+        else if (Input.GetAxis(RightJoystickX) < -0.7 || Input.GetKey(KeyCode.LeftArrow))
+        {
+            inputBufferListRight.Add("Left");
+        }
+        else if (Input.GetAxis(RightJoystickY) > 0.7 || Input.GetKey(KeyCode.DownArrow))
+        {
+            inputBufferListRight.Add("Down");
+        }
+        else if (Input.GetAxis(RightJoystickY) < -0.7 || Input.GetKey(KeyCode.UpArrow))
+        {
+            inputBufferListRight.Add("Up");
+        }
+        else
+        {
+            inputBufferListRight.Add("Neutral");
+            neutralYRight = true;
+            neutralXRight = true;
+        }
+    }
     public string getLastInput()
     {
         int amount = inputBufferList.Count;
         inputBufferList.RemoveRange(0, (amount - 8));
         return inputBufferList[0];
     }
+    public string getLastInputRight()
+    {
+        int amount = inputBufferListRight.Count;
+        inputBufferListRight.RemoveRange(0, (amount - 8));
+        return inputBufferListRight[0];
+    }
+#endregion
     void moveUpdate()
     {
-        if (!iCanMove && !damageControl.isKnockedBack && !isJumping && !isLedged)
+        if (!iCanMove && !damageControl.isKnockedBack && !isLedged && !isGrabbing)
         {
             if (isWalking && inAir && neutralX)
             {
@@ -726,17 +1324,30 @@ public class CharacterMove : MonoBehaviour
                     moveLeft = false;
                     moveRight = false;
                     isIdle = true;
-                    rb.velocity = new Vector3(0, 0, 0);
+                    if (!isJumping && !isDashing)
+                    {
+                        Invoke("endMovementWalk", 0.1f);
+                    }
                 }
                 if (canMove)
                 {
+                    float stickSens = Input.GetAxis(LeftJoystickX);
                     canJump = true;
                     if (lastInput == "Right")
                     {
                         moveLeft = false;
                         moveRight = true;
                         transform.rotation = new Quaternion(0, 0, 0, 0);
-                        rb.velocity = moveSpeed;
+                        if (rb.velocity.z <= MaxSpeedGround)
+                        {
+                            Mathf.Abs(stickSens);
+                            rb.AddForce(0, 0, AccelerationGround * stickSens);
+                            maxVelocity = false;
+                        }
+                        else
+                        {
+                            maxVelocity = true;
+                        }
                         isRight = true;
                         isWalking = true;
                         isIdle = false;
@@ -746,7 +1357,16 @@ public class CharacterMove : MonoBehaviour
                         moveRight = false;
                         moveLeft = true;
                         transform.rotation = new Quaternion(0, 180, 0, 0);
-                        rb.velocity = -moveSpeed;
+                        if (rb.velocity.z >= -MaxSpeedGround)
+                        {
+                            stickSens = Mathf.Abs(stickSens);
+                            rb.AddForce(0, 0, -AccelerationGround * stickSens);
+                            maxVelocity = false;
+                        }
+                        else
+                        {
+                            maxVelocity = true;
+                        }
                         isWalking = true;
                         isRight = false;
                         isIdle = false;
@@ -760,20 +1380,11 @@ public class CharacterMove : MonoBehaviour
         }
         else if (isLedged)
         {
-            if (lastInput == "Left")
+            if (lastInput == "Down")
             {
-                transform.position -= new Vector3(0, 0.4f, 0.2f);
-                anim.SetBool("Ledge", false);
-                transform.rotation = new Quaternion(0, 0, 0, 0);
                 rb.useGravity = true;
-
-            }
-            else if (lastInput == "Right")
-            {
-                transform.position += new Vector3(0, 0.4f, 0.2f);
-                anim.SetBool("Ledge", false);
-                transform.rotation = new Quaternion(0, 180, 0, 0);
-                rb.useGravity = true;
+                isLedged = false;
+                anim.SetBool("LedgeGrab", false);
             }
         }
     }
@@ -783,9 +1394,9 @@ public class CharacterMove : MonoBehaviour
         if (lastInput == "Right")
         {
             transform.rotation = new Quaternion(0, 0, 0, 0);
-            if (rb.velocity.z <= 1)
+            if (rb.velocity.z <= MaxSpeedAir)
             {
-                rb.AddForce(0, 0, 5000);
+                rb.AddForce(0, 0, AccelerationAir);
             }
             isWalking = true;
             isRight = true;
@@ -793,9 +1404,9 @@ public class CharacterMove : MonoBehaviour
         if (lastInput == "Left")
         {
             transform.rotation = new Quaternion(0, 180, 0, 0);
-            if (rb.velocity.z >= -1)
+            if (rb.velocity.z >= -MaxSpeedAir)
             {
-                rb.AddForce(0, 0, -5000);
+                rb.AddForce(0, 0, -AccelerationAir);
             }
             isWalking = true;
             isRight = false;

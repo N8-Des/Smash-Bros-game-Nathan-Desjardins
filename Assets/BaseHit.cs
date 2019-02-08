@@ -21,7 +21,7 @@ public class BaseHit : MonoBehaviour {
     public ProgressManager progressBar;
     public bool ultOn = true;
     public GameObject invulnIndicator;
-
+    public bool SuperArmor;
     public virtual void invulnStart()
     {
         invulnIndicator.SetActive(true);
@@ -30,6 +30,7 @@ public class BaseHit : MonoBehaviour {
     }
     public virtual void invulnEnd()
     {
+        Debug.Log("WHAT");
         invulnIndicator.SetActive(false);
         isInvuln = false;
     }
@@ -38,7 +39,7 @@ public class BaseHit : MonoBehaviour {
         anim = gameObject.GetComponent<Animator>();
         OriginalShieldSize = shield.transform.localScale.x;
         charMove = gameObject.GetComponent<CharacterMove>();
-        SSM = OriginalShieldSize / 50;
+        SSM = OriginalShieldSize / 100;
         pdisplay = GameObject.Find(UIname).GetComponent<PercentDisplay>();
         if (ultOn)
         {
@@ -46,7 +47,6 @@ public class BaseHit : MonoBehaviour {
             charMove.progMan = progressBar;
         }
     }
-
     public void takeDamage(int damage)
     {
         percent += damage;
@@ -74,28 +74,45 @@ public class BaseHit : MonoBehaviour {
                 {
                     isBlocking = false;
                     charMove.canBlock = false;
-                    TakeAttack(30, new Vector3(0, 0.8f, 0), null);
+                    rb.AddForce(0, 3000, 0);
+                    charMove.takeStun(6);
                     shield.transform.localScale = new Vector3(OriginalShieldSize, OriginalShieldSize, OriginalShieldSize);
                     shieldHealth = 50;
                 }
             }
             else
             {
-                pdisplay = GameObject.Find(UIname).GetComponent<PercentDisplay>();
-                anim.SetBool("knockedBack", true);
-                anim.SetBool("IsIdle", false);
-                anim.SetBool("CanAttack", false);
-                anim.SetBool("isAttacking", false);
-                charMove.charging = false;
-                isKnockedBack = true;
-                pdisplay.takeDamage(damage);
-                //Debug.Log((knockback.y + knockback.z) * (percent / 4) * (kbResist));
-                percent += damage;
-                rb.velocity = knockback * (percent / 10) * kbResist;
-                Invoke("stopKB", ((knockback.y + knockback.z) * (percent / 10) * (kbResist)) / 10);
-                if (ultOn)
+                if (SuperArmor)
                 {
-                    progressBar.ChangeValue(damage);
+                    pdisplay = GameObject.Find(UIname).GetComponent<PercentDisplay>();
+                    percent += damage;
+                    pdisplay.takeDamage(damage);
+                }
+                else
+                {
+                    rb.useGravity = true;
+                    pdisplay = GameObject.Find(UIname).GetComponent<PercentDisplay>();
+                    anim.SetBool("knockedBack", true);
+                    anim.SetBool("IsIdle", false);
+                    anim.SetBool("CanAttack", false);
+                    anim.SetBool("isAttacking", false);
+                    anim.SetBool("FSmashCharge", false);
+                    anim.SetBool("DSmashCharge", false);
+                    anim.SetBool("USmashCharge", false);
+                    anim.SetBool("LedgeGrab", false);
+                    charMove.charging = false;
+                    isKnockedBack = true;
+                    pdisplay.takeDamage(damage);
+                    //Debug.Log((knockback.y + knockback.z) * (percent / 4) * (kbResist));
+                    percent += damage;
+                    rb.velocity = Vector3.zero;
+                    Vector3 calculatedKnockback = (new Vector3(0, knockback.y * 1.2f, knockback.z) *1000) * (percent / 7) * kbResist; //version 2 of knockback. change it to (percent / 10) for original.
+                    rb.AddForce(calculatedKnockback);
+                    Invoke("stopKB", (Mathf.Abs(knockback.y) + Mathf.Abs(knockback.z) * (percent / 10) * (kbResist)) / 10);
+                    if (ultOn)
+                    {
+                        progressBar.ChangeValue(damage);
+                    }
                 }
             }
         }
@@ -103,14 +120,17 @@ public class BaseHit : MonoBehaviour {
     public virtual void stopKB()
     {
         anim.SetBool("knockedBack", false);
-        anim.SetBool("IsIdle", true);
         anim.SetBool("CanAttack", true);
+        anim.SetBool("isStunned", false);
+        anim.SetBool("Charging", false);
+        anim.SetBool("IsIdle", true);
         charMove.canMove = true;
         charMove.canAttack = true;
         charMove.iCanMove = false;
         isKnockedBack = false;
         charMove.canBlock = true;
         charMove.charging = false;
+        charMove.isGrabbing = false;
     }
     public virtual void resetPerc() {
         percent = 0;
@@ -152,5 +172,13 @@ public class BaseHit : MonoBehaviour {
     public virtual void setInvBoolFalse()
     {
         isInvuln = false;
+    }
+    public virtual void setSuperBoolTrue()
+    {
+        SuperArmor = true;
+    }
+    public virtual void setSuperBoolFalse()
+    {
+        SuperArmor = false;
     }
 }

@@ -11,6 +11,7 @@ public class GilmanMovement : CharacterMove
     public bool isShooting = false;
     public GameObject paper;
     public GameObject counterObject;
+    public GameObject noiseTeleEnd;
     void Update()
     {
         if (moveRight == true || moveLeft == true)
@@ -92,6 +93,7 @@ public class GilmanMovement : CharacterMove
 
     public override void bUp()
     {
+        GameObject noise = Instantiate(noiseTeleEnd);
         transform.position += new Vector3(0, 1, 0);
     }
     public override void baseB()
@@ -121,23 +123,23 @@ public class GilmanMovement : CharacterMove
     }
     public void ThrowPaper()
     {
-            GameObject PaperProj = Instantiate(paper);
-            PaperRB = PaperProj.GetComponent<Rigidbody>();
-            //audioStrike.Play();
-            if (!isRight)
-            {
-                PaperProj.transform.rotation = new Quaternion(0, 180, 0, 0);
-                PaperProj.transform.position = transform.position + new Vector3(0, 0.7f, -0.6f);
-                PaperRB.velocity = new Vector3(0, 0, -5f);
-                //Invoke("baseStop", 0.6f);
-            }
-            else
-            {
-                PaperProj.transform.position = transform.position + new Vector3(0, 0.7f, 0.6f);
-                PaperRB.velocity = new Vector3(0, 0, 5f);
-                //Invoke("baseStop", 0.6f);
-            }
-            //anim.ResetTrigger("NeutB");
+        GameObject PaperProj = Instantiate(paper);
+        PaperRB = PaperProj.GetComponentInChildren<Rigidbody>();
+        BasicHurtbox paperHB = PaperProj.GetComponent<BasicHurtbox>();
+        if (!isRight)
+        {
+            PaperProj.transform.rotation = new Quaternion(0, 180, 0, 0);
+            PaperProj.transform.position = transform.position + new Vector3(0, 0.7f, -0.6f);        
+            PaperRB.velocity = new Vector3(0, 0, -5f);
+            paperHB.KB.z *= -1;
+        }
+        else
+        {
+            PaperProj.transform.position = transform.position + new Vector3(0, 0.7f, 0.6f);
+            PaperRB.velocity = new Vector3(0, 0, 5f);
+            //Invoke("baseStop", 0.6f);
+        }
+        //anim.ResetTrigger("NeutB");
     }
 
 }

@@ -31,7 +31,6 @@ public class BillyMovement : CharacterMove
             anim.SetBool("isAttacking", true);
         }
     }
-
     public void deactivate()
     {
         iCanMove = false;
@@ -92,7 +91,7 @@ public class BillyMovement : CharacterMove
     {
         rb.velocity = Vector3.zero;
         rb.useGravity = false;
-        rb.AddForce(0, 6000, 0);
+        rb.AddForce(0, 10000, 0);
         Invoke("deactivate", 0.3f);
     }
     public override void baseB()

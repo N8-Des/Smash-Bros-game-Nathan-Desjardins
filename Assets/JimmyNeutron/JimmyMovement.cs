@@ -94,6 +94,7 @@ public class JimmyMovement : CharacterMove
             GameObject donkey = GameObject.Instantiate((GameObject)Resources.Load("JimmyRocket"));
             donkey.transform.position = this.transform.position - new Vector3(0, -0.2f, 0.6f);
             donkey.transform.rotation = new Quaternion(0, 180, 0, 0);
+            donkey.GetComponentInChildren<ExplodeOnHit>().isRight = false;
             Rigidbody donkeyrb = donkey.GetComponent<Rigidbody>();
             donkeyrb.velocity = new Vector3(0, 0, -6);
         }
@@ -111,7 +112,7 @@ public class JimmyMovement : CharacterMove
 
     public override void bUp()
     {
-        rb.AddForce(0, 6000, 0);
+        rb.AddForce(0, 9000, 0);
         Invoke("deactivate", 0.3f);
     }
     public override void baseB()

@@ -9,6 +9,7 @@ public class DragonbornMovement : CharacterMove
     public AudioSource audioStrike;
     public ParticleSystem part;
     public bool isShooting = false;
+    bool isSpellbreaker;
     void Update()
     {
         if (moveRight == true || moveLeft == true)
@@ -20,6 +21,16 @@ public class DragonbornMovement : CharacterMove
         {
             anim.SetBool("isWalking", false);
             anim.SetBool("IsIdle", true);
+        }
+        if (!Input.GetButton(B) && isSpellbreaker)
+        {
+            anim.SetBool("BDown", false);
+            anim.SetBool("isAttacking", false);
+            anim.SetBool("isIdle", true);
+            canJump = true;
+            canAttack = true;
+            canMove = true;
+            isSpellbreaker = false;
         }
     }
     public override void attacking()
@@ -87,6 +98,27 @@ public class DragonbornMovement : CharacterMove
         anim.SetBool("Jumping", false);
 
     }
+    public override void SpecialDir4()
+    {
+        if (lastInput == "Down" && !inAir)
+        {
+            isSpellbreaker = true;
+            anim.SetBool("BDown", true);
+            anim.SetBool("isAttacking", true);
+        }
+        else
+        {
+            canAttack = true;
+            canMove = true;
+            anim.SetBool("IsIdle", true);
+            anim.SetBool("CanAttack", true);
+            if (!inAir)
+            {
+                canJump = true;
+
+            }
+        }
+    }
 
     public override void bUp()
     {
@@ -106,10 +138,12 @@ public class DragonbornMovement : CharacterMove
     {
         GameObject Arrow = GameObject.Instantiate((GameObject)Resources.Load("EbonyArrow"));
         Rigidbody arr = Arrow.GetComponent<Rigidbody>();
+        BasicHurtbox arrowHitbox = Arrow.GetComponentInChildren<BasicHurtbox>();
         //audioStrike.Play();
         if (!isRight)
         {
-            Arrow.transform.rotation = new Quaternion(77, 218, 19, 0);
+            arrowHitbox.KB *= -1;
+            Arrow.transform.rotation = new Quaternion(0, 180, 0, 0);
             Arrow.transform.position = transform.position + new Vector3(0, 0.7f, -0.5f);
             arr.velocity = new Vector3(0, 0, -8);
             Invoke("baseStop", 0.4f);

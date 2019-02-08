@@ -6,8 +6,9 @@ public class MoneyHit : MonoBehaviour
 {
     public Vector3 KB;
     public int damage;
+    public bool alreadyNegative;
+    public bool isRight = true;
     public float AudioHitNumber = 1;
-
     public virtual void OnTriggerEnter(Collider collider)
     {
         if (gameObject.transform.parent.tag == "Char")
@@ -15,20 +16,41 @@ public class MoneyHit : MonoBehaviour
             CharacterMove player = gameObject.transform.parent.GetComponent<CharacterMove>();
             if (!player.isRight)
             {
-                KB.z *= -1;
+                if (!alreadyNegative)
+                {
+                    KB.z *= -1;
+                }
+                alreadyNegative = true;
+            }
+            else
+            {
+                KB.z = Mathf.Abs(KB.z);
+                alreadyNegative = false;
             }
             GameObject other = collider.gameObject;
             BaseHit dmgCtrl = other.GetComponent<BaseHit>();
+            ThanosCar thanosCar = other.GetComponent<ThanosCar>();
             if (dmgCtrl != null && dmgCtrl.transform.parent != this)
             {
-                GameObject MoneyFall = GameObject.Instantiate((GameObject)Resources.Load("YoutubeMoney"));
-                MoneyFall.transform.position = this.transform.position;
                 dmgCtrl.TakeAttack(damage, KB, player);
-                GameObject Audio = GameObject.Instantiate((GameObject)Resources.Load("Audh" + AudioHitNumber));
+                if (!dmgCtrl.isBlocking)
+                {
+                    GameObject MoneyFall = GameObject.Instantiate((GameObject)Resources.Load("YoutubeMoney"));
+                    MoneyFall.transform.position = this.transform.position;
+                    GameObject AudioHit = GameObject.Instantiate((GameObject)Resources.Load("Audh" + AudioHitNumber));
+                }
+                else
+                {
+                    GameObject AudioShieldHit = GameObject.Instantiate((GameObject)Resources.Load("Audh7"));
 
+                }
+            }
+            else if (thanosCar != null)
+            {
+                thanosCar.Explode();
             }
         }
-        else if (gameObject.transform.parent.transform.rotation.eulerAngles.y == 180)
+        else if (!isRight)
         {
             KB.z *= -1;
             GameObject other = collider.gameObject;
@@ -51,3 +73,5 @@ public class MoneyHit : MonoBehaviour
         }
     }
 }
+
+

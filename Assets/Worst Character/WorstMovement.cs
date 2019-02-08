@@ -75,43 +75,6 @@ public class WorstMovement : CharacterMove
             anim.SetTrigger("Reappear");
         }
     }
-    #region bunch of overrides
-    public override void SpecialDir1()
-    {
-        if (lastInput == "Right")
-        {
-            isRight = true;
-            canJump = false;
-            canAttack = false;
-            canMove = false;
-            transform.rotation = new Quaternion(0, 0, 0, 0);
-            anim.SetTrigger("BSide");
-            attacking();
-
-        }
-        else
-        {
-            SpecialDir2();
-        }
-    }
-    public override void SpecialDir2()
-    {
-        if (lastInput == "Left")
-        {
-            isRight = false;
-            canJump = false;
-            canAttack = false;
-            canMove = false;
-            transform.rotation = new Quaternion(0, 180, 0, 0);
-            anim.SetTrigger("BSide");
-            attacking();
-        }
-        else
-        {
-            SpecialDir3();
-        }
-    }
-    #endregion
     public void baseStop()
     {
         isShooting = false;
@@ -202,5 +165,10 @@ public class WorstMovement : CharacterMove
                 thanosCar.moving();
             }
         }
+    }
+    public void StopGravity()
+    {
+        rb.useGravity = false;
+        rb.velocity = Vector3.zero;
     }
 }

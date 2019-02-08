@@ -37,6 +37,7 @@ public class YoutubeMovement : CharacterMove
     
     public void deactivate()
     {
+        rb.useGravity = true;
         iCanMove = false;
         me.velocity = new Vector3(0, 0, 0);
         canMove = true;
@@ -89,20 +90,6 @@ public class YoutubeMovement : CharacterMove
         anim.SetBool("isAttacking", false);
         anim.SetBool("IsIdle", true);
     }
-    public override void bRight()
-    {
-        me = gameObject.GetComponent<Rigidbody>();
-        iCanMove = true;
-        me.velocity = moveSpeed * 2;
-        Invoke("deactivate", 0.26f);
-    }
-    public override void bLeft()
-    {
-        me = gameObject.GetComponent<Rigidbody>();
-        iCanMove = true;
-        me.velocity = moveSpeed * -2;
-        Invoke("deactivate", 0.26f);
-    }
     public void bSide()
     {
         if (isRight)
@@ -133,6 +120,8 @@ public class YoutubeMovement : CharacterMove
 
     public override void bUp()
     {
+        rb.velocity = Vector3.zero;
+        rb.useGravity = false;
         rb.AddForce(0, 6000, 0);
         Invoke("deactivate", 0.3f);
     }

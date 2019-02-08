@@ -11,6 +11,7 @@ public class DigdugMovement : CharacterMove
     public GameObject hitPlayer;
     public BaseHit damageControlHit;
     public bool isShooting = false;
+    int numFrames;
     void Update()
     {
         if (moveRight == true || moveLeft == true)
@@ -66,11 +67,13 @@ public class DigdugMovement : CharacterMove
     }
     public void NB2()
     {
+        anim.ResetTrigger("NeutB");
         anim.SetTrigger("NB2");
     }
     public void increasePlayerSize()
     {
         hitPlayer.transform.localScale *= 1.2f;
+        GameObject BlowSound = GameObject.Instantiate((GameObject)Resources.Load("DigdugBlowUp"));
     }
     public void launchHitPlayer()
     {
@@ -83,6 +86,8 @@ public class DigdugMovement : CharacterMove
         {
             damageControlHit.TakeAttack(16, new Vector3(0, 0.85f, -0.75f), null);
         }
+        GameObject SendSound = GameObject.Instantiate((GameObject)Resources.Load("DigdugSendOff"));
+
     }
     public void bSide()
     {
@@ -115,7 +120,18 @@ public class DigdugMovement : CharacterMove
 
     public override void bUp()
     {
-        this.transform.position += new Vector3(0, 3f, 0);
+        StartCoroutine(upB());
+        stopVelocity();
+    }
+    IEnumerator upB()
+    {
+        while (numFrames <= 50)
+        {
+            transform.position = Vector3.Lerp(transform.position, transform.position + new Vector3(0, 3, 0), Time.deltaTime * 2);
+            numFrames += 1;
+            yield return new WaitForEndOfFrame();
+        }
+        numFrames = 0;
     }
     public override void baseB()
     {
@@ -125,29 +141,4 @@ public class DigdugMovement : CharacterMove
     {
         me.AddForce(0, -10000, 0);
     }
-    public void ShootBilly()
-    {
-        if (!isShooting)
-        {
-            isShooting = true;
-            GameObject Present = GameObject.Instantiate((GameObject)Resources.Load("BillyBullet"));
-            PresentRB = Present.GetComponent<Rigidbody>();
-            //audioStrike.Play();
-            if (!isRight)
-            {
-                Present.transform.rotation = new Quaternion(0, 180, 0, 0);
-                Present.transform.position = transform.position + new Vector3(0, 0.3f, -0.6f);
-                PresentRB.velocity = new Vector3(0, 2, -5f);
-                //Invoke("baseStop", 0.6f);
-            }
-            else
-            {
-                Present.transform.position = transform.position + new Vector3(0, 0.3f, 0.6f);
-                PresentRB.velocity = new Vector3(0, 2, 5f);
-                //Invoke("baseStop", 0.6f);
-            }
-            //anim.ResetTrigger("NeutB");
-        }
-    }
-
 }

@@ -34,6 +34,7 @@ public class RobloxMovement : CharacterMove
 
     public void deactivate()
     {
+        rb.useGravity = true;
         iCanMove = false;
         me.velocity = new Vector3(0, 0, 0);
         canMove = true;
@@ -86,7 +87,8 @@ public class RobloxMovement : CharacterMove
 
     public override void bUp()
     {
-        rb.AddForce(0, 6000, 0);
+        rb.useGravity = false;
+        rb.AddForce(0, 9000, 0);
         Invoke("deactivate", 0.3f);
     }
     public override void bDown()

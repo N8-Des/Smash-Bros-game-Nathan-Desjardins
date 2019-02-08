@@ -23,9 +23,8 @@ public class DigDugHitbox : MonoBehaviour
                 playerHit.SendToIdle();
                 playerControl.hitPlayer = other;
                 playerControl.damageControlHit = dmgCtrl;
+                playerControl.attacking();
                 playerControl.NB2();
-                //adSteal.SetActive(true);
-
             }
         }
     }

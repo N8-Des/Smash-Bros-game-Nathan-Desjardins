@@ -50,7 +50,7 @@ public class HankMovement : CharacterMove
             bwaaa.Play();
             me = gameObject.GetComponent<Rigidbody>();
             iCanMove = true;
-            me.velocity = moveSpeed * 1.1f;
+            me.velocity = new Vector3(0, 0, 2.8f);
             //Invoke("deactivate", 0.4f);
         }
         else
@@ -58,7 +58,7 @@ public class HankMovement : CharacterMove
             bwaaa.Play();
             me = gameObject.GetComponent<Rigidbody>();
             iCanMove = true;
-            me.velocity = moveSpeed * -1.1f;
+            me.velocity = new Vector3(0, 0, -2.8f);
             //Invoke("deactivate", 0.4f);
         }
 
@@ -75,7 +75,7 @@ public class HankMovement : CharacterMove
 
     public override void bUp()
     {
-        rb.AddForce(0, 4000, 0);
+        rb.AddForce(0, 6700, 0);
         Invoke("deactivate", 0.3f);
     }
     public override void baseB()
@@ -94,13 +94,13 @@ public class HankMovement : CharacterMove
         if (!isRight)
         {
             Present.transform.rotation = new Quaternion(0, 180, 0, 0);
-            Present.transform.position = transform.position + new Vector3(0, 0.3f, -1);
+            Present.transform.position = transform.position + new Vector3(0, 0.3f, -0.4f);
             PresentRB.velocity = new Vector3(0, 1.7f, -2.3f);
             //Invoke("baseStop", 0.6f);
         }
         else
         {
-            Present.transform.position = transform.position + new Vector3(0, 0.3f, 1);
+            Present.transform.position = transform.position + new Vector3(0, 0.3f, 0.4f);
             PresentRB.velocity = new Vector3(0, 1.7f, 2.3f);
             //Invoke("baseStop", 0.6f)
         }

@@ -83,6 +83,14 @@ public class WaluigiMovement : CharacterMove
             StartCoroutine(spawningThorns());
         }
     }
+    public void ShrinkEnemy()
+    {
+        grabbedPlayer.transform.localScale *= 0.4f;
+    }
+    public void GrowEnemy()
+    {
+        grabbedPlayer.transform.localScale *= 2.5f;
+    }
     #region bunch of overrides
     public override void SpecialDir1()
     {

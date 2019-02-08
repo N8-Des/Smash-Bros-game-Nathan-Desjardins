@@ -115,13 +115,13 @@ public class PeteMovement : CharacterMove
             if (!isRight)
             {
                 Present.transform.rotation = new Quaternion(0, 180, 0, 0);
-                Present.transform.position = transform.position + new Vector3(0, 0.3f, -0.5f);
+                Present.transform.position = transform.position + new Vector3(0, 0.3f, -0.25f);
                 PresentRB.velocity = new Vector3(0, 0, -4);
                 //Invoke("baseStop", 0.6f);
             }
             else
             {
-                Present.transform.position = transform.position + new Vector3(0, 0.3f, 0.5f);
+                Present.transform.position = transform.position + new Vector3(0, 0.3f, 0.25f);
                 PresentRB.velocity = new Vector3(0, 0, 4);
                 //Invoke("baseStop", 0.6f);
             }

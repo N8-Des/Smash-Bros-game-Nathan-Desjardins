@@ -31,8 +31,15 @@ public class BasicHurtbox : MonoBehaviour {
             if (dmgCtrl != null && dmgCtrl.transform.parent != this)
             {
                 dmgCtrl.TakeAttack(damage, KB, player);
-                GameObject Audio = GameObject.Instantiate((GameObject)Resources.Load("Audh" + AudioHitNumber));
+                if (!dmgCtrl.isBlocking)
+                {
+                    GameObject AudioHit = GameObject.Instantiate((GameObject)Resources.Load("Audh" + AudioHitNumber));
+                }
+                else
+                {
+                    GameObject AudioShieldHit = GameObject.Instantiate((GameObject)Resources.Load("Audh7"));
 
+                }
             }
             else if (thanosCar != null)
             {

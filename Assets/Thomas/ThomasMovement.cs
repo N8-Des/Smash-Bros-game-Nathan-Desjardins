@@ -49,35 +49,20 @@ public class ThomasMovement : CharacterMove
         anim.SetBool("CanAttack", true);
         anim.SetBool("IsIdle", true);
     }
-    public override void bRight()
-    {
-        me = gameObject.GetComponent<Rigidbody>();
-        iCanMove = true;
-        me.velocity = moveSpeed * 2.5f;
-        Invoke("deactivate", 0.4f);
-    }
-    public override void bLeft()
-    {
-        me = gameObject.GetComponent<Rigidbody>();
-        iCanMove = true;
-        me.velocity = moveSpeed * -2.5f;
-        Invoke("deactivate", 0.4f);
-    }
+  
     public void bSide()
     {
         if (isRight)
         {
             me = gameObject.GetComponent<Rigidbody>();
             iCanMove = true;
-            me.velocity = moveSpeed * 2.4f;
-            Invoke("deactivate", 0.3f);
+            me.AddForce(0, 0, 4000);
         }
         else
         {
             me = gameObject.GetComponent<Rigidbody>();
             iCanMove = true;
-            me.velocity = moveSpeed * -2.4f;
-            Invoke("deactivate", 0.3f);
+            me.AddForce(0, 0, -4000);
         }
 
     }
