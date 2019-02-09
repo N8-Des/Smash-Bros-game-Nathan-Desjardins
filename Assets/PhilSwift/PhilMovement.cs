@@ -64,14 +64,14 @@ public class PhilMovement : CharacterMove
         {
             me = gameObject.GetComponent<Rigidbody>();
             iCanMove = true;
-            me.velocity = moveSpeed * 2.4f;
+            me.AddForce(0, 0, -2000);
             //Invoke("deactivate", 0.56f);
         }
         else
         {
             me = gameObject.GetComponent<Rigidbody>();
             iCanMove = true;
-            me.velocity = moveSpeed * -2.4f;
+            me.AddForce(0, 0, 2000);
             //Invoke("deactivate", 0.56f);
         }
 
