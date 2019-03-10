@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Abbey\AbbeyMovement.cs" />
      <Compile Include="Assets\Bacteriophage\BillyBullet.cs" />
      <Compile Include="Assets\Bacteriophage\BillyMovement.cs" />
      <Compile Include="Assets\Bacteriophage\BillyUltHitbox.cs" />
@@ -90,6 +91,7 @@
      <Compile Include="Assets\GameManager.cs" />
      <Compile Include="Assets\Gilman\GilmanMovement.cs" />
      <Compile Include="Assets\GrabHitbox.cs" />
+     <Compile Include="Assets\Greta\GretaMovement.cs" />
      <Compile Include="Assets\HankHill\HankBase.cs" />
      <Compile Include="Assets\HankHill\HankMovement.cs" />
      <Compile Include="Assets\HankHill\Propane.cs" />
@@ -128,6 +130,8 @@
      <Compile Include="Assets\Spongebob\SpongebobMovement.cs" />
      <Compile Include="Assets\Stages\BaxterAcademy\BASpawn.cs" />
      <Compile Include="Assets\Stages\BaxterAcademy\BaxterBall.cs" />
+     <Compile Include="Assets\Stages\BaxterAcademy\BaxterStage.cs" />
+     <Compile Include="Assets\Stages\BaxterAcademy\BaxterWaterGround.cs" />
      <Compile Include="Assets\Stages\BaxterAcademy\TimeKiller.cs" />
      <Compile Include="Assets\Stages\GravityFighter.cs" />
      <Compile Include="Assets\Stages\HexagonLand\Hex.cs" />
@@ -175,6 +179,7 @@
      <Compile Include="Assets\die.cs" />
      <None Include="Assets\GlassStainedBumpDistort.shader" />
      <None Include="Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
+     <None Include="Assets\Stages\BaxterAcademy\BaxterDissolve.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

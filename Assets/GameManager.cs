@@ -93,6 +93,7 @@ public class GameManager : MonoBehaviour {
         player1Spawn = stageSelected.player1Spawn;
         player2Spawn = stageSelected.player2Spawn;
         mainCamera.transform.position = stageSelected.mainCamPos.transform.position;
+        stageSelected.gameObject.SetActive(true);
         player1Life.life = lives;
         player1Life.updateLifeDisplay();
         player2Life.life = lives;
@@ -113,6 +114,7 @@ public class GameManager : MonoBehaviour {
         playerTwo.stopMoving();
         cameraControl.player1 = Player1;
         cameraControl.player2 = Player2;
+        cameraControl.stageZoomed = stageSelected.zoomStage;
         canvas2.SetTrigger("StartGame");
         if (!ultimatesOn)
         {
@@ -170,6 +172,7 @@ public class GameManager : MonoBehaviour {
             GameObject winningPlayer = GameObject.Find(player2Selection + "(Clone)");
             CharacterMove basic = winningPlayer.GetComponent<CharacterMove>();
             basic.death(false);
+            stageSelected.gameObject.SetActive(false);
             Invoke("newGame", 3);
         }
     }
@@ -194,6 +197,7 @@ public class GameManager : MonoBehaviour {
         }
         else
         {
+            
             CharacterMove[] players = FindObjectsOfType<CharacterMove>();
             winner = GameObject.Find(player1Selection + "W");
             UltimateMeters.SetActive(false);
@@ -206,6 +210,7 @@ public class GameManager : MonoBehaviour {
             GameObject winningPlayer = GameObject.Find(player1Selection + "(Clone)");
             CharacterMove basic = winningPlayer.GetComponent<CharacterMove>();
             basic.death(false);
+            stageSelected.gameObject.SetActive(false);
             Invoke("newGame", 3);
         }
     }

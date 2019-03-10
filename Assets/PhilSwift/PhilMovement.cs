@@ -9,6 +9,8 @@ public class PhilMovement : CharacterMove
     public AudioSource audioStrike;
     public ParticleSystem part;
     public bool isShooting = false;
+    public Vector3 startLoc;
+    public GameObject audioYell;
     void Update()
     {
         if (moveRight == true || moveLeft == true)
@@ -76,6 +78,31 @@ public class PhilMovement : CharacterMove
         }
 
     }
+    public void UltDash()
+    {
+        startLoc = transform.position;
+        GameObject.Instantiate(audioYell);
+        if (isRight)
+        {
+            me = gameObject.GetComponent<Rigidbody>();
+            iCanMove = true;
+            me.AddForce(0, 0, 12000);
+            Invoke("endUlt", 0.7f);
+        }
+        else
+        {
+            me = gameObject.GetComponent<Rigidbody>();
+            iCanMove = true;
+            me.AddForce(0, 0, -12000);
+            Invoke("endUlt", 0.7f);
+        }
+    }
+    public void endUlt()
+    {
+        transform.position = startLoc;
+        rb.velocity = Vector3.zero;
+        deactivate();
+    }
     public void baseStop()
     {
         isShooting = false;
@@ -91,7 +118,7 @@ public class PhilMovement : CharacterMove
     {
         rb.velocity = Vector3.zero;
         rb.useGravity = false;
-        rb.AddForce(0, 10000, 0);
+        rb.AddForce(0, 5000, 0);
         Invoke("deactivate", 0.3f);
     }
     public override void baseB()

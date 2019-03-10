@@ -1,0 +1,159 @@
+fileFormatVersion: 2
+guid: 29e554ddfd6c2e9418cde152846131f9
+timeCreated: 1550771484
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Blade1
+    100002: IDK
+    100004: Knife2
+    100006: //RootNode
+    100008: Plane_023_Plane_004
+    100010: Plane_024_Plane_013
+    100012: Plane_025_Plane_001
+    100014: Plane_026_Plane_012
+    100016: Plane_034_Plane_005
+    100018: Plane_035_Plane_010
+    100020: Plane_036_Plane_009
+    100022: Plane_037_Plane_008
+    100024: Plane_038_Plane_007
+    100026: Plane_039_Plane_003
+    100028: Plane_040_Plane_002
+    100030: Plane_041_Plane_000
+    100032: Sander
+    100034: Saw
+    100036: Screw
+    100038: USBStick
+    400000: Blade1
+    400002: IDK
+    400004: Knife2
+    400006: //RootNode
+    400008: Plane_023_Plane_004
+    400010: Plane_024_Plane_013
+    400012: Plane_025_Plane_001
+    400014: Plane_026_Plane_012
+    400016: Plane_034_Plane_005
+    400018: Plane_035_Plane_010
+    400020: Plane_036_Plane_009
+    400022: Plane_037_Plane_008
+    400024: Plane_038_Plane_007
+    400026: Plane_039_Plane_003
+    400028: Plane_040_Plane_002
+    400030: Plane_041_Plane_000
+    400032: Sander
+    400034: Saw
+    400036: Screw
+    400038: USBStick
+    2300000: Plane_023_Plane_004
+    2300002: Plane_024_Plane_013
+    3300000: Plane_023_Plane_004
+    3300002: Plane_024_Plane_013
+    4300000: Plane_034_Plane_005
+    4300002: Plane_041_Plane_000
+    4300004: Saw
+    4300006: Blade1
+    4300008: Knife2
+    4300010: Plane_023_Plane_004
+    4300012: Plane_035_Plane_010
+    4300014: Plane_026_Plane_012
+    4300016: Sander
+    4300018: Plane_037_Plane_008
+    4300020: Screw
+    4300022: Plane_036_Plane_009
+    4300024: Plane_039_Plane_003
+    4300026: Plane_025_Plane_001
+    4300028: USBStick
+    4300030: IDK
+    4300032: Plane_040_Plane_002
+    4300034: Plane_024_Plane_013
+    4300036: Plane_038_Plane_007
+    7400000: Default Take
+    9500000: //RootNode
+    13700000: Blade1
+    13700002: IDK
+    13700004: Knife2
+    13700006: Plane_025_Plane_001
+    13700008: Plane_026_Plane_012
+    13700010: Plane_034_Plane_005
+    13700012: Plane_035_Plane_010
+    13700014: Plane_036_Plane_009
+    13700016: Plane_037_Plane_008
+    13700018: Plane_038_Plane_007
+    13700020: Plane_039_Plane_003
+    13700022: Plane_040_Plane_002
+    13700024: Plane_041_Plane_000
+    13700026: Sander
+    13700028: Saw
+    13700030: Screw
+    13700032: USBStick
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
