@@ -8,4 +8,5 @@ public class Stage : MonoBehaviour {
     public GameObject mainCamPos;
     public GameObject player1Respawn;
     public GameObject player2Respawn;
+    public bool zoomStage = true;
 }

@@ -1,0 +1,123 @@
+fileFormatVersion: 2
+guid: 9cd626bc3f4c4ac4db518a44e44f514b
+timeCreated: 1550103391
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: carriage_arm_intake_assem
+    100002: carriage_arm_intake_assem_001
+    100004: carriage_arm_intake_assem_MeshPart0
+    100006: carriage_arm_intake_assem_MeshPart1
+    100008: carriage_arm_intake_assem_MeshPart2
+    100010: carriage_arm_intake_assem_MeshPart3
+    100012: carriage_arm_intake_assem_MeshPart4
+    100014: carriage_arm_intake_assem_MeshPart5
+    100016: carriage_arm_intake_assem_MeshPart6
+    100018: carriage_arm_intake_assem_MeshPart7
+    100020: carriage_arm_intake_assem_MeshPart8
+    100022: //RootNode
+    400000: carriage_arm_intake_assem
+    400002: carriage_arm_intake_assem_001
+    400004: carriage_arm_intake_assem_MeshPart0
+    400006: carriage_arm_intake_assem_MeshPart1
+    400008: carriage_arm_intake_assem_MeshPart2
+    400010: carriage_arm_intake_assem_MeshPart3
+    400012: carriage_arm_intake_assem_MeshPart4
+    400014: carriage_arm_intake_assem_MeshPart5
+    400016: carriage_arm_intake_assem_MeshPart6
+    400018: carriage_arm_intake_assem_MeshPart7
+    400020: carriage_arm_intake_assem_MeshPart8
+    400022: //RootNode
+    4300000: carriage_arm_intake_assem_001
+    4300002: carriage_arm_intake_assem_MeshPart0
+    4300004: carriage_arm_intake_assem_MeshPart1
+    4300006: carriage_arm_intake_assem_MeshPart2
+    4300008: carriage_arm_intake_assem_MeshPart3
+    4300010: carriage_arm_intake_assem_MeshPart4
+    4300012: carriage_arm_intake_assem_MeshPart5
+    4300014: carriage_arm_intake_assem_MeshPart6
+    4300016: carriage_arm_intake_assem_MeshPart7
+    4300018: carriage_arm_intake_assem_MeshPart8
+    7400000: Default Take
+    9500000: //RootNode
+    13700000: carriage_arm_intake_assem_001
+    13700002: carriage_arm_intake_assem_MeshPart0
+    13700004: carriage_arm_intake_assem_MeshPart1
+    13700006: carriage_arm_intake_assem_MeshPart2
+    13700008: carriage_arm_intake_assem_MeshPart3
+    13700010: carriage_arm_intake_assem_MeshPart4
+    13700012: carriage_arm_intake_assem_MeshPart5
+    13700014: carriage_arm_intake_assem_MeshPart6
+    13700016: carriage_arm_intake_assem_MeshPart7
+    13700018: carriage_arm_intake_assem_MeshPart8
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

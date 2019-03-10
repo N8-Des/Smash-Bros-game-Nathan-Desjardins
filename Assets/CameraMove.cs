@@ -12,6 +12,7 @@ public class CameraMove : MonoBehaviour
     public float negYBounds;
     public float YBounds;
     public float ZBounds;
+    public bool stageZoomed;
     void Update()
     {
         if (player1 != null && player2 != null)
@@ -20,28 +21,34 @@ public class CameraMove : MonoBehaviour
             float distanceY = player1.transform.position.y - player2.transform.position.y;
             //Debug.Log(zoomDistance + " + " + distanceY + " = " + zoomDistance + distanceY);
             distanceY = Mathf.Abs(distanceY);
-            distanceY *= 1.3f;
+            //distanceY *= 1.3f;
             zoomDistance = Mathf.Abs(zoomDistance - distanceY);
-            if (zoomDistance > 7)
+            if (stageZoomed)
+            {
+                if (zoomDistance > 7)
+                {
+                    zoomDistance = 7;
+                }
+                if (zoomDistance < 1.5f)
+                {
+                    zoomDistance = 1.5f;
+                }
+            } else
             {
                 zoomDistance = 7;
             }
-            if (zoomDistance < 1.5f)
-            {
-                zoomDistance = 1.5f;
-            }
             Vector3 averagePos = (player1.transform.position - player2.transform.position) / 2 + player2.transform.position;
-            if (averagePos.x < -ZBounds)
+            if (averagePos.z < -ZBounds)
             {
                 mainCamera.transform.position = new Vector3((zoomDistance * 1.3f) + 1f, averagePos.y + 0.5f, -ZBounds);
             }
-            else if (averagePos.x > ZBounds)
+            else if (averagePos.z > ZBounds)
             {
                 mainCamera.transform.position = new Vector3((zoomDistance * 1.3f) + 1f, averagePos.y + 0.5f, ZBounds);
             }
             else if (averagePos.y < negYBounds)
             {
-                mainCamera.transform.position = new Vector3((zoomDistance * 1.3f) + 1f, -YBounds + 0.5f, averagePos.z);
+                mainCamera.transform.position = new Vector3((zoomDistance * 1.3f) + 1f, negYBounds + 0.5f, averagePos.z);
             }
             else if (averagePos.y > YBounds)
             {
