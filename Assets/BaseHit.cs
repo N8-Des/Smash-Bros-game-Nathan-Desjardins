@@ -22,6 +22,10 @@ public class BaseHit : MonoBehaviour {
     public bool ultOn = true;
     public GameObject invulnIndicator;
     public bool SuperArmor;
+    Vector3 calculatedKnockback;
+    CharacterMove attackingPlayer;
+    public Vector3 builtUpDamage;
+    Vector3 offsetFX = new Vector3(0, 0.15f, 0.1f);
     public virtual void invulnStart()
     {
         invulnIndicator.SetActive(true);
@@ -30,7 +34,6 @@ public class BaseHit : MonoBehaviour {
     }
     public virtual void invulnEnd()
     {
-        Debug.Log("WHAT");
         invulnIndicator.SetActive(false);
         isInvuln = false;
     }
@@ -88,6 +91,20 @@ public class BaseHit : MonoBehaviour {
                     percent += damage;
                     pdisplay.takeDamage(damage);
                 }
+                else if (charMove.theWorld)
+                {
+                    attacker.anim.enabled = false;
+                    charMove.anim.SetTrigger("ZaWarudo");
+                    Invoke("invulnEnd", 2.5f);
+                    isInvuln = true;
+                    attacker.gotZaWarudo();
+                }
+                else if (charMove.gotTheWorld)
+                {
+                    builtUpDamage += knockback;
+                    pdisplay.takeDamage(damage);
+                    percent += damage;
+                }
                 else
                 {
                     rb.useGravity = true;
@@ -103,19 +120,57 @@ public class BaseHit : MonoBehaviour {
                     charMove.charging = false;
                     isKnockedBack = true;
                     pdisplay.takeDamage(damage);
+                    GameObject hitFX = GameObject.Instantiate((GameObject)Resources.Load("HitSFX"));
+                    if (knockback.z != 0)
+                    {
+                        offsetFX.z = offsetFX.z * (knockback.z / Mathf.Abs(knockback.z));
+                    }                 
+                    hitFX.transform.position = transform.position + offsetFX;
+                    float anglelaunch = Mathf.Atan2(knockback.y, knockback.z) * Mathf.Rad2Deg;
+                    if (knockback.z < 0)
+                    {
+                        hitFX.transform.rotation = Quaternion.Euler(new Vector3(Mathf.Abs(anglelaunch), -180, 0));
+                    }
+                    else
+                    {
+                        hitFX.transform.rotation = Quaternion.Euler(new Vector3(anglelaunch, 180f, 0));
+                    }
                     //Debug.Log((knockback.y + knockback.z) * (percent / 4) * (kbResist));
                     percent += damage;
-                    rb.velocity = Vector3.zero;
-                    Vector3 calculatedKnockback = (new Vector3(0, knockback.y * 1.2f, knockback.z) *1000) * (percent / 7) * kbResist; //version 2 of knockback. change it to (percent / 10) for original.
-                    rb.AddForce(calculatedKnockback);
-                    Invoke("stopKB", (Mathf.Abs(knockback.y) + Mathf.Abs(knockback.z) * (percent / 10) * (kbResist)) / 10);
                     if (ultOn)
                     {
                         progressBar.ChangeValue(damage);
                     }
+                    rb.velocity = Vector3.zero;
+                    rb.constraints = RigidbodyConstraints.FreezePosition;
+                    calculatedKnockback = new Vector3(0, knockbackCalc(knockback.y, damage) * 150, knockbackCalc(knockback.z, damage) * 150);
+                    Invoke("startKB", (((Mathf.Abs(calculatedKnockback.y) + Mathf.Abs(calculatedKnockback.z)) / 2f) * 0.014f) / 800);
+                    if (attacker != null)
+                    {
+                        attackingPlayer = attacker;
+                        attacker.anim.enabled = false;
+                        Invoke("startAnim", (((Mathf.Abs(calculatedKnockback.y) + Mathf.Abs(calculatedKnockback.z)) / 2f) * 0.014f) / 800);
+                    }
                 }
             }
         }
+    }
+    void startKB()
+    {
+        rb.constraints = ~RigidbodyConstraints.FreezePositionY & ~RigidbodyConstraints.FreezePositionZ;
+        rb.AddForce(calculatedKnockback);
+        Invoke("stopKB", (0.3f + (((Mathf.Abs(calculatedKnockback.y) + Mathf.Abs(calculatedKnockback.z) - 82.5f)) * 0.014f) / 500));
+    }
+    void startAnim()
+    {
+        attackingPlayer.anim.enabled = true;
+    }
+    float knockbackCalc(float knock, int damage)
+    {
+        float ree;
+        ree = (float)(((((percent / 10) + ((percent * damage) / 20)) * kbResist * 1.3) + 18) * knock); 
+        return ree;
+
     }
     public virtual void stopKB()
     {
@@ -131,6 +186,7 @@ public class BaseHit : MonoBehaviour {
         charMove.canBlock = true;
         charMove.charging = false;
         charMove.isGrabbing = false;
+        charMove.canSmash = true;
     }
     public virtual void resetPerc() {
         percent = 0;

@@ -88,6 +88,8 @@ public class CharacterMove : MonoBehaviour
     bool isStunned;
     bool isDashing;
     int baseDamage;
+    public bool theWorld;
+    public bool gotTheWorld;
     public Vector3 GrabOffset = new Vector3(0, 0, 0);
 
     public void getWet()
@@ -102,26 +104,44 @@ public class CharacterMove : MonoBehaviour
     }
     public virtual void jump()
     {
-        if (jumpsLeft >= 1 && canJump)
+        if (isLedged)
+        {
+            gameObject.GetComponent<Collider>().isTrigger = true;
+            canAttack = true;
+            canMove = true;
+            anim.SetBool("Jumping", true);
+            anim.SetTrigger("Jump");
+            canJump = false;
+            Invoke("stopJump", 0.4f);
+            if (isRight)
+            {
+                rb.AddForce(0, JumpHeight + 300, -1000);
+            }
+            else
+            {
+                rb.AddForce(0, JumpHeight + 300, 1000);
+            }
+        }
+        else if (jumpsLeft >= 1 && canJump && canMove)
         {
             if (inAir)
             {
                 rb.velocity = Vector3.zero;
             }
             rb.useGravity = false;
-            if (jumpsLeft == 2)
+            if (jumpsLeft == 2 && canJump)
             {
                 canMove = true;
                 //canAttack = false;
                 anim.SetBool("Jumping", true);
                 anim.SetTrigger("Jump");
-                rb.AddForce(0, JumpHeight, 0);
+                rb.AddForce(0, JumpHeight * 0.66f, 0);
                 jumpsLeft -= 1;
                 canJump = false;
                 Invoke("jDelay", 0.4f);
                 Invoke("stopJump", 0.4f);
             }
-            else if (jumpsLeft == 1)
+            else if (jumpsLeft == 1 && canJump)
             {
                 canMove = true;
                 isJumping = true;
@@ -129,7 +149,7 @@ public class CharacterMove : MonoBehaviour
                 anim.SetBool("Jumping", true);
                 anim.SetTrigger("Jump2");
                 jumpsLeft -= 1;
-                rb.AddForce(0, JumpHeight, 0);
+                rb.AddForce(0, JumpHeight * 0.66f, 0);
                 Invoke("stopJump", 0.4f);
             }
         }
@@ -140,6 +160,7 @@ public class CharacterMove : MonoBehaviour
     }
     public void stopJump()
     {
+        gameObject.GetComponent<Collider>().isTrigger = false;
         rb.useGravity = true;
         isJumping = false;
         iCanMove = false;
@@ -354,6 +375,24 @@ public class CharacterMove : MonoBehaviour
         anim.SetBool("isAttacking", false);
         anim.SetBool("isIdle", true);
         anim.SetBool("canAttack", false);
+    }
+    public virtual void gotZaWarudo()
+    {
+        canMove = false;
+        canAttack = false;
+        rb.constraints = RigidbodyConstraints.FreezePosition;
+        gotTheWorld = true;
+        Invoke("stopTheWorld", 2.3f);
+    }
+
+    void stopTheWorld()
+    {
+        canMove = true;
+        canAttack = true;
+        gotTheWorld = false;
+        rb.constraints = ~RigidbodyConstraints.FreezePositionY & ~RigidbodyConstraints.FreezePositionZ;
+        damageControl.TakeAttack(0, damageControl.builtUpDamage, this);
+        damageControl.builtUpDamage = Vector3.zero;
     }
     public virtual void startMoving() //used by GameManager to start moving at start of match
     {
@@ -779,7 +818,7 @@ public class CharacterMove : MonoBehaviour
     public void grabLedge(Vector3 ledgePos, bool isRightSide)
     {
         RaycastHit hit;
-        if (inAir)
+        if (inAir && !damageControl.isKnockedBack)
         {
             if (Physics.Raycast(transform.position - new Vector3(0, 1, 0), transform.TransformDirection(-Vector3.up), out hit, Mathf.Infinity, layerMask))
             {
@@ -804,6 +843,7 @@ public class CharacterMove : MonoBehaviour
                 isLedged = true;
                 jumpsLeft = maxJumps;
                 CancelInvoke();
+                canMove = true;
                 anim.SetBool("LedgeGrab", true);
                 anim.SetBool("KnockedBack", false);
                 canJump = false;
@@ -948,7 +988,7 @@ public class CharacterMove : MonoBehaviour
         GameObject sound = GameObject.Instantiate((GameObject)Resources.Load("Audh" + numDam));
     }
     #region attack update
-    void attackUpdate()
+    public virtual void attackUpdate()
     {
         lastInput = getLastInput();
         if ((Input.GetButton(A) || Input.GetKey(KeyCode.Z)) && canAttack && onGround && !damageControl.isKnockedBack && !isGrabbing)
@@ -972,12 +1012,14 @@ public class CharacterMove : MonoBehaviour
             lastInput = getLastInput();
             canAttack = false;
             canMove = false;
+            canJump = false;
             anim.SetBool("IsIdle", false);
             if (neutralY && neutralX)
             {
                 anim.ResetTrigger("Jump");
                 anim.SetTrigger("Nair");
                 anim.SetBool("Jumping", false);
+                canJump = false;
                 attacking();
             }
             else
@@ -986,7 +1028,7 @@ public class CharacterMove : MonoBehaviour
             }
         }
     }
-    void attackAirDir1()
+    protected void attackAirDir1()
     {
         if (lastInput == "Right")
         {
@@ -1004,6 +1046,7 @@ public class CharacterMove : MonoBehaviour
                 anim.ResetTrigger("Jump");
                 anim.SetTrigger("Fair");
                 anim.SetBool("Jumping", false);
+                canJump = false;
                 attacking();
             }
 
@@ -1022,6 +1065,7 @@ public class CharacterMove : MonoBehaviour
             anim.SetBool("Jumping", false);
             canAttack = false;
             canMove = false;
+            canJump = false;
             attacking();
         }
         else
@@ -1036,6 +1080,7 @@ public class CharacterMove : MonoBehaviour
             anim.ResetTrigger("Jump");
             anim.SetTrigger("Uair");
             anim.SetBool("Jumping", false);
+            canJump = false;
             attacking();
         }
         else
@@ -1054,6 +1099,7 @@ public class CharacterMove : MonoBehaviour
                 anim.SetTrigger("Bair");
                 anim.SetBool("Jumping", false);
                 transform.rotation = new Quaternion(0, 180, 0, 0);
+                canJump = false;
                 attacking();
             }
             else
@@ -1062,6 +1108,7 @@ public class CharacterMove : MonoBehaviour
                 anim.ResetTrigger("Jump");
                 anim.SetTrigger("Fair");
                 anim.SetBool("Jumping", false);
+                canJump = false;
                 attacking();
             }
         }
@@ -1069,10 +1116,12 @@ public class CharacterMove : MonoBehaviour
         {
             canAttack = true;
             canMove = true;
+            canJump = true;
+
             anim.SetBool("CanAttack", true);
         }
     }
-    void attackDir1() //this part looks, and probably is, very poorly optimized. 
+    protected void attackDir1() //this part looks, and probably is, very poorly optimized. 
     {
         if (lastInput == "Right")
         {

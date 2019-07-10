@@ -6,6 +6,7 @@ public class BasicHurtbox : MonoBehaviour {
     public Vector3 KB;
     public int damage;
     public bool alreadyNegative;
+    bool alreadyNegativeY;
     public bool isRight = true;
     public float AudioHitNumber = 1;
     public virtual void OnTriggerEnter(Collider collider)
@@ -30,9 +31,26 @@ public class BasicHurtbox : MonoBehaviour {
             ThanosCar thanosCar = other.GetComponent<ThanosCar>();
             if (dmgCtrl != null && dmgCtrl.transform.parent != this)
             {
+                if(KB.y < 0)
+                {
+                    if (dmgCtrl.charMove.inAir == false)
+                    {
+                        if (!alreadyNegativeY)
+                        {
+                            KB.y *= -1;
+                        }
+                    } else
+                    {
+                        if (alreadyNegativeY)
+                        {
+                            KB.y *= -1;
+                        }
+                    }
+                }
                 dmgCtrl.TakeAttack(damage, KB, player);
                 if (!dmgCtrl.isBlocking)
                 {
+                    
                     GameObject AudioHit = GameObject.Instantiate((GameObject)Resources.Load("Audh" + AudioHitNumber));
                 }
                 else

@@ -1,0 +1,108 @@
+fileFormatVersion: 2
+guid: b1123516ca5b4784ab3c443145faa415
+timeCreated: 1560282666
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Diamond Sword
+    7400000: Diamond Sword|Diamond Axe|Take 001|BaseLayer
+    7400002: Diamond Sword|Diamond Hoe|Take 001|BaseLayer
+    7400004: Diamond Sword|Diamond Pickaxe|Take 001|BaseLayer
+    7400006: Diamond Sword|Diamond Shovel001|Take 001|BaseLayer
+    7400008: Diamond Sword|Diamond Shovel002|Take 001|BaseLayer
+    7400010: Diamond Sword|Diamond Shovel003|Take 001|BaseLayer
+    7400012: Diamond Sword|Diamond Shovel004|Take 001|BaseLayer
+    7400014: Diamond Sword|Diamond Shovel|Take 001|BaseLayer
+    7400016: Diamond Sword|Diamond Sword|Take 001|BaseLayer
+    7400018: Diamond Sword|Gold Axe|Take 001|BaseLayer
+    7400020: Diamond Sword|Gold Hoe|Take 001|BaseLayer
+    7400022: Diamond Sword|Gold Pickaxe|Take 001|BaseLayer
+    7400024: Diamond Sword|Gold Sword|Take 001|BaseLayer
+    7400026: Diamond Sword|Iron Axe|Take 001|BaseLayer
+    7400028: Diamond Sword|Iron Hoe|Take 001|BaseLayer
+    7400030: Diamond Sword|Iron Pickaxe|Take 001|BaseLayer
+    7400032: Diamond Sword|Iron Sword|Take 001|BaseLayer
+    7400034: Diamond Sword|Stone Axe|Take 001|BaseLayer
+    7400036: Diamond Sword|Stone Hoe|Take 001|BaseLayer
+    7400038: Diamond Sword|Stone Pickaxe|Take 001|BaseLayer
+    7400040: Diamond Sword|Stone Sword|Take 001|BaseLayer
+    7400042: Diamond Sword|Wood Axe|Take 001|BaseLayer
+    7400044: Diamond Sword|Wood Hoe|Take 001|BaseLayer
+    7400046: Diamond Sword|Wood Pickaxe|Take 001|BaseLayer
+    7400048: Diamond Sword|Wood Sword|Take 001|BaseLayer
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -46,7 +46,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Abbey\AbbeyMovement.cs" />
      <Compile Include="Assets\Bacteriophage\BillyBullet.cs" />
      <Compile Include="Assets\Bacteriophage\BillyMovement.cs" />
      <Compile Include="Assets\Bacteriophage\BillyUltHitbox.cs" />
@@ -98,6 +97,8 @@
      <Compile Include="Assets\JimmyNeutron\BrainBlast.cs" />
      <Compile Include="Assets\JimmyNeutron\JimmyBase.cs" />
      <Compile Include="Assets\JimmyNeutron\JimmyMovement.cs" />
+     <Compile Include="Assets\Jotaro\JotaroMovement.cs" />
+     <Compile Include="Assets\Jotaro\OraHit.cs" />
      <Compile Include="Assets\Kayn\KaynHitbox.cs" />
      <Compile Include="Assets\Kayn\KaynMovement.cs" />
      <Compile Include="Assets\Kayn\KaynUltHitbox.cs" />
@@ -124,6 +125,7 @@
      <Compile Include="Assets\Roblox\RobloxBase.cs" />
      <Compile Include="Assets\Roblox\RobloxMovement.cs" />
      <Compile Include="Assets\Sandbag\SandbagHit.cs" />
+     <Compile Include="Assets\Scuttle Crab\ScuttleMovement.cs" />
      <Compile Include="Assets\Shrek\ShrekBase.cs" />
      <Compile Include="Assets\Shrek\ShrekMovement.cs" />
      <Compile Include="Assets\Spongebob\SpongeBase.cs" />
@@ -138,6 +140,10 @@
      <Compile Include="Assets\Stages\Montezuma\ConveyorBelt.cs" />
      <Compile Include="Assets\Stages\Montezuma\DissapearingPlatform.cs" />
      <Compile Include="Assets\Stages\Stage.cs" />
+     <Compile Include="Assets\Steve\ArrowMovement.cs" />
+     <Compile Include="Assets\Steve\CobblestoneHit.cs" />
+     <Compile Include="Assets\Steve\EnderPearl.cs" />
+     <Compile Include="Assets\Steve\SteveMovement.cs" />
      <Compile Include="Assets\Terraria\Shark.cs" />
      <Compile Include="Assets\Terraria\Sharknado.cs" />
      <Compile Include="Assets\Terraria\TerrarianMovement.cs" />
@@ -178,6 +184,7 @@
      <Compile Include="Assets\deathTimer.cs" />
      <Compile Include="Assets\die.cs" />
      <None Include="Assets\GlassStainedBumpDistort.shader" />
+     <None Include="Assets\Jotaro\ZaWarudo.shader" />
      <None Include="Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
      <None Include="Assets\Stages\BaxterAcademy\BaxterDissolve.shader" />
  <Reference Include="UnityEngine.UI">

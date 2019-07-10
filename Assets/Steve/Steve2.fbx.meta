@@ -1,0 +1,187 @@
+fileFormatVersion: 2
+guid: eeb3597d8e7bc0c48a1fc37838160a76
+timeCreated: 1560281894
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armor Layer 1.001
+    100002: Armor Layer 1.003
+    100004: Armor Layer 1.005
+    100006: Armor Layer 1.006
+    100008: Armor Layer 1.007
+    100010: Armor Layer 2.001
+    100012: Armor Layer 2.002
+    100014: Armor Layer 2.003
+    100016: Body
+    100018: Bone
+    100020: Bone.001
+    100022: Bone.001_end
+    100024: Bone.002
+    100026: Bone.003
+    100028: Bone.003_end
+    100030: Bone.004
+    100032: Bone.005
+    100034: Bone.005_end
+    100036: Bone.006
+    100038: Bone.007
+    100040: Bone.007_end
+    100042: Bone.008
+    100044: Bone.009
+    100046: Bone.009_end
+    100048: LeftArm
+    100050: LeftLeg
+    100052: RightArm
+    100054: RightLeg
+    100056: Steve
+    100058: Steve.001
+    100060: Steve.002
+    100062: Steve.003
+    100064: Steve.004
+    100066: Steve.005
+    100068: Steve.006
+    100070: Steve.007
+    100072: //RootNode
+    400000: Armor Layer 1.001
+    400002: Armor Layer 1.003
+    400004: Armor Layer 1.005
+    400006: Armor Layer 1.006
+    400008: Armor Layer 1.007
+    400010: Armor Layer 2.001
+    400012: Armor Layer 2.002
+    400014: Armor Layer 2.003
+    400016: Body
+    400018: Bone
+    400020: Bone.001
+    400022: Bone.001_end
+    400024: Bone.002
+    400026: Bone.003
+    400028: Bone.003_end
+    400030: Bone.004
+    400032: Bone.005
+    400034: Bone.005_end
+    400036: Bone.006
+    400038: Bone.007
+    400040: Bone.007_end
+    400042: Bone.008
+    400044: Bone.009
+    400046: Bone.009_end
+    400048: LeftArm
+    400050: LeftLeg
+    400052: RightArm
+    400054: RightLeg
+    400056: Steve
+    400058: Steve.001
+    400060: Steve.002
+    400062: Steve.003
+    400064: Steve.004
+    400066: Steve.005
+    400068: Steve.006
+    400070: Steve.007
+    400072: //RootNode
+    2300000: Steve
+    2300002: Steve.003
+    2300004: Steve.006
+    3300000: Steve
+    3300002: Steve.003
+    3300004: Steve.006
+    4300000: Steve
+    4300002: Steve.003
+    4300004: Steve.006
+    4300006: Armor Layer 1.006
+    4300008: Steve.007
+    4300010: Armor Layer 2.002
+    4300012: Steve.001
+    4300014: Armor Layer 1.007
+    4300016: Steve.004
+    4300018: Armor Layer 2.001
+    4300020: Armor Layer 1.003
+    4300022: Armor Layer 1.001
+    4300024: Steve.002
+    4300026: Steve.005
+    4300028: Armor Layer 2.003
+    4300030: Armor Layer 1.005
+    9500000: //RootNode
+    13700000: Armor Layer 1.001
+    13700002: Armor Layer 1.003
+    13700004: Armor Layer 1.005
+    13700006: Armor Layer 1.006
+    13700008: Armor Layer 1.007
+    13700010: Armor Layer 2.001
+    13700012: Armor Layer 2.002
+    13700014: Armor Layer 2.003
+    13700016: Steve.001
+    13700018: Steve.002
+    13700020: Steve.004
+    13700022: Steve.005
+    13700024: Steve.007
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
