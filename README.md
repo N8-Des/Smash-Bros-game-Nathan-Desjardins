@@ -20,8 +20,7 @@ work just fine.
 
 6. If your Unity did A, just go to wherever Unity says projects are being stored (should be documents on Windows by default). Unzip this 
 repository, plop the folder in the stored projects folder, and restart Unity. My game should show up, now just click it!
-
 However, if your Unity did B, decline downloading Unity Hub (You need a key or something for that and it's super annoying). Instead, 
-Unzip my repository, and put the single folder inside somewhere you'll remember. When you launch your unity, an option should come up on 
+unzip my repository, and put the single folder inside somewhere you'll remember. When you launch your unity, an option should come up on 
 the popup saying "select existing project" or something of that manner. Click on that, and select the folder you just unzipped. And voila,
 my game should open!
