@@ -1,4 +1,8 @@
-Welcome to Copyfight! Below is a step-by-step list on how to install this game for yourself. 
+Welcome to Copyfight! 
+
+This game was created by me as a joke, but I ended up working on it for over a year. The code is choppy as a result, and it is far from my best work. Since this game was a solo project, I had to animate almost everything myself. And while I am not an animator, nor do I plan to be, I ended up animating around **1,700 animations** on my own. Due to the time constraints, I feel the code fell short, and if I have time, I have plans to make it better in the future. 
+
+Below is a step-by-step list on how to install this game for yourself. 
 
 The first and hardest step is installing Unity. For some reason Unity has made it more and more difficult for people to start over
 the years. For this reason, plus the fact that my game was made with an old version of Unity, we will be using Unity 5.6.3. Once Unity is
