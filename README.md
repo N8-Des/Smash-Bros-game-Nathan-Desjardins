@@ -20,8 +20,8 @@ Also just download my Repository first, as you'll need it later.
 work just fine. 
 
 5. Unity and the Unity Editor will install. Once that is done, click on Unity. One of two things will happen.
-  a. Unity will launch and you will see a window appear that says welcome. 
-  b. It will ask you to download Unity Hub (DO NOT DO THIS)  
+  -a. Unity will launch and you will see a window appear that says welcome. 
+  -b. It will ask you to download Unity Hub (DO NOT DO THIS)  
 
 6. If your Unity did A, just go to wherever Unity says projects are being stored (should be documents on Windows by default). Unzip this 
 repository, plop the folder in the stored projects folder, and restart Unity. My game should show up, now just click it!
