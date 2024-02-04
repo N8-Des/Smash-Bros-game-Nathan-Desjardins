@@ -113,13 +113,14 @@ public class CharacterMove : MonoBehaviour
             anim.SetTrigger("Jump");
             canJump = false;
             Invoke("stopJump", 0.4f);
+            inputBuffer();
             if (isRight)
             {
-                rb.AddForce(0, JumpHeight + 300, -1000);
+                rb.AddForce(0, JumpHeight + 300, -900);
             }
             else
             {
-                rb.AddForce(0, JumpHeight + 300, 1000);
+                rb.AddForce(0, JumpHeight + 300, 900);
             }
         }
         else if (jumpsLeft >= 1 && canJump && canMove)
@@ -135,7 +136,18 @@ public class CharacterMove : MonoBehaviour
                 //canAttack = false;
                 anim.SetBool("Jumping", true);
                 anim.SetTrigger("Jump");
-                rb.AddForce(0, JumpHeight * 0.66f, 0);
+                if (lastInput == "Right")
+                {
+                    rb.AddForce(0, JumpHeight * 0.66f, -700);
+                }
+                else if (lastInput == "Left")
+                {
+                    rb.AddForce(0, JumpHeight * 0.66f, 700);
+                }
+                else
+                {
+                    rb.AddForce(0, JumpHeight * 0.66f, 0);
+                }
                 jumpsLeft -= 1;
                 canJump = false;
                 Invoke("jDelay", 0.4f);
@@ -149,7 +161,18 @@ public class CharacterMove : MonoBehaviour
                 anim.SetBool("Jumping", true);
                 anim.SetTrigger("Jump2");
                 jumpsLeft -= 1;
-                rb.AddForce(0, JumpHeight * 0.66f, 0);
+                if (lastInput == "Right")
+                {
+                    rb.AddForce(0, JumpHeight * 0.66f, -700);
+                }
+                else if (lastInput == "Left")
+                {
+                    rb.AddForce(0, JumpHeight * 0.66f, 700);
+                }
+                else
+                {
+                    rb.AddForce(0, JumpHeight * 0.66f, 0);
+                }
                 Invoke("stopJump", 0.4f);
             }
         }
@@ -695,6 +718,7 @@ public class CharacterMove : MonoBehaviour
             }
             anim.SetTrigger("FSmashCharge");
             numSmash = 0;
+            isRight = true;
         }
         else
         {
@@ -712,6 +736,7 @@ public class CharacterMove : MonoBehaviour
             }
             anim.SetTrigger("FSmashCharge");
             numSmash = 0;
+            isRight = false;
         }
         else
         {
@@ -1440,25 +1465,41 @@ public class CharacterMove : MonoBehaviour
 
     public virtual void moveInAir()
     {
-        if (lastInput == "Right")
-        {
-            transform.rotation = new Quaternion(0, 0, 0, 0);
-            if (rb.velocity.z <= MaxSpeedAir)
+            if (lastInput == "Right")
             {
-                rb.AddForce(0, 0, AccelerationAir);
+                transform.rotation = new Quaternion(0, 0, 0, 0);
+                if (rb.velocity.z <= MaxSpeedAir)
+                {
+                if (canJump || jumpsLeft == 0)
+                {
+                    rb.AddForce(0, 0, AccelerationAir / 2);
+                }
+                else
+                {
+                    rb.AddForce(0, 0, AccelerationAir);
+
+                }
             }
-            isWalking = true;
-            isRight = true;
-        }
-        if (lastInput == "Left")
-        {
-            transform.rotation = new Quaternion(0, 180, 0, 0);
-            if (rb.velocity.z >= -MaxSpeedAir)
+                isWalking = true;
+                isRight = true;
+            }
+            if (lastInput == "Left")
             {
-                rb.AddForce(0, 0, -AccelerationAir);
+                transform.rotation = new Quaternion(0, 180, 0, 0);
+                if (rb.velocity.z >= -MaxSpeedAir)
+                {
+                if (canJump || jumpsLeft == 0)
+                {
+                    rb.AddForce(0, 0, -AccelerationAir / 2);
+                }
+                else
+                {
+                    rb.AddForce(0, 0, -AccelerationAir);
+
+                }
             }
-            isWalking = true;
-            isRight = false;
+                isWalking = true;
+                isRight = false;
+            }
         }
-    }
 }

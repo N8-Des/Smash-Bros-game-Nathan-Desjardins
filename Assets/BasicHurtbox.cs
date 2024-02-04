@@ -37,13 +37,13 @@ public class BasicHurtbox : MonoBehaviour {
                     {
                         if (!alreadyNegativeY)
                         {
-                            KB.y *= -1;
+                            KB.y *= -0.5f;
                         }
                     } else
                     {
                         if (alreadyNegativeY)
                         {
-                            KB.y *= -1;
+                            KB.y *= -0.5f;
                         }
                     }
                 }

@@ -1,9 +1,7 @@
 fileFormatVersion: 2
 guid: 841ef947c3138df4eb9188bd98ecb7c2
-timeCreated: 1555700393
-licenseType: Free
 ModelImporter:
-  serializedVersion: 19
+  serializedVersion: 23
   fileIDToRecycleName:
     100000: chr2340_facial1
     100002: chr2340_form0
@@ -153,10 +151,63 @@ ModelImporter:
     13700000: chr2340_facial1
     13700002: chr2340_form0_MeshPart0
     13700004: chr2340_form0_MeshPart1
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MI_chr2340_Face
+    second: {fileID: 2100000, guid: 047b651773a9a8245bcdf9fa812a55e9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MI_chr2340_Face.001
+    second: {fileID: 2100000, guid: 7261bed8d7074d249a9d640a29521985, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MI_chr2340_armor
+    second: {fileID: 2100000, guid: 128d4023563212e448e00742f8745a15, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MI_chr2340_body
+    second: {fileID: 2100000, guid: 3e02a94b09675474cb4b4498ed324ad6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MI_chr2340_eye
+    second: {fileID: 2100000, guid: 04ba6d817facc6542804c09e66193e2b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MI_chr2340_eyeshadow
+    second: {fileID: 2100000, guid: 8168cc529fee2c0439e7f1fc46b70fd6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MI_chr2340_glove
+    second: {fileID: 2100000, guid: ba9de7f968dab924381d999df2c2b3e9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MI_chr2340_hair
+    second: {fileID: 2100000, guid: 4ce9ba5fba2757c45a0119b0a3af8aa1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MI_chr2340_lenz
+    second: {fileID: 2100000, guid: a8b7ab5c202ea034bb863cc36731a39a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MI_chr2340_oral
+    second: {fileID: 2100000, guid: 9ba30a9521a475f49ab2e0f3650a23f5, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -169,12 +220,15 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
@@ -182,22 +236,34 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
@@ -212,7 +278,6 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

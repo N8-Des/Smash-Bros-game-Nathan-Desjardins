@@ -124,7 +124,8 @@ public class BaseHit : MonoBehaviour {
                     if (knockback.z != 0)
                     {
                         offsetFX.z = offsetFX.z * (knockback.z / Mathf.Abs(knockback.z));
-                    }                 
+                    }
+
                     hitFX.transform.position = transform.position + offsetFX;
                     float anglelaunch = Mathf.Atan2(knockback.y, knockback.z) * Mathf.Rad2Deg;
                     if (knockback.z < 0)
@@ -143,8 +144,8 @@ public class BaseHit : MonoBehaviour {
                     }
                     rb.velocity = Vector3.zero;
                     rb.constraints = RigidbodyConstraints.FreezePosition;
-                    calculatedKnockback = new Vector3(0, knockbackCalc(knockback.y, damage) * 150, knockbackCalc(knockback.z, damage) * 150);
-                    Invoke("startKB", (((Mathf.Abs(calculatedKnockback.y) + Mathf.Abs(calculatedKnockback.z)) / 2f) * 0.014f) / 800);
+                    calculatedKnockback = new Vector3(0, knockbackCalc(knockback.y, damage) * 100, knockbackCalc(knockback.z, damage) * 40);
+                    Invoke("startKB", (((Mathf.Abs(calculatedKnockback.y) + Mathf.Abs(calculatedKnockback.z)) / 2f) * 0.014f) / 500);
                     if (attacker != null)
                     {
                         attackingPlayer = attacker;
@@ -168,7 +169,7 @@ public class BaseHit : MonoBehaviour {
     float knockbackCalc(float knock, int damage)
     {
         float ree;
-        ree = (float)(((((percent / 10) + ((percent * damage) / 20)) * kbResist * 1.3) + 18) * knock); 
+        ree = (float)(((((percent / 10) + ((percent * damage) / 20)) * kbResist * 1.4) + 18) * knock); 
         return ree;
 
     }
